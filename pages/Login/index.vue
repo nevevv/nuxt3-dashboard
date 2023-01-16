@@ -7,8 +7,8 @@
             <div class="login">
                 <div class="login__head">
                     <div class="login__head-img">
-                        <img src="images/logo-icon.png" alt="" />
-                        <img src="images/logo-text.png" alt="" />
+                        <img src="@/static/images/logo-icon.png" alt="" />
+                        <img src="@/static/images/logo-text.png" alt="" />
                     </div>
                     <a href="#!">Certificate</a>
                 </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-export default {
-    layout: 'log'
-}
+definePageMeta({
+    layout: "log",
+});
 </script>

@@ -12,7 +12,7 @@ const store = createStore({
   mutations: {
     sidebarActions(state) {
       state.sidebarActive = !state.sidebarActive;
-      if (window.screen.width >= 500) {
+      if (window.screen.width > 500) {
         if (state.sidebarWidth === "300px") {
           state.sidebarWidth = "100px";
         } else {

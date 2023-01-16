@@ -20,6 +20,7 @@
     "bootstrap-vue": "^2.23.1",
     "pinia": "^2.0.29",
     "vue": "^3.2.26",
+    "vue-loading-overlay": "4.0",
     "vuex": "^4.0.2"
   }
 }

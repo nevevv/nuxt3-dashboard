@@ -727,7 +727,7 @@ hr {
 }
 
 .login-page {
-  background: url("../static/images/loginPage.png") no-repeat center center /
+  background: url("@/static/images/loginPage.png") no-repeat center center /
     cover;
   width: 100vw;
   height: 100vh;
