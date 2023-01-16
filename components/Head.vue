@@ -140,6 +140,8 @@ hr {
     border-radius: 3px;
     padding-left: 5px;
     padding-right: 5px;
+    padding-top: 0px;
+    padding-bottom:0px;
     cursor: pointer;
 }
 </style>
