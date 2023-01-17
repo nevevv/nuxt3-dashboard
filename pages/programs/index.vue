@@ -8,6 +8,7 @@
                     <i class="bi bi-plus-lg"></i>
                     Create a New Program
                 </button>
+
             </div>
             <div class="main__programs-content-block">
                 <div class="main__content-block-head">
@@ -31,7 +32,10 @@
                         </div>
                     </div>
                 </div>
-                <table>
+
+
+                <Loader v-if="!loadEnd" />
+                <table v-else>
                     <thead>
                         <tr>
                             <th class="th">Course Title</th>
@@ -42,13 +46,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- <tr>
-                            <td>CES-9000</td>
-                            <td>50mt</td>
-                            <td>9mm</td>
-                            <td>1/2"</td>
-                            <td>Kangal / Coil</td>
-                        </tr> -->
                         <tr v-for="list in lists" :key="list.credits">
                             <td>{{ list.title }}</td>
                             <td>{{ list.program }}</td>
@@ -56,6 +53,7 @@
                             <td>{{ list.credits }}</td>
                             <td>
                                 <select class="form-select" aria-label="Default select example">
+
                                     <option selected>Action</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
@@ -104,10 +102,13 @@
 <script>
 import HeadVue from '~~/components/Head.vue'
 import Modal from '~~/components/Modal.vue'
+import Loader from '~~/components/Loader.vue';
+
 
 export default {
     data() {
         return {
+            loadEnd: false,
             input1: '',
             input2: '',
             input3: '',
@@ -137,10 +138,16 @@ export default {
             ]
         }
     },
+    mounted() {
+        setTimeout(() => {
+            this.loadEnd = true
+        }, 1000)
+    },
 
     components: {
         HeadVue,
-        Modal
+        Modal,
+        Loader
     },
     methods: {
         addNote() {

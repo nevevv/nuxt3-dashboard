@@ -183,7 +183,7 @@
                 </div>
             </div>
         </div>
-    
+
 
     </section>
 </template>
@@ -193,7 +193,7 @@ import HeadVue from '~~/components/Head.vue';
 
 export default {
     components: {
-        HeadVue
+        HeadVue,
     }
 }
 

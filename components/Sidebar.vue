@@ -1,6 +1,5 @@
 <template>
     <nav class="header__nav" :style="{ width: `${$store.state.sidebarWidth}` }">
-        <loading />
 
         <div class="header__nav-logo">
             <img src="../static/images/logo-icon.png" alt="" />
@@ -37,14 +36,11 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css'
+
 
 export default {
 
-    components: {
-        Loading
-    },
+   
 
     data() {
         return {

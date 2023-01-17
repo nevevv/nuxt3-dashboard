@@ -1,13 +1,27 @@
 <template>
-    <transition name="fade">
-        <div class="preloader">
-            <div class="logo"></div>
-
-        </div>
-    </transition>        
+    <div class="spinner"></div>
 </template>
 
 <style>
+.spinner {
+    border: 5px solid #f3f3f3;
+    /* Light grey */
+    border-top: 5px solid ;
+    /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 0.8s linear infinite;
+    margin: 20px auto;
+}
 
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
 
+    100% {
+        transform: rotate(360deg);
+    }
+}
 </style>
