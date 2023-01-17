@@ -20,7 +20,7 @@
                     <div class="main__block-head-item">
                         <div class="main__block-head-input">
                             <i class="fa-solid fa-magnifying-glass"></i>
-                            <input type="text" placeholder="Search" />
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         </div>
                         <button>
                             <i class="bi bi-funnel"></i>
@@ -30,61 +30,34 @@
                     </div>
                 </div>
 
-                <div class="table-responsive-md">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">
-                                    <li class="main__programs-items">
-                                        <label for="">Course Title</label>
-                                        <i class="bi bi-filter"></i>
-                                    </li>
-                                </th>
-                                <th scope="col">
-                                    <li class="main__programs-items">
-                                        <label for="">Code</label>
-                                        <i class="bi bi-filter"></i>
-                                    </li>
-                                </th>
-                                <th scope="col">
-                                    <li class="main__programs-items">
-                                        <label for="">Credits</label>
-                                        <i class="bi bi-filter"></i>
-                                    </li>
-                                </th>
-                                <th scope="col">
-                                    <li class="main__programs-items">
-                                        <label for="">Program</label>
-                                        <i class="bi bi-filter"></i>
-                                    </li>
-                                </th>
-                                <th scope="col">
-                                    <li class="main__programs-items">
-                                        <label for="">Action</label>
-                                        <i class="bi bi-filter"></i>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="th">Title</th>
+                            <th class="th">Code</th>
+                            <th class="th">Min Credits</th>
+                            <th class="th">Department</th>
+                            <th class="th">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="list in lists" :key="list.credits">
+                            <td>{{ list.title }}</td>
+                            <td>{{ list.code }}</td>
+                            <td>{{ list.credits }}</td>
+                            <td>{{ list.program }}</td>
+                            <td>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Open this select menu</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
 
-                                    </li>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="list in lists" :key="list.credits">
-                                <td>{{ list.title }}</td>
-                                <td>{{ list.code }}</td>
-                                <td>{{ list.credits }}</td>
-                                <td>{{ list.program }}</td>
-                                <td>
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected>{{ list.action }}</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
                 <div class="main__programs-sub">
                     <div class="main__programs-sub-item">

@@ -12,7 +12,7 @@
                     <div class="main__block-head-item">
                         <div class="main__block-head-input">
                             <i class="fa-solid fa-magnifying-glass"></i>
-                            <input type="text" placeholder="Search" />
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         </div>
                         <button>
                             <i class="bi bi-funnel"></i>
@@ -21,49 +21,30 @@
                     </div>
                 </div>
 
-                <div class="user__content-lists d-grid" style="grid-template-columns: 1.4fr 2.8fr 0.4fr">
-                    <div class="user__content-list">
-                        <li class="user__content-item">
-                            <div class="main__programs-items-check user-items-check">
-                                <img src="images/check.png" alt="" />
-                            </div>
-                            Year
-                            <i class="bi bi-filter"></i>
-                        </li>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="th">Title</th>
+                            <th class="th">Date</th>
+                            <th class="th">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="list in lists" :key="list.credits">
+                            <td>{{ list.title }}</td>
+                            <td>{{ list.date }}</td>
+                            <td>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Open this select menu</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
 
-
-                        <li class="user__content-item" v-for="list in lists" :key="list.id" style="color: #6e7079;
-                      text-decoration: underline !important;
-                    ">
-                            <div class="main__programs-items-check user-items-check">
-                                <img src="images/check.png" alt="" />
-                            </div>
-                            {{ list.title }}
-                        </li>
-
-                    </div>
-                    <div class="user__content-list">
-                        <li class="user__content-item">
-                            Date of Admission
-                            <i class="bi bi-filter"></i>
-                        </li>
-                        <li class="user__content-item" style="color: #6e7079" v-for="list in lists" :key="list.id">
-                            {{ list.date }}
-                        </li>
-                    </div>
-                    <div class="user__content-list" style="margin-right: 25px">
-                        <li class="user__content-item">
-                            Action
-                            <i class="bi bi-filter"></i>
-
-                        </li>
-                        <li class="user__content-item" v-for="list in lists" :key="list.id">
-                            <select name="" id="">
-                                <option value="">{{ list.action }}</option>
-                            </select>
-                        </li>
-                    </div>
-                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
                 <div class="main__programs-sub">
                     <div class="main__programs-sub-item">
@@ -125,3 +106,64 @@ export default {
     }
 }
 </script>
+
+
+
+
+<style lang="scss" scoped>
+$gl-xs : "screen and (max-width: 35.5em)"; // up to 568px
+
+@media #{$gl-xs} {
+
+    table {
+        display: block;
+        margin-top: 20px;
+
+        >*,
+        tr,
+        td,
+        th {
+            display: block
+        }
+
+        thead {
+            display: none
+        }
+
+        tbody tr {
+            height: auto;
+            padding: 8px 0;
+
+            td {
+                padding-left: 45%;
+                margin-bottom: 12px;
+
+                &:last-child {
+                    margin-bottom: 0
+                }
+
+                &:before {
+                    position: absolute;
+                    font-weight: 700;
+                    width: 40%;
+                    left: 10px;
+                    top: 0
+                }
+
+                &:nth-child(1):before {
+                    content: "Year";
+                }
+
+                &:nth-child(2):before {
+                    content: "Date";
+                }
+
+                &:nth-child(3):before {
+                    content: "Action";
+                }
+
+            }
+        }
+    }
+}
+</style>
