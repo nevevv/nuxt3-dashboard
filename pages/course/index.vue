@@ -19,7 +19,7 @@
                     <h3 class="main__block-head-title">All Courses</h3>
                     <div class="main__block-head-item">
                         <div class="main__block-head-input">
-                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <i class="bi bi-search"></i>
                             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         </div>
                         <button>

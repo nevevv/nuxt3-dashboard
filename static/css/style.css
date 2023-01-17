@@ -1631,4 +1631,14 @@ hr {
     width: max-content;
     top: 20%;
   }
+  .header__nav-list {
+    gap: 0;
+  }
+
+  .header__nav {
+    max-height: 100vh;
+  }
+  .nav-mob {
+    align-items: normal;
+  }
 }

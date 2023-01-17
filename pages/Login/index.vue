@@ -10,7 +10,7 @@
                         <img src="@/static/images/logo-icon.png" alt="" />
                         <img src="@/static/images/logo-text.png" alt="" />
                     </div>
-                    <a href="#!">Certificate</a>
+    
                 </div>
                 <form class="login__form">
                     <input type="text" placeholder="ID" />
@@ -18,15 +18,26 @@
                 </form>
                 <div class="login__foot">
                     <a href="#!" class="login__foot-forgot">Forgot password?</a>
-                    <a href="#!" class="login__foot-btn">Login</a>
+                    <a href="#!" class="login__foot-btn">Submit</a>
                 </div>
             </div>
         </div>
     </div>
 </template>
 
-<script>
+<script setup lang="ts">
+
 definePageMeta({
     layout: "log",
 });
+
 </script>
+
+<style scoped>
+.create-acc {
+    color: blue;
+    font-size: 1rem;
+    cursor: pointer;
+
+}
+</style>
