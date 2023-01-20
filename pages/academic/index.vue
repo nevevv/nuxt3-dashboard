@@ -74,6 +74,12 @@
 <script>
 import Headvue from '~~/components/Head.vue';
 
+
+definePageMeta({
+    middleware: ['guest'],
+})
+
+
 export default {
     components: {
         Headvue

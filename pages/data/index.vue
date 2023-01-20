@@ -83,11 +83,17 @@
 
             </div>
         </div>
-    
+
     </section>
 </template>
 
 <script>
+
+
+definePageMeta({
+    middleware: ['guest'],
+})
+
 
 import HeadVue from '~~/components/Head.vue';
 

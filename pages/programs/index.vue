@@ -104,6 +104,9 @@ import HeadVue from '~~/components/Head.vue'
 import Modal from '~~/components/Modal.vue'
 import Loader from '~~/components/Loader.vue';
 
+definePageMeta({
+    middleware: ['guest'],
+})
 
 export default {
     data() {

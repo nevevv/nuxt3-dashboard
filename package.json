@@ -18,6 +18,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
     "bootstrap-vue": "^2.23.1",
+    "encodeurl": "^1.0.2",
     "pinia": "^2.0.29",
     "sass": "^1.57.1",
     "vue": "^3.2.26",
