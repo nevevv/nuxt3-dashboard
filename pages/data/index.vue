@@ -89,9 +89,11 @@
 
 <script>
 
-
 definePageMeta({
     middleware: ['guest'],
+    pageTransition: {
+        name: 'page'
+    }
 })
 
 

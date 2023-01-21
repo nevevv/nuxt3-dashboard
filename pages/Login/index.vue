@@ -31,12 +31,13 @@
 
 import Loader from '~~/components/Loader.vue';
 
-definePageMeta({
-    middleware: ['guest'],
-})
 
 definePageMeta({
     layout: "log",
+    middleware: ['login'],
+    pageTransition: {
+        name: 'page'
+    }
 });
 
 export default {
@@ -88,6 +89,8 @@ export default {
 
 // Akbarali@questa.uz
 // 199905
+
+
 
 
 </script>

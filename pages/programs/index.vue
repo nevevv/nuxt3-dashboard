@@ -106,7 +106,11 @@ import Loader from '~~/components/Loader.vue';
 
 definePageMeta({
     middleware: ['guest'],
+    pageTransition: {
+        name: 'page'
+    }
 })
+
 
 export default {
     data() {

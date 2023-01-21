@@ -3,4 +3,7 @@
 export default defineNuxtConfig({
   css: ["~~/static/css/style.css"],
   plugins: ["@/store"],
+  app: {
+    pageTransition: { name: "page", mode: "out-in" },
+  },
 });

@@ -83,9 +83,13 @@ import HeadVue from '~~/components/Head.vue';
 
 definePageMeta({
     middleware: ['guest'],
+    pageTransition: {
+        name: 'page'
+    }
 })
 
 export default {
+    name: 'page',
 
     components: {
         HeadVue

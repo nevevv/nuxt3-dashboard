@@ -89,8 +89,12 @@
 
 
 <script>
+
 definePageMeta({
     middleware: ['guest'],
+    pageTransition: {
+        name: 'page'
+    }
 })
 
 import HeadVue from '~~/components/Head.vue';
