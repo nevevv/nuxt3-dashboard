@@ -87,10 +87,10 @@
             </div>
         </div>
         <Modal v-if="showModal" :modalTitle="createTitle">
-            <input type="text" :placeholder="modalTitle" v-if="modalTitle" v-model="input1" />
-            <input type="text" :placeholder="minCredits" v-if="minCredits" v-model="input2" />
-            <input type="text" :placeholder="program" v-if="program" v-model="input3" />
-            <input type="text" :placeholder="degree" v-if="degree" v-model="input4" />
+            <input type="text" :placeholder="modalTitle" v-if="modalTitle" v-model="input1" required />
+            <input type="text" :placeholder="minCredits" v-if="minCredits" v-model="input2" required />
+            <input type="text" :placeholder="program" v-if="program" v-model="input3" required />
+            <input type="text" :placeholder="degree" v-if="degree" v-model="input4" required />
             <div>
                 <button @click="showModal = !showModal" class="modal-programs-closeBtn">Cancel</button>
                 <button @click.prevent="addNote" class="modal-programs-createBtn">Create</button>

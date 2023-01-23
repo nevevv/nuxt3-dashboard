@@ -59,6 +59,11 @@ section {
   align-items: center;
   min-height: 100vh;
   background: white;
+  width: 300px;
+}
+
+.header__nav.active {
+  width: 100px;
 }
 
 .nav-mob {
@@ -1625,6 +1630,9 @@ hr {
     width: 100vw !important;
     display: flex !important;
   }
+  .nav-mob.active {
+    display: block !important;
+  }
   .header__nav-blocks p {
     display: block;
   }
@@ -1640,6 +1648,7 @@ hr {
     max-height: 100vh;
   }
   .nav-mob {
+    display: none !important;
     align-items: normal;
   }
 }
@@ -1653,4 +1662,11 @@ hr {
 .page-leave-to {
   opacity: 0;
   filter: blur(1rem);
+}
+
+@media (max-width: 500px) {
+  .hidden {
+    height: 80vh;
+    overflow-y: hidden !important;
+  }
 }

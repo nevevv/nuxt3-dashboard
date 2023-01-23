@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="main__head">
-            <i class="bi bi-list burger-menu" @click="sidebarActions(store)"></i>
+            <i class="bi bi-list burger-menu" @click="store.sideToggle"></i>
             <div class="main__head-title">{{ text }}</div>
             <div class="main__head-block">
 
@@ -40,18 +40,18 @@
 
 
 <script>
-import { mapMutations } from 'vuex';
+
+import { useMainStore } from '~~/store';
 
 export default {
-    props: ['text', 'subtitle'],
-    data() {
-        return {
-            store: this.$store.state.sidebarActive
-        }
+    setup() {
+        const store = useMainStore();
+
+        return { store }
+
     },
-    methods: {
-        ...mapMutations(['sidebarActions'])
-    }
+
+    props: ['text', 'subtitle'],
 }
 </script>
 
@@ -141,7 +141,7 @@ hr {
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 0px;
-    padding-bottom:0px;
+    padding-bottom: 0px;
     cursor: pointer;
 }
 </style>

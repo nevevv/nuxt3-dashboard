@@ -1,9 +1,9 @@
 <template>
-    <nav class="header__nav" :style="{ width: `${$store.state.sidebarWidth}` }">
+    <nav class="header__nav" :class="{ active: !store.activeSidebar }">
 
         <div class="header__nav-logo">
             <img src="../static/images/logo-icon.png" alt="" />
-            <img src="../static/images/logo-text.png" alt="" v-if="$store.state.sidebarActive" />
+            <img v-if="store.activeSidebar" src="../static/images/logo-text.png" alt="" />
 
         </div>
         <div class="header__nav-list">
@@ -11,20 +11,20 @@
                 active-class="active">
                 <div class="header__nav-blocks-item">
                     <i :class=link.icons></i>
-                    <p v-if="$store.state.sidebarActive">{{ link.title }}</p>
+                    <p v-if="store.activeSidebar">{{ link.title }}</p>
                 </div>
             </nuxt-link>
         </div>
     </nav>
-    <nav class="header__nav nav-mob" v-if="$store.state.mobSideActive">
+    <nav class="header__nav nav-mob" :class="{ active: !store.activeSidebar }">
         <div class="header__nav-logo">
             <img src="../static/images/logo-icon.png" alt="" />
-            <img src="../static/images/logo-text.png" alt="" v-if="$store.state.sidebarActive" />
+            <img src="../static/images/logo-text.png" alt="" />
 
         </div>
-        <div class="header__nav-list ">
+        <div class="header__nav-list">
             <nuxt-link :to="link.to" v-for="link in links" :key="link.id" class="header__nav-blocks"
-                active-class="active" @click="hideMobSidebar()">
+                active-class="active" @click.prevent="closeMenu()">
                 <div class="header__nav-blocks-item">
                     <i :class=link.icons></i>
                     <p>{{ link.title }}</p>
@@ -35,12 +35,14 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
 
+import { useMainStore } from '~~/store';
 
 export default {
-
-   
+    setup() {
+        const store = useMainStore()
+        return { store }
+    },
 
     data() {
         return {
@@ -103,15 +105,12 @@ export default {
             ],
         }
     },
-    methods: {
-        hideMobSidebar() {
-            if (window.screen.width < 500) {
-                this.hideSidebar()
-            }
-        },
-        ...mapMutations(['hideSidebar'])
 
-    },
+    methods: {
+        closeMenu() {
+            this.store.activeSidebar = !this.store.activeSidebar
+        }
+    }
 }
 
 </script>

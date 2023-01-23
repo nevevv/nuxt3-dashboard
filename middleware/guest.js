@@ -1,9 +1,10 @@
+import { useMainStore } from "~~/store";
+
 export default defineNuxtRouteMiddleware((to, from) => {
-  setTimeout(() => {
-    if (localStorage.getItem("access_token")) {
-      navigateTo(to.fullPath);
-    } else {
-      navigateTo("/login");
-    }
-  }, 1);
+  const store = useMainStore();
+  if (store.usersToken) {
+    navigateTo(to.fullPath);
+  } else {
+    navigateTo("/login");
+  }
 });

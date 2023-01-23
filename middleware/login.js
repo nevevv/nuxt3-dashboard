@@ -1,5 +1,6 @@
+import { useMainStore } from "~~/store";
+
 export default defineNuxtRouteMiddleware((to, from) => {
-  setTimeout(() => {
-    localStorage.removeItem("access_token");
-  }, 1);
+  const store = useMainStore();
+  store.usersToken = null;
 });

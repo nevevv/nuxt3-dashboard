@@ -30,17 +30,22 @@
 <script>
 
 import Loader from '~~/components/Loader.vue';
+import { useMainStore } from '~~/store';
 
-
-definePageMeta({
-    layout: "log",
-    middleware: ['login'],
-    pageTransition: {
-        name: 'page'
-    }
-});
 
 export default {
+    setup() {
+        definePageMeta({
+            layout: "log",
+            middleware: ['login'],
+            pageTransition: {
+                name: 'page'
+            },
+        });
+        const store = useMainStore()
+        return { store }
+    },
+
     components: {
         Loader
     },
@@ -71,7 +76,6 @@ export default {
                 this.loading = false;
                 this.error = '';
                 this.$router.push('/')
-
                 this.pushToLocalStorage(response)
             } else {
                 this.loading = false
@@ -81,7 +85,10 @@ export default {
 
         pushToLocalStorage(response) {
             const token = response.access_token
-            localStorage.setItem('access_token', token)
+            this.store.usersToken = token;
+            setTimeout(() => {
+                console.log(this.store.usersToken)
+            },10)
         }
     },
 }
@@ -89,9 +96,6 @@ export default {
 
 // Akbarali@questa.uz
 // 199905
-
-
-
 
 </script>
 
