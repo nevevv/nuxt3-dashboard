@@ -76,23 +76,19 @@ export default {
                 this.loading = false;
                 this.error = '';
                 this.$router.push('/')
-                this.pushToLocalStorage(response)
+                this.pushToStore(response)
             } else {
                 this.loading = false
                 this.error = response.error + '!'
             }
         },
 
-        pushToLocalStorage(response) {
+        pushToStore(response) {
             const token = response.access_token
             this.store.usersToken = token;
-            setTimeout(() => {
-                console.log(this.store.usersToken)
-            },10)
         }
     },
 }
-
 
 // Akbarali@questa.uz
 // 199905
