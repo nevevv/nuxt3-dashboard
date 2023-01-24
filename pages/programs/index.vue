@@ -5,7 +5,7 @@
         <div class="main__programs-content">
             <div class="main__programs-content-head">
                 <button class="main__programs-content-btn modalBtn" @click="showModal = !showModal">
-                    <i class="bi bi-plus-lg"></i>
+                    <i class="bi bi-plus plus-icon"></i>
                     Create a New Program
                 </button>
 

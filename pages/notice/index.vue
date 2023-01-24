@@ -9,7 +9,7 @@
                 <div class="main__all-btn">
                     <button class="main__programs-content-btn modalBtn"
                         style="gap: 24px; padding: 8.5px 20px 8.5px 20px">
-                        <i class="bi bi-plus-lg"></i>
+                        <i class="bi bi-plus plus-icon"></i>
 
 
                         New Notice

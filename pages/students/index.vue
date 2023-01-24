@@ -7,7 +7,7 @@
                 <h3 class="users-content-title">All students</h3>
                 <div class="main__all-btn">
                     <button class="main__programs-content-btn modalBtn">
-                        <i class="bi bi-plus-lg"></i>
+                        <i class="bi bi-plus plus-icon"></i>
                         Create a New User
                     </button>
                 </div>

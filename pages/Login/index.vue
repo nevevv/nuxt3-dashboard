@@ -30,21 +30,17 @@
 <script>
 
 import Loader from '~~/components/Loader.vue';
-import { useMainStore } from '~~/store';
 
 
 export default {
     setup() {
         definePageMeta({
             layout: "log",
-            middleware: ['login'],
             pageTransition: {
                 name: 'page'
             },
         });
-        const store = useMainStore()
-        return { store }
-    },
+            },
 
     components: {
         Loader
@@ -76,19 +72,21 @@ export default {
                 this.loading = false;
                 this.error = '';
                 this.$router.push('/')
-                this.pushToStore(response)
+                this.pushToLocalStorage(response)
             } else {
                 this.loading = false
                 this.error = response.error + '!'
             }
         },
 
-        pushToStore(response) {
-            const token = response.access_token
-            this.store.usersToken = token;
+        pushToLocalStorage(response) {
+            const token = response.access_token;
+            document.cookie = `token=${token}`
+
         }
     },
 }
+
 
 // Akbarali@questa.uz
 // 199905

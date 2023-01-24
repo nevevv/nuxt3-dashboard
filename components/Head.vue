@@ -6,17 +6,15 @@
             <div class="main__head-block">
 
 
-                <select id="form-select" v-model="$i18n.locale"
-                    style="text-transform: uppercase; border: none; color: #5570f1; outline: none; appearance: none;">
+                <select id="form-select" class="form-control"  v-model="$i18n.locale"
+                    style="text-transform: uppercase;  color:#008838 ; max-width: 300px; outline: none; appearance: none;">
                     <option value="en">en</option>
                     <option value="ru">ru</option>
                 </select>
 
-                <select class="form-select form-select-head" aria-label="Default select example">
-                    <option selected>Administrator</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <select class="form-select form-select-head" aria-label="Admin" style="min-width: 150px;">
+                    <option selected>Admin</option>
+
                 </select>
 
                 <a href="#!">
@@ -29,7 +27,7 @@
         </div>
 
         <div class="main__block-name">
-            <i class="bi bi-house-fill" style="color:#E92026"></i>
+            <i class="bi bi-house-fill" style="color:#008838"></i>
             <p class="main__block-title">{{ subtitle }}</p>
         </div>
 

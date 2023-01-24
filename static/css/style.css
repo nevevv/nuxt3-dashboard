@@ -119,9 +119,10 @@ section {
 }
 
 .header__nav-blocks.active {
-  background: var(--orange);
+  background:#008838;
   border-radius: 12px;
   color: white;
+
 }
 
 .header__nav-blocks.active p {
@@ -347,7 +348,7 @@ section {
 }
 
 .main__content-notice button {
-  background: #e92026;
+  background: #008838;
   border: none;
   border-radius: 12px;
   padding: 17px 16px 17px 16px;
@@ -365,7 +366,7 @@ section {
   background: rgba(85, 112, 241, 0.08);
   border-radius: 8px;
   padding: 6.5px 12px;
-  color: var(--orange) !important;
+  color: #008838 !important;
 }
 
 .main__content-scale {
@@ -733,7 +734,7 @@ hr {
 }
 
 .login-page {
-  background: url("@/static/images/loginPage.png") no-repeat center center /
+  background: url("../images/bglogin.png") no-repeat center center /
     cover;
   width: 100vw;
   height: 100vh;
@@ -955,15 +956,15 @@ hr {
 }
 
 .modal-programs-closeBtn {
-  color: #5570f1;
+  color: #008838;
   background: white;
-  border: 2px solid #5570f1;
+  border: 2px solid #008838;
   border-radius: 12px;
   outline: none;
 }
 
 .modal-programs-createBtn {
-  background: #5570f1;
+  background: #008838;
   border-radius: 12px;
   color: white;
   border: none;
@@ -1042,7 +1043,7 @@ hr {
   display: flex;
   align-items: center;
   gap: 20px;
-  background: #5570f1;
+  background: #008838;
   border-radius: 12px;
   padding: 8px 16px 10px 18px;
   cursor: pointer;
@@ -1183,7 +1184,7 @@ hr {
 
 .main__programs-content-btn {
   padding: 9.5px 20px 9.5px 22px;
-  background: #5570f1;
+  background:#008838 ;
   border-radius: 12px;
   border: none;
   color: white;
@@ -1669,4 +1670,8 @@ hr {
     height: 80vh;
     overflow-y: hidden !important;
   }
+}
+
+.plus-icon {
+  font-size: 19px;
 }

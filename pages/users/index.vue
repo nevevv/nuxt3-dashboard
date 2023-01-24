@@ -5,7 +5,7 @@
             <div class="users-content-head">
                 <h3 class="users-content-title">All users</h3>
                 <button class="main__programs-content-btn modalBtn" @click="showModal = !showModal">
-                    <i class="bi bi-plus-lg"></i>
+                    <i class="bi bi-plus plus-icon"></i>
                     Create a New User
                 </button>
             </div>
