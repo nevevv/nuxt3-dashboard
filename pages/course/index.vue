@@ -8,8 +8,6 @@
                 <h3 class="users-content-title">Courses</h3>
                 <div class="main__all-btn">
                     <button class="main__programs-content-btn modalBtn">
-                        <img src="images/plus.png" alt="" />
-
                         Create a New Course
                     </button>
                 </div>
