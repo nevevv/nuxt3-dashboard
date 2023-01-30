@@ -60,6 +60,7 @@ section {
   min-height: 100vh;
   background: white;
   width: 300px;
+  transition: all 0.3s ease;
 }
 
 .header__nav.active {
@@ -104,6 +105,7 @@ section {
   line-height: 17px;
   text-align: center;
   color: var(--black);
+  transition: all .3s ease;
   /* display: none; */
 }
 
@@ -1630,12 +1632,14 @@ hr {
     height: 100vh !important;
     width: 100vw !important;
     display: flex !important;
+    transition: all .3s ease;
   }
   .nav-mob.active {
     display: block !important;
   }
   .header__nav-blocks p {
     display: block;
+
   }
   .modal-programs {
     width: max-content;

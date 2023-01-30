@@ -12,10 +12,8 @@
                     <option value="ru">ru</option>
                 </select>
 
-                <select class="form-select form-select-head" aria-label="Admin" style="min-width: 150px;">
-                    <option selected>Admin</option>
 
-                </select>
+                <p>Administrator</p>
 
                 <a href="#!">
                     <i class="bi bi-bell-fill" style="color:#E92026;"></i>
@@ -30,26 +28,20 @@
             <i class="bi bi-house-fill" style="color:#008838"></i>
             <p class="main__block-title">{{ subtitle }}</p>
         </div>
-
     </div>
-
 </template>
 
-
-
 <script>
-
 import { useMainStore } from '~~/store';
 
 export default {
+    props: ['text', 'subtitle'],
     setup() {
         const store = useMainStore();
-
-        return { store }
+        const config = useRuntimeConfig();
+        return { store, config }
 
     },
-
-    props: ['text', 'subtitle'],
 }
 </script>
 

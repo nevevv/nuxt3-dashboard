@@ -201,7 +201,9 @@ export default {
     name:'page',
     components: {
         HeadVue,
-    }
+    },
+    
+    
 }
 
-</script>y
+</script>
