@@ -13,7 +13,7 @@
                 </select>
 
 
-                <p>Administrator</p>
+                <p>{{store.usersData.name}}</p>
 
                 <a href="#!">
                     <i class="bi bi-bell-fill" style="color:#E92026;"></i>

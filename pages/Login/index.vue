@@ -30,6 +30,7 @@
 <script>
 
     import Loader from '~~/components/Loader.vue';
+    import { useMainStore } from '~~/store';
 
 
     export default {
@@ -40,8 +41,9 @@
                     name: 'page'
                 },
             });
+            const store = useMainStore();
             const config = useRuntimeConfig();
-            return {config}
+            return {store,config}
         },
 
         components: {
@@ -73,42 +75,37 @@
                     },
                     headers: headers,
                 })
+
                 this.loading = false;
 
                 if (response.success) {
                     this.error = '';
-                    await this.getUsersData(response.token)
-                   // await this.pushToСookie(response)
-                    // this.$router.push('/')
+                    this.getUsersData(response.token)
+                    this.pushToСookie(response)
+                    this.$router.push('/')
                 } else {
                     this.error = `${response.error}!`
                 }
-
             },
 
+             async getUsersData(token) {
+                const response = await $fetch(`${this.config.public.api_url}/user`, {
+                    headers: {
+                    'Content-type': 'application/json',
+                        'Accept': 'application/json',
+                        "Authorization": "Bearer 8|SSILrSAFQBPvju8cMwLh7x80ZKFNzOYuK00Obbzj"
+                    },
+                });
+                this.store.usersData = response
+
+            },
             pushToСookie(response) {
                 const token = response.token;
                 document.cookie = `token=${token}`
             },
-
-            async getUsersData(token) {
-                console.log(token)
-
-                console.log(this.config.public.api_url)
-
-                const response = await $fetch(`${this.config.public.api_url}/user`, {
-                    header: {
-                        'Accept': 'application/json',
-                        'Content-type': 'application/json',
-                        "Authorization": "Bearer " + token
-                    }
-                })
-
-            }
         },
 
     }
-
 
     // Akbarali@questa.uz
     // 199905
