@@ -113,7 +113,6 @@
 </script>
 
 <style scoped>
-
     .create-acc {
         color: blue;
         font-size: 1rem;
