@@ -2,6 +2,7 @@ import {useMainStore} from "~/store";
 import {useRuntimeConfig} from "#imports";
 
 
+
 export default defineNuxtRouteMiddleware((to, from) => {
     const cookie = useCookie('token');
     const useStore = useMainStore();
@@ -10,7 +11,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
     console.log('cookie', cookie, cookie.value)
 
     if(!cookie.value) {
-        navigateTo('/login')
+        navigateTo('/users')
         console.log(1)
       }else {
       console.log(2)
