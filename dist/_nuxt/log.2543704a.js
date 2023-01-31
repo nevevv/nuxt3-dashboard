@@ -1,1 +1,0 @@
-import t from"./index.f4d75e5d.js";import{a as n,c as e,o as r,l as c}from"./entry.f9101889.js";import"./Loader.bbddd6b5.js";import"./index.483d6c5e.js";import"./logo-text.c5228760.js";const s={components:{Login:t}};function p(a,i,m,_,f,l){const o=c("Login");return r(),e(o)}const L=n(s,[["render",p]]);export{L as default};
