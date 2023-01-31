@@ -93,7 +93,7 @@
                     headers: {
                     'Content-type': 'application/json',
                         'Accept': 'application/json',
-                        "Authorization": "Bearer 8|SSILrSAFQBPvju8cMwLh7x80ZKFNzOYuK00Obbzj"
+                        "Authorization": "Bearer "+token
                     },
                 });
                 this.store.usersData = response

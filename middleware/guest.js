@@ -7,7 +7,9 @@ export default defineNuxtRouteMiddleware((to, from) => {
     const useStore = useMainStore();
     const api_url = useRuntimeConfig().public.api_url;
 
-    if(!cookie.value) navigateTo('/login');
+    if(!cookie.value) {
+        navigateTo('/login')
+    };
 
     if(to.fullPath === from.fullPath) {
         getUsersData(cookie,useStore,api_url)
