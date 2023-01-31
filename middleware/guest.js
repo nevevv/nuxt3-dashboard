@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
     const api_url = useRuntimeConfig().public.api_url;
 
     if(!cookie.value) {
-        console.log(cookie.value)
+        console.log(123124812309482390582323948230948230948023984029384200)
         navigateTo('/login')
     };
 
