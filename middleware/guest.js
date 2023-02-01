@@ -9,7 +9,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
     if(!cookie.value) {
       useRouter().push('/login')        
-      }
+    }
     if(to.fullPath === from.fullPath) {
         getUsersData(cookie,useStore,api_url)
     }
