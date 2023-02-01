@@ -1,31 +1,31 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+  "private":true,
+  "scripts":{
+    "build":"nuxt build",
+    "dev":"nuxt dev",
+    "generate":"nuxt gen",
+    "preview":"nuxt preview",
+    "postinstall":"nuxt prepare"
   },
-  "devDependencies": {
-    "@nuxtjs/i18n": "^8.0.0-beta.7",
-    "npm-force-resolutions": "^0.0.10",
-    "nuxt": "3.0.0",
-    "vue-i18n": "^9.2.2"
+  "devDependencies":{
+    "@nuxtjs/i18n":"^8.0.0-beta.7",
+    "npm-force-resolutions":"^0.0.10",
+    "nuxt":"3.0.0",
+    "vue-i18n":"^9.2.2"
   },
-  "dependencies": {
-    "@nuxtjs/axios": "^5.13.6",
-    "@pinia/nuxt": "^0.4.6",
-    "bootstrap": "^5.2.3",
-    "bootstrap-icons": "^1.10.3",
-    "bootstrap-vue": "^2.23.1",
-    "encodeurl": "^1.0.2",
-    "ordered-uuid-v4": "^0.2.1",
-    "pinia": "^2.0.29",
-    "quagga": "^0.12.1",
-    "sass": "^1.57.1",
-    "vue": "^3.2.26",
-    "vue-loading-overlay": "4.0",
-    "vuex": "^4.0.2"
+  "dependencies":{
+    "@nuxtjs/axios":"^5.13.6",
+    "@pinia/nuxt":"^0.4.6",
+    "bootstrap":"^5.2.3",
+    "bootstrap-icons":"^1.10.3",
+    "bootstrap-vue":"^2.23.1",
+    "encodeurl":"^1.0.2",
+    "ordered-uuid-v4":"^0.2.1",
+    "pinia":"^2.0.29",
+    "quagga":"^0.12.1",
+    "sass":"^1.57.1",
+    "vue":"^3.2.26",
+    "vue-loading-overlay":"4.0",
+    "vuex":"^4.0.2"
   }
 }
