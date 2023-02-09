@@ -5,15 +5,14 @@
             <div class="main__head-title">{{ text }}</div>
             <div class="main__head-block">
 
-
-                <select id="form-select" class="form-control"  v-model="$i18n.locale"
+                <select id="form-select" class="form-control" v-model="$i18n.locale"
                     style="text-transform: uppercase;  color:#008838 ; max-width: 300px; outline: none; appearance: none;">
                     <option value="en">en</option>
                     <option value="ru">ru</option>
                 </select>
 
 
-                <p>{{store.usersData.name}}</p>
+                <p>{{ store.usersName }}</p>
 
                 <a href="#!">
                     <i class="bi bi-bell-fill" style="color:#E92026;"></i>
@@ -39,9 +38,11 @@ export default {
     setup() {
         const store = useMainStore();
         const config = useRuntimeConfig();
+        // console.log(store.$state)
         return { store, config }
-
     },
+
+
 }
 </script>
 
@@ -133,5 +134,8 @@ hr {
     padding-top: 0px;
     padding-bottom: 0px;
     cursor: pointer;
+}
+.form-control {
+    width: max-content;
 }
 </style>

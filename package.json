@@ -20,6 +20,7 @@
     "bootstrap-icons": "^1.10.3",
     "bootstrap-vue": "^2.23.1",
     "encodeurl": "^1.0.2",
+    "ofetch": "^1.0.0",
     "ordered-uuid-v4": "^0.2.1",
     "pinia": "^2.0.29",
     "quagga": "^0.12.1",

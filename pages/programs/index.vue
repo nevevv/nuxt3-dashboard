@@ -34,8 +34,7 @@
                 </div>
 
 
-                <Loader v-if="!loadEnd" />
-                <table v-else>
+                <table>
                     <thead>
                         <tr>
                             <th class="th">Course Title</th>
@@ -77,7 +76,6 @@
                             <option value="">1</option>
                         </select>
                         <p>of 1 pages</p>
-
                         <div class="main__programs-sub-chevrons">
                             <i class="fa-solid fa-chevron-left"></i>
                             <i class="fa-solid fa-chevron-right"></i>
@@ -103,6 +101,9 @@
 import HeadVue from '~~/components/Head.vue'
 import Modal from '~~/components/Modal.vue'
 import Loader from '~~/components/Loader.vue';
+import { useMainStore } from '~~/store';
+
+
 
 definePageMeta({
     middleware: ['guest'],
@@ -126,6 +127,7 @@ export default {
             minCredits: "Min Credits",
             program: "Program",
             degree: "Degree",
+            arr: [],
             lists: [
                 {
                     title: 'Medical School',
@@ -145,16 +147,10 @@ export default {
             ]
         }
     },
-    mounted() {
-        setTimeout(() => {
-            this.loadEnd = true
-        }, 1000)
-    },
-
     components: {
         HeadVue,
         Modal,
-        Loader
+        Loader,
     },
     methods: {
         addNote() {
@@ -170,9 +166,13 @@ export default {
             this.input2 = ''
             this.input3 = ''
             this.input4 = ''
+        },
+    },
+    asyncData() {
+        return {
+            usersList: useMainStore().usersList
         }
-    }
-
+    },
 
 }
 
