@@ -14,8 +14,8 @@
                 <p style="color: red;">{{ error }}</p>
 
                 <form class="login__form">
-                    <input type="text" placeholder="ID" v-model="data.login" />
-                    <input type="password" placeholder="Password" v-model="data.password" />
+                    <input type="text" placeholder="ID" v-model="userSendData.login" />
+                    <input type="password" placeholder="Password" v-model="userSendData.password" />
                 </form>
                 <div class="login__foot">
                     <a class="login__foot-forgot">Forgot password?</a>
@@ -29,10 +29,11 @@
 
 <script>
 
-import { ofetch } from 'ofetch';
 import Loader from '~~/components/Loader.vue';
 import { useMainStore } from '~~/store';
-
+import { useUser } from '~~/helpers/userName'
+import { usePostRequest } from '~~/helpers/POST_REQUESTS';
+import { useGetRequest } from '~~/helpers/GET_REQUESTS'
 
 export default {
     setup() {
@@ -43,59 +44,66 @@ export default {
                 name: 'page'
             },
         });
+
+        const postRequest = usePostRequest()
+        const getRequest = useGetRequest()
+
+        const user = useUser()
         const store = useMainStore();
         const config = useRuntimeConfig();
-        return { store, config }
+
+        const loading = ref(false);
+        const error = ref('')
+        const userSendData = reactive({
+            login: '',
+            password: '',
+        })
+
+        const submit = async () => {
+            const requestOptions = {
+                method: 'POST',
+                body: { "login": userSendData.login, "password": userSendData.password }
+            }
+
+            loading.value = true
+
+            postRequest.postRequest('login', requestOptions, (response) => {
+                if (response.success) {
+                    error.value = '';
+                    document.cookie = `token=${response.data.token}; max-age=3600`;
+                    getUsersData(response.data.token);
+                    navigateTo('/')
+                } else {
+                    error.value = response.message
+                }
+                loading.value = false
+
+            })
+        }
+        const getUsersData = async (token) => {
+            const requestOptions = {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json',
+                    "Authorization": "Bearer " + token,
+                }
+            }
+
+
+            getRequest.getRequest('me', requestOptions, (response) => {
+                document.cookie = `personName=${response.data.full_name}`
+                user.userName = response.data.full_name
+            })
+
+        }
+
+        return { store, config, user, postRequest, error, userSendData, loading, submit }
     },
 
     components: {
         Loader
     },
-    data() {
-        return {
-            loading: false,
-            error: '',
-            data: {
-                login: '',
-                password: '',
-            }
-        }
-    },
-    methods: {
-        async submit() {
-            this.loading = true
-            const response = await ofetch(`${this.config.public.api_url}/login`, {
-                method: 'POST',
-                body: {
-                    "login": this.data.login,
-                    "password": this.data.password
-                },
-            }).catch((error) => error.data);
-            if (response.success) {
-                this.error = '';
-                document.cookie = `token=${response.data.token}`;
-                this.getUsersData(response.data.token);
-                navigateTo('/')
-            } else {
-                this.error = response.message
-            }
-            this.loading = false
-        },
-        async getUsersData(token) {
-            const response = await $fetch(`${this.config.public.api_url}/me`, {
-                headers: {
-                    'Content-type': 'application/json',
-                    'Accept': 'application/json',
-                    "Authorization": "Bearer " + token
-                },
-            });
-            document.cookie = `personName=${response.data.full_name}`
-            this.store.usersData = response.data
-            console.log(this.store.usersData)
-        }
-    },
-
-
 }
 
 

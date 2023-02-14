@@ -10,10 +10,7 @@
                     <option value="en">en</option>
                     <option value="ru">ru</option>
                 </select>
-
-
-                <p>{{ store.usersName }}</p>
-
+                <p>{{ user.userName || useCookie('personName').value }}</p>
                 <a href="#!">
                     <i class="bi bi-bell-fill" style="color:#E92026;"></i>
                 </a>
@@ -32,16 +29,18 @@
 
 <script>
 import { useMainStore } from '~~/store';
+import { useUser } from '../helpers/userName'
 
 export default {
     props: ['text', 'subtitle'],
     setup() {
+        const user = useUser()
         const store = useMainStore();
         const config = useRuntimeConfig();
-        // console.log(store.$state)
-        return { store, config }
+        const userName = ref('')
+        
+        return { store, config, userName, user }
     },
-
 
 }
 </script>
@@ -135,6 +134,7 @@ hr {
     padding-bottom: 0px;
     cursor: pointer;
 }
+
 .form-control {
     width: max-content;
 }

@@ -1702,3 +1702,7 @@ hr {
 .header__nav-blocks:hover .header__nav-blocks-item p {
   color: white;
 }
+
+td {
+  position: relative;
+}

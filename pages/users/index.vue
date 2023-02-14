@@ -27,31 +27,30 @@
                         </button>
                     </div>
                 </div>
-                <table>
+                <table v-if="!loading">
                     <thead>
                         <tr>
-                            <th class="th">username</th>
-                            <th class="th">Name</th>
-                            <th class="th">Surname</th>
+                            <th class="th">ID</th>
+                            <th class="th">Full Name</th>
+                            <th class="th">Login</th>
                             <th class="th">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="list in lists" :key="list.credits">
-                            <td>{{ list.username }}</td>
-                            <td>{{ list.firstName }}</td>
-                            <td>{{ list.lastName }}</td>
-                            <td>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Action</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+                        <tr v-for="list in usersList" :key="list.id">
+                            <td>{{ list.id }}</td>
+                            <td>{{ list.full_name }}</td>
+                            <td>{{ list.login }}</td>
+                            <td style="width:10%">
+                                <NuxtLink :to="'/users/' + list.id" class="btn"
+                                    style="background: #008838; color: white;">Show</NuxtLink>
+                                <button class="btn btn-danger" style="margin: 0 0 0 10px;"
+                                    @click="deleteUser(list.id)">Delete</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                <Loader v-else />
                 <div class="main__programs-sub">
                     <div class="main__programs-sub-item">
                         <select name="" id="">
@@ -74,12 +73,36 @@
                 </div>
             </div>
         </div>
-
+        <Modal v-if="showModal">
+            <p class="fs-3 text-center">Create new User</p>
+            <input type="text" placeholder="Login" v-model="creatableUsersData.login" />
+            <input type="text" placeholder="Password" v-model="creatableUsersData.password" />
+            <input type="text" placeholder="Full name" v-model="creatableUsersData.full_name" />
+            <input type="text" placeholder="Role" v-model="creatableUsersData.role" />
+            <p style="color: red ;">{{ requestError }}</p>
+            <div>
+                <button class="btn btn-danger" @click="showModal = !showModal">Cancel</button>
+                <button class="btn btn-primary" @click.prevent="createNewUser">Create</button>
+            </div>
+        </Modal>
+        <Modal v-if="confirmModal">
+            <p class="text-center fs-3">Do you really want to delete the user?</p>
+            <div>
+                <button class="btn btn-primary" @click.prevent="confirmModal = !confirmModal">Cancel</button>
+                <button class="btn btn-danger" @click.prevent="confirmDelete">Delete</button>
+            </div>
+            <p class="text-danger text-center" :class="{ 'd-none': !activeMessage }">{{ notAccessMessage }}</p>
+            <p></p>
+        </Modal>
     </section>
 </template>
 
 <script>
 import HeadVue from '~~/components/Head.vue';
+import { onMounted } from 'vue';
+import { useGetRequest } from '~~/helpers/GET_REQUESTS';
+import Loader from '~~/components/Loader.vue';
+import { usePostRequest } from '~~/helpers/POST_REQUESTS';
 
 definePageMeta({
     middleware: ['guest'],
@@ -91,87 +114,91 @@ definePageMeta({
 export default {
     name: 'page',
 
-    components: {
-        HeadVue
-    },
-    data() {
-        return {
-            showModal: false,
-            createTitle: 'Create new User',
-            username: 'Username',
-            email: 'Email',
-            firstName: 'First Name',
-            lastName: 'Last Name',
-            lists: [
-                {
-                    username: 'a.akhmedjanov',
-                    email: 'a.akhmedjanov@akfauniversity.org',
-                    firstName: 'Azamat',
-                    lastName: 'Akhmedjanov',
-                    action: 'Select'
-                },
-                {
-                    username: 'a.akhmedjanov',
-                    email: 'a.akhmedjanov@akfauniversity.org',
-                    firstName: 'Azamat',
-                    lastName: 'Akhmedjanov',
-                    action: 'Select'
-                },
-                {
-                    username: 'a.akhmedjanov',
-                    email: 'a.akhmedjanov@akfauniversity.org',
-                    firstName: 'Azamat',
-                    lastName: 'Akhmedjanov',
-                    action: 'Select'
-                },
-                {
-                    username: 'a.akhmedjanov',
-                    email: 'a.akhmedjanov@akfauniversity.org',
-                    firstName: 'Azamat',
-                    lastName: 'Akhmedjanov',
-                    action: 'Select'
-                },
-                {
-                    username: 'a.akhmedjanov',
-                    email: 'a.akhmedjanov@akfauniversity.org',
-                    firstName: 'Azamat',
-                    lastName: 'Akhmedjanov',
-                    action: 'Select'
-                },
-                {
-                    username: 'a.akhmedjanov',
-                    email: 'a.akhmedjanov@akfauniversity.org',
-                    firstName: 'Azamat',
-                    lastName: 'Akhmedjanov',
-                    action: 'Select'
-                },
-                {
-                    username: 'a.akhmedjanov',
-                    email: 'a.akhmedjanov@akfauniversity.org',
-                    firstName: 'Azamat',
-                    lastName: 'Akhmedjanov',
-                    action: 'Select'
-                },
-                {
-                    username: 'a.akhmedjanov',
-                    email: 'a.akhmedjanov@akfauniversity.org',
-                    firstName: 'Azamat',
-                    lastName: 'Akhmedjanov',
-                    action: 'Select'
-                },
-                {
-                    username: 'a.akhmedjanov',
-                    email: 'a.akhmedjanov@akfauniversity.org',
-                    firstName: 'Azamat',
-                    lastName: 'Akhmedjanov',
-                    action: 'Select'
-                },
+    setup() {
+        const activeMessage = ref(false)
+        const notAccessMessage = ref('')
+        const deletedUserId = ref('')
+        const confirmModal = ref(false)
+        const showModal = ref(false)
+        const loading = ref(true)
+        const getRequest = useGetRequest()
+        const usersList = ref([])
+        const postRequest = usePostRequest()
+        const requestError = ref('')
+        const creatableUsersData = reactive({
+            login: '',
+            password: '',
+            full_name: '',
+            role: ''
+        })
 
-            ]
+        const getUsersData = async () => {
+            const getRequestOptions = {
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json',
+                    "Authorization": "Bearer " + useCookie('token').value,
+                }
+            }
+            getRequest.getRequest('users', getRequestOptions, (response) => {
+                usersList.value = response.data
+                loading.value = false
+            })
         }
+
+        const createNewUser = async () => {
+            const requestOptions = {
+                method: 'POST',
+                body: { "login": creatableUsersData.login, "password": creatableUsersData.password, "full_name": creatableUsersData.full_name, "roles[]": creatableUsersData.role },
+                headers: { "Authorization": "Bearer " + useCookie('token').value }
+            }
+            postRequest.postRequest('users/create', requestOptions, (response) => {
+                if (response.success) {
+                    getRequest.getRequest('users', {
+                        headers: {
+                            'Content-type': 'application/json',
+                            'Accept': 'application/json',
+                            "Authorization": "Bearer " + useCookie('token').value,
+                        }
+                    }, (response) => {
+                        location.reload()
+                    })
+                } else {
+                    requestError.value = response.message
+                }
+            })
+        }
+
+        const deleteUser = (id) => {
+            confirmModal.value = !confirmModal.value
+            deletedUserId.value = id
+        }
+
+        const confirmDelete = () => {
+            const requestOptions = {
+                method: 'POST',
+                headers: { "Authorization": "Bearer " + useCookie('token').value }
+            }
+            postRequest.postRequest(`users/${deletedUserId.value}/delete`, requestOptions, (response) => {
+                console.log(response)
+                if (response.code === 403) {
+                    notAccessMessage.value = response.message
+                    activeMessage.value = true
+                }else {
+                    location.reload()
+                }
+            })
+        }
+        onMounted(() => {
+            getUsersData()
+        })
+
+        return { usersList, loading, creatableUsersData, createNewUser, showModal, requestError, deleteUser, confirmDelete, confirmModal, notAccessMessage, activeMessage }
     },
 
-
+    components: {
+        HeadVue, Loader
+    },
 }
 
 </script>

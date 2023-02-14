@@ -1,6 +1,5 @@
 <template>
     <section class="programs__page">
-
         <HeadVue text="Undergraduate programs" subtitle="/ Undergraduate programs list" />
         <div class="main__programs-content">
             <div class="main__programs-content-head">
