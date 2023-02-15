@@ -106,6 +106,7 @@ section {
   text-align: center;
   color: var(--black);
   transition: all .3s ease;
+  height: 12px;
   /* display: none; */
 }
 
@@ -873,7 +874,7 @@ hr {
 }
 
 .modals-body-bg {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   right: 0;
@@ -916,7 +917,6 @@ hr {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  margin-top: 29px;
 }
 
 .modal-programs-form input {

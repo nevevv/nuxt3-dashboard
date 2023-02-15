@@ -53,8 +53,8 @@ export default {
                     icons: 'bi bi-grid-fill'
                 },
                 {
-                    title: 'Undergraduate Programs',
-                    to: '/programs',
+                    title: 'Permissions',
+                    to: '/permissions',
                     icons: 'bi bi-grid'
                 },
                 {
@@ -63,8 +63,8 @@ export default {
                     icons: 'bi bi-people',
                 },
                 {
-                    title: 'Students Registration',
-                    to: '/students',
+                    title: 'Roles',
+                    to: '/roles',
                     icons: 'bi bi-person-plus-fill',
                 },
                 {
