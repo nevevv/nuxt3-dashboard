@@ -124,37 +124,24 @@ export default {
     setup() {
         const getRequest = useGetRequest()
         const postRequest = usePostRequest()
-
         const usersList = ref([])
-
         const editCurrentArray = ref([])
-
         const activeMessage = ref(false)
         const notAccessMessage = ref('')
         const deletedUserId = ref('')
-
         const confirmModal = ref(false)
         const showModal = ref(false)
         const loading = ref(true)
         const requestError = ref('')
-
         const editError = ref('')
         const editModal = ref(false)
-
         const currentId = ref('')
 
         const creatableUsersData = reactive({
             name: '',
             display_name: '',
             description: '',
-        })
-
-        const editUsersData = reactive({
-            name: '',
-            display_name: '',
-            description: '',
-        })
-
+        }) 
         const getUsersData = async () => {
             const requestOptions = {
                 headers: {
@@ -209,7 +196,6 @@ export default {
             editCurrentArray.value = Object.assign({}, list)
         }
 
-
         const editUser = () => {
             const requestOptions = {
                 method: 'POST',
@@ -228,7 +214,7 @@ export default {
             getUsersData()
         })
 
-        return { usersList, loading, creatableUsersData, createNewUser, showModal, requestError, deleteUser, confirmDelete, confirmModal, notAccessMessage, activeMessage, editUser, editError, edit, editModal, editUsersData, editCurrentArray }
+        return { usersList, loading, creatableUsersData, createNewUser, showModal, requestError, deleteUser, confirmDelete, confirmModal, notAccessMessage, activeMessage, editUser, editError, edit, editModal, editCurrentArray }
     },
 
     components: {

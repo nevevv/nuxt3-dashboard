@@ -128,30 +128,22 @@ export default {
         const postRequest = usePostRequest()
         const usersList = ref([])
         const editCurrentArray = ref([])
-
-
         const activeMessage = ref(false)
         const notAccessMessage = ref('')
         const deletedUserId = ref('')
-
         const confirmModal = ref(false)
         const showModal = ref(false)
         const loading = ref(true)
         const requestError = ref('')
-
         const editError = ref('')
         const editModal = ref(false)
-
         const currentId = ref('')
-
         const creatableUsersData = reactive({
             login: '',
             password: '',
             full_name: '',
             role: ''
         })
-
-
 
         const getUsersData = async () => {
             const requestOptions = {

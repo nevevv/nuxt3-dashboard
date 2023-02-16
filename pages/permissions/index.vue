@@ -9,7 +9,7 @@
                 </button>
 
             </div>
-            <div class="main__programs-content-block">
+            <div class="main__programs-content-block mb-5">
                 <div class="main__content-block-head">
                     <h3 class="main__block-head-title">
                         Permissions List
@@ -60,7 +60,28 @@
                     </tbody>
                 </table>
                 <Loader v-else />
+
+                <div class="main__programs-sub notice__content-border">
+                    <div class="main__programs-sub-item">
+                        <p>{{ responseList.to }} of {{ responseList.total }} items</p>
+                    </div>
+                    <div class="main__programs-sub-item">
+                        <select @change="changeList($event)">
+                            <option :value="id + 1" v-for="(list, id) in responseList.last_page" :key="id">
+                                {{ id+ 1 }}
+                            </option>
+                        </select>
+
+                        <p> of {{ responseList.last_page }} pages </p>
+
+                        <div class=" main__programs-sub-chevrons">
+                            <i class="fa-solid fa-chevron-left"></i>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
         <Modal v-if="showModal">
             <p class="text-center fs-3">Create new Permission</p>
@@ -126,7 +147,7 @@ export default {
         const editCurrentArray = ref([])
         const showModal = ref(false)
         const confirmModal = ref(false)
-
+        const responseList = ref([])
         const permissionsList = ref([])
         const loading = ref(true)
         const requestError = ref('')
@@ -138,6 +159,7 @@ export default {
         const editModal = ref(false)
 
         const currentId = ref('')
+        const currentPage = ref(1)
 
 
         const creatableUsersData = reactive({
@@ -146,7 +168,7 @@ export default {
             description: '',
         })
 
-        const getUsersData = async () => {
+        const getUsersData = async (pageId) => {
             const requestOptions = {
                 headers: {
                     'Content-type': 'application/json',
@@ -154,8 +176,9 @@ export default {
                     "Authorization": "Bearer " + useCookie('token').value,
                 }
             }
-            getRequest.getRequest('permissions', requestOptions, (response) => {
-                permissionsList.value = response.data
+            getRequest.getRequest(`permissions?list_type=pagination&page=${pageId}`, requestOptions, (response) => {
+                responseList.value = response.data
+                permissionsList.value = response.data.data
                 loading.value = false
             })
         }
@@ -195,7 +218,7 @@ export default {
             editModal.value = true
             currentId.value = id
             editCurrentArray.value = Object.assign({}, list)
-            console.log(id,list)
+            console.log(id, list)
         }
         const editUser = () => {
             const requestOptions = {
@@ -212,11 +235,18 @@ export default {
             })
         }
 
+        const changeList = (e) => {
+            loading.value = true
+            getUsersData(e.target.value)
+            loading.value = false
+        }
+
         onMounted(() => {
-            getUsersData()
+            getUsersData(currentPage)
         })
-        return { creatableUsersData, getUsersData, showModal, permissionsList, loading, requestError, createNewPermission, deletePermission, confirmModal, notAccessMessage, confirmDelete, editError, editModal,edit, editUser ,editCurrentArray}
-        
+
+        return { creatableUsersData, getUsersData, showModal, permissionsList, loading, requestError, createNewPermission, deletePermission, confirmModal, notAccessMessage, confirmDelete, editError, editModal, edit, editUser, editCurrentArray, responseList, changeList }
+
     },
     components: {
         HeadVue,
