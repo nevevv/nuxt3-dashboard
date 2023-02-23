@@ -1,0 +1,114 @@
+<template>
+    <div>
+        <div>
+            <NuxtLink :to="route + '/' + list.id" class="btn" style="background: #008838; color: white;">Show</NuxtLink>
+            <button class="btn btn-danger" style="margin: 0 0 0 10px;" @click="deleteUser(list.id)">Delete</button>
+            <button class="btn btn-warning" style="margin: 0 0 0 10px;" @click="edit(list.id, list)">Edit</button>
+        </div>
+
+
+        <Modal v-if="confirmModal">
+            <p class="text-center fs-3">Do you really want to delete the user?</p>
+            <div>
+                <button class="btn btn-primary" @click.prevent="confirmModal = !confirmModal">Cancel</button>
+                <button class="btn btn-danger" @click.prevent="confirmDelete">Delete</button>
+            </div>
+            <p class="text-danger text-center" :class="{ 'd-none': !activeMessage }">{{ notAccessMessage }}</p>
+        </Modal>
+        <Modal v-if="editModal">
+            <p class="fs-3 text-center">Edit User</p>
+
+            <div class="d-flex flex-column align-items-start gap-2" v-for="field in fields" :key="field.id"> 
+               
+                <label >{{ $t(field) }}</label>
+
+                <input type="text" v-model="editCurrentArray[field]" />
+
+            </div>
+
+            <p style="color: red ;">{{ editError }}</p>
+            <div>
+                <button class="btn btn-danger" @click="editModal = !editModal">Cancel</button>
+                <button class="btn btn-primary" @click.prevent="editUser(fields)">Edit</button>
+            </div>
+        </Modal>
+    </div>
+</template>
+
+<script>
+
+import { usePostRequest } from '~~/helpers/POST_REQUESTS';
+
+export default {
+    props: ['list', 'route', 'fields'],
+
+    setup() {
+        const postRequest = usePostRequest();
+        const confirmModal = ref(false);
+        const showModal = ref(false);
+        const deletedUserId = ref('');
+        const activeMessage = ref(false)
+        const notAccessMessage = ref('')
+        const editCurrentArray = ref()
+        const editModal = ref(false)
+        const currentId = ref('')
+        const editError = ref('')
+
+        const edit = (id, list) => {
+            editModal.value = true
+            currentId.value = id
+            editCurrentArray.value = Object.assign({}, list)
+        }
+        const editUser = (fields) => {
+            const arr = [];
+            fields.forEach(field => {
+                console.log(editCurrentArray.value[field]);
+                arr[field] = editCurrentArray.value[field]
+            })
+
+            let {...obj} = arr;
+
+            const requestOptions = {
+                method: 'POST',
+                body: obj,
+                headers: { "Authorization": "Bearer " + useCookie('token').value }
+            }
+            postRequest.postRequest(`users/${currentId.value}/update`, requestOptions, (response) => {
+                if (response.success) {
+                    location.reload()
+                } else {
+                    editError.value = response.message
+                }
+            })
+        }
+
+        const deleteUser = (id) => {
+            confirmModal.value = !confirmModal.value
+            deletedUserId.value = id
+        }
+
+        const confirmDelete = () => {
+            const requestOptions = {
+                method: 'POST',
+                headers: { "Authorization": "Bearer " + useCookie('token').value }
+            }
+            postRequest.postRequest(`users/${deletedUserId.value}/delete`, requestOptions, (response) => {
+                if (response.code === 403) {
+                    notAccessMessage.value = response.message
+                    activeMessage.value = true
+                } else {
+                    location.reload()
+                }
+            })
+        }
+
+
+
+        return { edit, deleteUser, confirmDelete, editUser, confirmModal, showModal, activeMessage, notAccessMessage, editModal, editCurrentArray, editError }
+    },
+
+}
+
+
+
+</script>

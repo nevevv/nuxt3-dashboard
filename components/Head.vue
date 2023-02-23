@@ -18,11 +18,12 @@
                     <img src="../static/images/main__head-avatar.png" alt="" />
                 </a>
             </div>
+            <p @click="logout" class="btn btn-dark logout">Logout</p>
         </div>
 
         <div class="main__block-name">
             <i class="bi bi-house-fill" style="color:#008838"></i>
-            <p class="main__block-title">{{ subtitle }}</p>
+            <p  class="main__block-title">{{ subtitle }}</p>
         </div>
     </div>
 </template>
@@ -30,22 +31,45 @@
 <script>
 import { useMainStore } from '~~/store';
 import { useUser } from '../helpers/userName'
-
+import { usePostRequest } from '~~/helpers/POST_REQUESTS';
 export default {
     props: ['text', 'subtitle'],
     setup() {
+        const postRequest = usePostRequest();
         const user = useUser()
         const store = useMainStore();
         const config = useRuntimeConfig();
         const userName = ref('')
+
+
+
+        const logout = async () => {
+            const requestOptions = {
+                method: 'POST',
+                headers: { "Authorization": "Bearer " + useCookie('token').value }
+            } 
+
+            postRequest.postRequest('logout',requestOptions, (response) => {
+                console.log(response);
+                navigateTo('/login')
+            } )
+        }
         
-        return { store, config, userName, user }
+        return { store, config, userName, user,logout }
     },
 
 }
 </script>
 
 <style>
+
+.logout {
+    position: fixed;
+    right: 1%;
+    bottom: 1%;
+    z-index: 1000;
+
+}
 hr {
     margin-top: -7px;
     opacity: 0.1;

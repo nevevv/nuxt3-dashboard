@@ -68,8 +68,8 @@ export default {
                     icons: 'bi bi-person-plus-fill',
                 },
                 {
-                    title: 'Notice Board',
-                    to: '/notice',
+                    title: 'Fields Types List',
+                    to: '/field_types',
                     icons: 'bi bi-chat-dots',
                 },
                 {
