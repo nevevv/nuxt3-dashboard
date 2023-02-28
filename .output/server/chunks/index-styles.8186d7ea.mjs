@@ -1,0 +1,6 @@
+const index_vue_vue_type_style_index_0_scoped_f9743629_lang = '@media screen and (max-width:35.5em){table[data-v-f9743629]{margin-top:20px}table[data-v-f9743629],table td[data-v-f9743629],table th[data-v-f9743629],table tr[data-v-f9743629],table>*[data-v-f9743629]{display:block}table thead[data-v-f9743629]{display:none}table tbody tr[data-v-f9743629]{height:auto;padding:8px 0}table tbody tr td[data-v-f9743629]{margin-bottom:12px;padding-left:45%}table tbody tr td[data-v-f9743629]:last-child{margin-bottom:0}table tbody tr td[data-v-f9743629]:before{font-weight:700;left:10px;position:absolute;top:0;width:40%}table tbody tr td[data-v-f9743629]:first-child:before{content:"ID"}table tbody tr td[data-v-f9743629]:nth-child(2):before{content:"Email"}table tbody tr td[data-v-f9743629]:nth-child(3):before{content:"Name"}table tbody tr td[data-v-f9743629]:nth-child(4):before{content:"Surname"}table tbody tr td[data-v-f9743629]:nth-child(5):before{content:"Start Date"}table tbody tr td[data-v-f9743629]:nth-child(6):before{content:"Department"}table tbody tr td[data-v-f9743629]:nth-child(7):before{content:"Action"}}';
+
+const indexStyles_8186d7ea = [index_vue_vue_type_style_index_0_scoped_f9743629_lang];
+
+export { indexStyles_8186d7ea as default };
+//# sourceMappingURL=index-styles.8186d7ea.mjs.map
