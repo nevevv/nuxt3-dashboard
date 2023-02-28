@@ -1,10 +1,10 @@
 <template>
     <section class="programs__page">
-        <HeadVue text="Roles" subtitle="/ Roles" />
+        <HeadVue text="Service Field" subtitle="/ Service" />
         <div class="main__programs-content">
             <div class="users-content-head">
-                <h3 class="users-content-title">All Roles</h3>
-                <CreateNew :modalName="'role'" :fields="['name', 'display_name', 'description']" :url="api_url" />
+                <h3 class="users-content-title">All Service</h3>
+                <CreateNew :modalName="'service'" :fields="['name', 'field_type_id']" :url="api_url" />
             </div>
             <div class="main__programs-content-block">
                 <div class="main__content-block-head">
@@ -29,8 +29,8 @@
                         <tr>
                             <th class="th">ID</th>
                             <th class="th">Name</th>
-                            <th class="th">Display Name</th>
-                            <th class="th">Description</th>
+                            <th class="th">Default Value</th>
+                            <th class="th">Field type ID</th>
                             <th class="th">Action</th>
                         </tr>
                     </thead>
@@ -38,10 +38,10 @@
                         <tr v-for="list in usersList" :key="list.id">
                             <td>{{ list.id }}</td>
                             <td>{{ list.name }}</td>
-                            <td>{{ list.display_name }}</td>
-                            <td>{{ list.description }}</td>
+                            <td>{{ list.default_value }}</td>
+                            <td>{{ list.field_type_id }}</td>
                             <td style="width:16%">
-                                <Actions :list="list" :fields="['name', 'display_name', 'description']" :url="api_url" />
+                                <Actions :list="list" :fields="['name', 'default_value', 'field_type_id']" :url="api_url" />
                             </td>
                         </tr>
                     </tbody>
@@ -70,8 +70,7 @@ export default {
     name: 'page',
 
     setup() {
-        const api_url = 'roles'
-
+        const api_url = 'service-fields'
         const getRequest = useGetRequest()
         const usersList = ref([])
         const loading = ref(true)

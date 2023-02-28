@@ -1,11 +1,10 @@
 <template>
     <div>
         <div>
-            <NuxtLink :to="route + '/' + list.id" class="btn" style="background: #008838; color: white;">Show</NuxtLink>
-            <button class="btn btn-danger" style="margin: 0 0 0 10px;" @click="deleteUser(list.id)">Delete</button>
-            <button class="btn btn-warning" style="margin: 0 0 0 10px;" @click="edit(list.id, list)">Edit</button>
+            <NuxtLink :to="url + '/' + list.id" class="btn" style="background: #008838; color: white;">Show</NuxtLink>
+            <button class="btn btn-danger" style="margin: 0 0 0 10px;" @click="deleteUser(list.id, url)">Delete</button>
+            <button class="btn btn-warning" style="margin: 0 0 0 10px;" @click="edit(list.id, list, url)">Edit</button>
         </div>
-
 
         <Modal v-if="confirmModal">
             <p class="text-center fs-3">Do you really want to delete the user?</p>
@@ -18,9 +17,9 @@
         <Modal v-if="editModal">
             <p class="fs-3 text-center">Edit User</p>
 
-            <div class="d-flex flex-column align-items-start gap-2" v-for="field in fields" :key="field.id"> 
-               
-                <label >{{ $t(field) }}</label>
+            <div class="d-flex flex-column align-items-start gap-2" v-for="field in fields" :key="field.id">
+
+                <label>{{ $t(field) }}</label>
 
                 <input type="text" v-model="editCurrentArray[field]" />
 
@@ -40,7 +39,7 @@
 import { usePostRequest } from '~~/helpers/POST_REQUESTS';
 
 export default {
-    props: ['list', 'route', 'fields'],
+    props: ['list', 'fields', 'url'],
 
     setup() {
         const postRequest = usePostRequest();
@@ -53,11 +52,13 @@ export default {
         const editModal = ref(false)
         const currentId = ref('')
         const editError = ref('')
+        const link = ref('')
 
-        const edit = (id, list) => {
+        const edit = (id, list, url) => {
             editModal.value = true
             currentId.value = id
             editCurrentArray.value = Object.assign({}, list)
+            link.value = url
         }
         const editUser = (fields) => {
             const arr = [];
@@ -66,14 +67,14 @@ export default {
                 arr[field] = editCurrentArray.value[field]
             })
 
-            let {...obj} = arr;
+            let { ...obj } = arr;
 
             const requestOptions = {
                 method: 'POST',
                 body: obj,
                 headers: { "Authorization": "Bearer " + useCookie('token').value }
             }
-            postRequest.postRequest(`users/${currentId.value}/update`, requestOptions, (response) => {
+            postRequest.postRequest(`${link.value}/${currentId.value}/update`, requestOptions, (response) => {
                 if (response.success) {
                     location.reload()
                 } else {
@@ -82,9 +83,11 @@ export default {
             })
         }
 
-        const deleteUser = (id) => {
+        const deleteUser = (id, url) => {
             confirmModal.value = !confirmModal.value
             deletedUserId.value = id
+            link.value = url
+
         }
 
         const confirmDelete = () => {
@@ -92,7 +95,7 @@ export default {
                 method: 'POST',
                 headers: { "Authorization": "Bearer " + useCookie('token').value }
             }
-            postRequest.postRequest(`users/${deletedUserId.value}/delete`, requestOptions, (response) => {
+            postRequest.postRequest(`${link.value}/${deletedUserId.value}/delete`, requestOptions, (response) => {
                 if (response.code === 403) {
                     notAccessMessage.value = response.message
                     activeMessage.value = true

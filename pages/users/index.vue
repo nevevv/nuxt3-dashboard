@@ -4,10 +4,7 @@
         <div class="main__programs-content">
             <div class="users-content-head">
                 <h3 class="users-content-title">All users</h3>
-                <button class="main__programs-content-btn modalBtn" @click="showModal = !showModal">
-                    <i class="bi bi-plus plus-icon"></i>
-                    Create a New User
-                </button>
+                <CreateNew :modalName="'user'" :fields="['login', 'password', 'full_name', 'role[]']" :url="api_url" />
             </div>
             <div class="main__programs-content-block">
                 <div class="main__content-block-head">
@@ -42,12 +39,9 @@
                             <td>{{ list.full_name }}</td>
                             <td>{{ list.login }}</td>
                             <td style="width:16%">
-                                <NuxtLink :to="'/users/' + list.id" class="btn"
-                                    style="background: #008838; color: white;">Show</NuxtLink>
-                                <button class="btn btn-danger" style="margin: 0 0 0 10px;"
-                                    @click="deleteUser(list.id)">Delete</button>
-                                <button class="btn btn-warning" style="margin: 0 0 0 10px;"
-                                    @click="edit(list.id, list)">Edit</button>
+                                <Actions :list="list" :fields="['login', 'password', 'full_name', 'role[]']"
+                                    :url="api_url" />
+
                             </td>
                         </tr>
                     </tbody>
@@ -55,63 +49,15 @@
                 <Loader v-else />
             </div>
         </div>
-        <Modal v-if="showModal">
-            <p class="fs-3 text-center">Create new User</p>
-            <input type="text" placeholder="Login" v-model="creatableUsersData.login" />
-            <input type="text" placeholder="Password" v-model="creatableUsersData.password" />
-            <input type="text" placeholder="Full name" v-model="creatableUsersData.full_name" />
-            <input type="text" placeholder="Role" v-model="creatableUsersData.role" />
-            <p style="color: red ;">{{ requestError }}</p>
-            <div>
-                <button class="btn btn-danger" @click="showModal = !showModal">Cancel</button>
-                <button class="btn btn-primary" @click.prevent="createNewUser">Create</button>
-            </div>
-        </Modal>
-        <Modal v-if="confirmModal">
-            <p class="text-center fs-3">Do you really want to delete the user?</p>
-            <div>
-                <button class="btn btn-primary" @click.prevent="confirmModal = !confirmModal">Cancel</button>
-                <button class="btn btn-danger" @click.prevent="confirmDelete">Delete</button>
-            </div>
-            <p class="text-danger text-center" :class="{ 'd-none': !activeMessage }">{{ notAccessMessage }}</p>
-            <p></p>
-        </Modal>
-        <Modal v-if="editModal">
-            <p class="fs-3 text-center">Edit User</p>
-            <div class="d-flex flex-column align-items-start gap-2">
-                <label>Login</label>
-                <input type="text" v-model="editCurrentArray.login" />
-            </div>
-            <div class="d-flex flex-column align-items-start gap-2">
-                <label>Password</label>
-                <input type="text" v-model="editCurrentArray.password" />
-            </div>
-
-            <div class="d-flex flex-column align-items-start gap-2">
-                <label>Full name</label>
-                <input type="text" v-model="editCurrentArray.full_name" />
-            </div>
-
-            <div class="d-flex flex-column align-items-start gap-2">
-                <label>Role</label>
-                <input type="text" v-model="editCurrentArray.role" />
-            </div>
-
-            <p style="color: red ;">{{ editError }}</p>
-            <div>
-                <button class="btn btn-danger" @click="editModal = !editModal">Cancel</button>
-                <button class="btn btn-primary" @click.prevent="editUser">Edit</button>
-            </div>
-        </Modal>
     </section>
 </template>
 
 <script>
 import HeadVue from '~~/components/Head.vue';
-import { onMounted } from 'vue';
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import Loader from '~~/components/Loader.vue';
-import { usePostRequest } from '~~/helpers/POST_REQUESTS';
+import Actions from '~~/components/Actions.vue'
+import CreateNew from '~~/components/CreateNew.vue'
 
 definePageMeta({
     middleware: ['guest'],
@@ -124,26 +70,11 @@ export default {
     name: 'page',
 
     setup() {
+        const api_url = 'users'
         const getRequest = useGetRequest()
-        const postRequest = usePostRequest()
         const usersList = ref([])
-        const editCurrentArray = ref([])
-        const activeMessage = ref(false)
-        const notAccessMessage = ref('')
-        const deletedUserId = ref('')
-        const confirmModal = ref(false)
-        const showModal = ref(false)
         const loading = ref(true)
-        const requestError = ref('')
-        const editError = ref('')
-        const editModal = ref(false)
-        const currentId = ref('')
-        const creatableUsersData = reactive({
-            login: '',
-            password: '',
-            full_name: '',
-            role: ''
-        })
+
 
         const getUsersData = async () => {
             const requestOptions = {
@@ -153,77 +84,21 @@ export default {
                     "Authorization": "Bearer " + useCookie('token').value,
                 }
             }
-            getRequest.getRequest('users', requestOptions, (response) => {
+            getRequest.getRequest(api_url, requestOptions, (response) => {
                 usersList.value = response.data
                 loading.value = false
             })
         }
 
-        const createNewUser = async () => {
-            const requestOptions = {
-                method: 'POST',
-                body: { "login": creatableUsersData.login, "password": creatableUsersData.password, "full_name": creatableUsersData.full_name, "roles[]": creatableUsersData.role },
-                headers: { "Authorization": "Bearer " + useCookie('token').value }
-            }
-            postRequest.postRequest('users/create', requestOptions, (response) => {
-                console.log(response)
-                if (response.success) {
-                    location.reload()
-                } else {
-                    requestError.value = response.message
-                }
-            })
-        }
-
-        const deleteUser = (id) => {
-            confirmModal.value = !confirmModal.value
-            deletedUserId.value = id
-        }
-
-        const edit = (id, list) => {
-            editModal.value = true
-            currentId.value = id
-            editCurrentArray.value = Object.assign({}, list)
-        }
-
-        const confirmDelete = () => {
-            const requestOptions = {
-                method: 'POST',
-                headers: { "Authorization": "Bearer " + useCookie('token').value }
-            }
-            postRequest.postRequest(`users/${deletedUserId.value}/delete`, requestOptions, (response) => {
-                if (response.code === 403) {
-                    notAccessMessage.value = response.message
-                    activeMessage.value = true
-                } else {
-                    location.reload()
-                }
-            })
-        }
-
-        const editUser = () => {
-            const requestOptions = {
-                method: 'POST',
-                body: { "login": editCurrentArray.value.login, "password": editCurrentArray.value.password, "full_name": editCurrentArray.value.full_name, "roles[]": editCurrentArray.value.role },
-                headers: { "Authorization": "Bearer " + useCookie('token').value }
-            }
-            postRequest.postRequest(`users/${currentId.value}/update`, requestOptions, (response) => {
-                if (response.success) {
-                    location.reload()
-                } else {
-                    editError.value = response.message
-                }
-            })
-        }
         onMounted(() => {
             getUsersData()
         })
 
-        return { usersList, loading, creatableUsersData, createNewUser, showModal, requestError, deleteUser, confirmDelete, confirmModal, notAccessMessage, activeMessage, editUser, editError, edit, editModal, editCurrentArray }
+        return { usersList, loading, api_url }
     },
 
     components: {
-        HeadVue, Loader
+        HeadVue, Loader, Actions, CreateNew
     },
 }
 

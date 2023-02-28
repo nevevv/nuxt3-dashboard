@@ -1,18 +1,19 @@
 <template>
     <section class="programs__page">
-        <HeadVue text="Permissions" subtitle="/ Permissions list" />
+        <HeadVue text="Permissions" subtitle="/ Services list" />
         <div class="main__programs-content">
             <div class="main__programs-content">
                 <div class="users-content-head">
-                    <h3 class="users-content-title">All Permissions</h3>
-                    <CreateNew :modalName="'permission'" :fields="['name', 'display_name', 'description']" :url="api_url" />
+                    <h3 class="users-content-title">All Services</h3>
+                    <CreateNew :modalName="'service'" :fields="['name', 'description', 'price', 'size', 'display_name']"
+                        :url="api_url" />
                 </div>
 
             </div>
             <div class="main__programs-content-block mb-5">
                 <div class="main__content-block-head">
                     <h3 class="main__block-head-title">
-                        Permissions List
+                        Services List
                     </h3>
                     <div class="main__block-head-item">
                         <div class="main__block-head-input">
@@ -36,8 +37,11 @@
                         <tr>
                             <th class="th">ID</th>
                             <th class="th">Name</th>
-                            <th class="th">Display Name</th>
                             <th class="th">Description</th>
+                            <th class="th">Price</th>
+                            <th class="th">Size1</th>
+                            <th class="th">Size</th>
+                            <th class="th">Display Name</th>
                             <th class="th">Action</th>
                         </tr>
                     </thead>
@@ -45,11 +49,15 @@
                         <tr v-for="list in usersList.data" :key="list.id">
                             <td>{{ list.id }}</td>
                             <td>{{ list.name }}</td>
-                            <td>{{ list.display_name }}</td>
                             <td>{{ list.description }}</td>
+                            <td>{{ list.price }}</td>
+                            <td>{{ list.size1 }}</td>
+                            <td>{{ list.size }}</td>
+                            <td>{{ list.display_name }}</td>
 
                             <td style="width:16%">
-                                <Actions :list="list" :fields="['name', 'display_name', 'description']" :url="api_url" />
+                                <Actions :list="list" :fields="['name', 'description', 'price', 'display_name', 'size']"
+                                    :url="api_url" />
                             </td>
                         </tr>
                     </tbody>
@@ -59,28 +67,17 @@
                     <div class="main__programs-sub-item">
                         <p>{{ usersList.to }} of {{ usersList.total }} items</p>
                     </div>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination" total-items="1000" items-per-page="10">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only"></span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                            <li class="page-item"><a class="page-link" href="#">6</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                    <div class="main__programs-sub-item">
+                        <select name="" id="" @change="changePage($event)">
+                            <option :value="item" v-for="item in usersList.last_page" :key="item">{{ item }}</option>
+                        </select>
+                        <p>of {{ usersList.last_page }} pages</p>
+
+                        <div class="main__programs-sub-chevrons">
+                            <i class="fa-solid fa-chevron-left"></i>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -106,11 +103,13 @@ definePageMeta({
 
 export default {
     setup() {
-        const api_url = 'permissions'
+
+        const api_url = 'services'
         const getRequest = useGetRequest()
         const usersList = ref([])
         const loading = ref(true)
         const currentPage = ref(1)
+
 
         const getUsersData = async (pageId) => {
             const requestOptions = {

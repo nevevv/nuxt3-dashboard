@@ -7,8 +7,7 @@
 
         </div>
         <div class="header__nav-list">
-            <nuxt-link :to="link.to" v-for="link in links" :key="link.id" class="header__nav-blocks"
-                active-class="active">
+            <nuxt-link :to="link.to" v-for="link in links" :key="link.id" class="header__nav-blocks" active-class="active">
                 <div class="header__nav-blocks-item">
                     <i :class=link.icons></i>
                     <p v-if="store.activeSidebar">{{ link.title }}</p>
@@ -23,8 +22,8 @@
 
         </div>
         <div class="header__nav-list">
-            <nuxt-link :to="link.to" v-for="link in links" :key="link.id" class="header__nav-blocks"
-                active-class="active" @click.prevent="closeMenu()">
+            <nuxt-link :to="link.to" v-for="link in links" :key="link.id" class="header__nav-blocks" active-class="active"
+                @click.prevent="closeMenu()">
                 <div class="header__nav-blocks-item">
                     <i :class=link.icons></i>
                     <p>{{ link.title }}</p>
@@ -78,13 +77,13 @@ export default {
                     icons: 'bi bi-download'
                 },
                 {
-                    title: 'Scholarship and Ranking',
-                    to: '/scholarship',
+                    title: 'Options',
+                    to: '/service-fields',
                     icons: 'bi bi-award'
                 },
                 {
-                    title: 'Academic Years',
-                    to: '/academic',
+                    title: 'Services',
+                    to: '/services',
                     icons: 'bi bi-calendar'
                 },
                 {

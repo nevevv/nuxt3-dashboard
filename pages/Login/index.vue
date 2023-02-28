@@ -90,8 +90,7 @@ export default {
                 }
             }
 
-
-            getRequest.getRequest('me', requestOptions, (response) => {
+            getRequest.getRequest('users/me', requestOptions, (response) => {
                 document.cookie = `personName=${response.data.full_name}`
                 user.userName = response.data.full_name
             })

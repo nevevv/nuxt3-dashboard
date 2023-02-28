@@ -1,13 +1,13 @@
 <template>
     <div>
         <div>
-            <button class="main__programs-content-btn modalBtn" @click="showCreateModal(fields)">
+            <button class="main__programs-content-btn modalBtn" @click="showCreateModal(fields,url)">
                 <i class="bi bi-plus plus-icon"></i>
-                Create a New User
+                Create a new {{ modalName }}
             </button>
         </div>
         <Modal v-if="showModal">
-            <p class="fs-3 text-center">Create new </p>
+            <p class="fs-3 text-center">Create new {{ modalName }} </p>
 
             <div class="d-flex flex-column align-items-start gap-2" v-for="field in fields" :key="field.id">
 
@@ -31,15 +31,16 @@
 import { usePostRequest } from '~~/helpers/POST_REQUESTS';
 
 export default {
-    props: ['fields'],
+    props: ['fields','modalName','url'],
     setup() {
         const postRequest = usePostRequest()
         const showModal = ref(false)
         const requestError = ref('')
         const fieldsObj = ref([])
+        const link = ref('')
 
 
-        const showCreateModal = (fields) => {
+        const showCreateModal = (fields,url) => {
             showModal.value = !showModal.value
             const arr = [];
             fields.forEach((field) => {
@@ -47,17 +48,18 @@ export default {
             })
             let { ...obj } = arr
             fieldsObj.value = obj
+            link.value = url
+        
         }
 
 
         const createNewUser = async () => {
-            console.log()
             const requestOptions = {
                 method: 'POST',
                 body: fieldsObj.value,
                 headers: { "Authorization": "Bearer " + useCookie('token').value }
             }
-            postRequest.postRequest('users/create', requestOptions, (response) => {
+            postRequest.postRequest(`${link.value}/create`, requestOptions, (response) => {
                 if (response.success) {
                     location.reload()
                 } else {

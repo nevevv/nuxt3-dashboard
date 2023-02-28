@@ -881,6 +881,7 @@ hr {
   bottom: 0;
   background: rgba(163, 163, 163, 0.2);
   backdrop-filter: blur(4px);
+  z-index: 1000;
 }
 
 .modal-programs {
@@ -891,6 +892,7 @@ hr {
   top: 12vw;
   transform: translate(-50%);
   width: 448px;
+  z-index: 2000;
 }
 
 .modal-programs-head {

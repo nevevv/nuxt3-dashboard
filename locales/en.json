@@ -30,5 +30,14 @@
     "paidContracts": "Paid contracts",
     "noNoti": "No Notification Yet?",
     "addNewNotiAndInform": "Add New Notice and inform your students",
-    "newNotice": "New Notice"
+    "newNotice": "New Notice",
+
+    "login": "Login",
+    "password": "Password",
+    "full_name": "Full Name",
+    "role[]":"Role",
+
+    "name": "Name",
+    "display_name": "Display Name",
+    "description": "Description"
 }

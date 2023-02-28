@@ -1,63 +1,52 @@
 <template>
     <section class="programs__page">
-        <HeadVue text="Roles" subtitle="/ Roles" />
+
+        <HeadVue text="Fields Types" subtitle="/ Fields" />
+
         <div class="main__programs-content">
             <div class="users-content-head">
-                <h3 class="users-content-title">All Roles</h3>
-                <CreateNew :modalName="'role'" :fields="['name', 'display_name', 'description']" :url="api_url" />
+                <h3 class="users-content-title">Fields Types</h3>
             </div>
             <div class="main__programs-content-block">
                 <div class="main__content-block-head">
-                    <h3 class="main__block-head-title">All Roles</h3>
+                    <h3 class="main__block-head-title">Fields Types List</h3>
                     <div class="main__block-head-item">
                         <div class="main__block-head-input">
                             <i class="bi bi-search"></i>
                             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         </div>
                         <button>
-                            <i class="bi bi-funnel"></i>
-                            Filter
-                        </button>
-                        <button>
-                            <i class="bi bi-calendar"></i>
-                            Filter
+                            <i class="bi bi-funnel"></i> Filter
                         </button>
                     </div>
                 </div>
+
                 <table v-if="!loading">
                     <thead>
                         <tr>
                             <th class="th">ID</th>
                             <th class="th">Name</th>
-                            <th class="th">Display Name</th>
-                            <th class="th">Description</th>
-                            <th class="th">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="list in usersList" :key="list.id">
+                        <tr v-for="list in dataList" :key="list.id">
                             <td>{{ list.id }}</td>
                             <td>{{ list.name }}</td>
-                            <td>{{ list.display_name }}</td>
-                            <td>{{ list.description }}</td>
-                            <td style="width:16%">
-                                <Actions :list="list" :fields="['name', 'display_name', 'description']" :url="api_url" />
-                            </td>
+                           
                         </tr>
                     </tbody>
                 </table>
-                <Loader v-else />
+                <Loader v-else/>
             </div>
         </div>
     </section>
 </template>
 
+
 <script>
-import HeadVue from '~~/components/Head.vue';
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
-import Loader from '~~/components/Loader.vue';
-import Actions from '~~/components/Actions.vue'
-import CreateNew from '~~/components/CreateNew.vue'
+import  Loader  from '~~/components/Loader.vue';
+
 
 definePageMeta({
     middleware: ['guest'],
@@ -66,17 +55,18 @@ definePageMeta({
     }
 })
 
+import HeadVue from '~~/components/Head.vue';
 export default {
-    name: 'page',
+    components: {
+        HeadVue
+    },
 
     setup() {
-        const api_url = 'roles'
-
         const getRequest = useGetRequest()
-        const usersList = ref([])
+        const dataList = ref([])
         const loading = ref(true)
 
-        const getUsersData = async () => {
+        const getData = async () => {
             const requestOptions = {
                 headers: {
                     'Content-type': 'application/json',
@@ -84,37 +74,30 @@ export default {
                     "Authorization": "Bearer " + useCookie('token').value,
                 }
             }
-            getRequest.getRequest(api_url, requestOptions, (response) => {
-                usersList.value = response.data
+            getRequest.getRequest('field-types',requestOptions, (response) => {
+                dataList.value = response.data
                 loading.value = false
             })
         }
-
         onMounted(() => {
-            getUsersData()
+            getData()
         })
 
-        return { usersList, loading, api_url }
-    },
 
-    components: {
-        HeadVue, Loader, Actions, CreateNew
+        return {dataList,loading}
     },
+    components: {
+        HeadVue,
+        Loader
+    }
 }
 
 </script>
 
-
 <style lang="scss" scoped>
 $gl-xs : "screen and (max-width: 35.5em)"; // up to 568px
 
-.modal-programs-form {
-    gap: 8px;
-}
-
-
 @media #{$gl-xs} {
-
     table {
         display: block;
         margin-top: 20px;
@@ -151,18 +134,30 @@ $gl-xs : "screen and (max-width: 35.5em)"; // up to 568px
                 }
 
                 &:nth-child(1):before {
-                    content: "Mail";
+                    content: "ID";
                 }
 
                 &:nth-child(2):before {
-                    content: "Name";
+                    content: "Mail";
                 }
 
                 &:nth-child(3):before {
-                    content: "Surname";
+                    content: "Name";
                 }
 
                 &:nth-child(4):before {
+                    content: "Surname";
+                }
+
+                &:nth-child(5):before {
+                    content: "Number";
+                }
+
+                &:nth-child(6):before {
+                    content: "Department";
+                }
+
+                &:nth-child(7):before {
                     content: "Action";
                 }
             }
