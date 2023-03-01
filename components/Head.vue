@@ -12,9 +12,6 @@
                 </select>
                 <p>{{ user.userName || useCookie('personName').value }}</p>
                 <a href="#!">
-                    <i class="bi bi-bell-fill" style="color:#E92026;"></i>
-                </a>
-                <a href="#!">
                     <img src="../static/images/main__head-avatar.png" alt="" />
                 </a>
             </div>
@@ -23,7 +20,7 @@
 
         <div class="main__block-name">
             <i class="bi bi-house-fill" style="color:#008838"></i>
-            <p  class="main__block-title">{{ subtitle }}</p>
+            <p class="main__block-title">{{ subtitle }}</p>
         </div>
     </div>
 </template>
@@ -47,22 +44,21 @@ export default {
             const requestOptions = {
                 method: 'POST',
                 headers: { "Authorization": "Bearer " + useCookie('token').value }
-            } 
+            }
 
-            postRequest.postRequest('logout',requestOptions, (response) => {
+            postRequest.postRequest('logout', requestOptions, (response) => {
                 console.log(response);
                 navigateTo('/login')
-            } )
+            })
         }
-        
-        return { store, config, userName, user,logout }
+
+        return { store, config, userName, user, logout }
     },
 
 }
 </script>
 
 <style>
-
 .logout {
     position: fixed;
     right: 1%;
@@ -70,6 +66,7 @@ export default {
     z-index: 1000;
 
 }
+
 hr {
     margin-top: -7px;
     opacity: 0.1;

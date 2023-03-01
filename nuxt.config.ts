@@ -5,12 +5,10 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: "page", mode: "out-in" },
   },
-  modules: [
-      "@pinia/nuxt",
-  ],
+  modules: ["@pinia/nuxt"],
   runtimeConfig: {
     public: {
-      api_url:process.env.API_URL
-    }
-  }
+      api_url: process.env.API_URL,
+    },
+  },
 });
