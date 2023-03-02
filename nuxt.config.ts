@@ -8,7 +8,7 @@ export default defineNuxtConfig({
       link: [
         {
           rel: "icon",
-          href: '_nuxt/static/images/favicon.png'
+          href: "/favicon.png",
         },
       ],
       script: [
