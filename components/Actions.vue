@@ -1,10 +1,25 @@
 <template>
     <div>
         <div>
-            <NuxtLink :to="url + '/' + list.id" class="btn" style="background: #008838; color: white;">Show</NuxtLink>
-            <button class="btn btn-danger" style="margin: 0 0 0 10px;" @click="deleteUser(list.id, url)">Delete</button>
-            <button class="btn btn-warning" style="margin: 0 0 0 10px;" @click="edit(list.id, list, url)">Edit</button>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle bg-success border-0" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Action
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li>
+                        <NuxtLink :to="url + '/' + list.id" class="dropdown-item">Show
+                        </NuxtLink>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" @click="deleteUser(list.id, url)">Delete</a>
+                    </li>
+                    <li><a class="dropdown-item" @click="edit(list.id, list, url)"> Edit </a>
+                    </li>
+                </ul>
+            </div>
         </div>
+
 
         <Modal v-if="confirmModal">
             <p class="text-center fs-3">Do you really want to delete the user?</p>

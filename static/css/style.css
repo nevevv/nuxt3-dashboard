@@ -1471,9 +1471,6 @@ hr {
     padding-top: 31px;
   } */
 
-  .programs__page .main__head .main__head-title {
-    font-size: 11px;
-  }
 }
 
 @media (max-width: 380px) {

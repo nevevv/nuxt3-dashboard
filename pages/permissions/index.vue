@@ -80,8 +80,6 @@
                     </nav>
                 </div>
             </div>
-
-
         </div>
     </section>
 </template>
@@ -128,10 +126,7 @@ export default {
         }
 
         onMounted(() => {
-            loading.value = true
             getUsersData(currentPage.value)
-            loading.value = true
-
         })
 
         return { getUsersData, usersList, loading, api_url, changePage }
@@ -246,19 +241,19 @@ table {
                 }
 
                 &:nth-child(1):before {
-                    content: "Course Title";
+                    content: "ID";
                 }
 
                 &:nth-child(2):before {
-                    content: "Program";
+                    content: "Name";
                 }
 
                 &:nth-child(3):before {
-                    content: "Degree";
+                    content: "Display Name";
                 }
 
                 &:nth-child(4):before {
-                    content: "Min Credits";
+                    content: "Description";
                 }
 
                 &:nth-child(5):before {

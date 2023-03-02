@@ -16,11 +16,13 @@
                 <form class="login__form">
                     <input type="text" placeholder="ID" v-model="userSendData.login" />
                     <input type="password" placeholder="Password" v-model="userSendData.password" />
+                    <div class="login__foot">
+                        <a class="login__foot-forgot">Forgot password?</a>
+                        <input type="submit" @click="submit()" style="cursor: pointer; background: #e92026;"
+                            class="login__foot-btn">
+                    </div>
                 </form>
-                <div class="login__foot">
-                    <a class="login__foot-forgot">Forgot password?</a>
-                    <a @click="submit()" style="cursor: pointer;" class="login__foot-btn">Submit</a>
-                </div>
+
             </div>
             <Loader v-else />
         </div>
@@ -34,6 +36,8 @@ import { useMainStore } from '~~/store';
 import { useUser } from '~~/helpers/userName'
 import { usePostRequest } from '~~/helpers/POST_REQUESTS';
 import { useGetRequest } from '~~/helpers/GET_REQUESTS'
+
+
 
 export default {
     setup() {
@@ -97,6 +101,7 @@ export default {
 
         }
 
+       
         return { store, config, user, postRequest, error, userSendData, loading, submit }
     },
 

@@ -7,7 +7,8 @@
 
         </div>
         <div class="header__nav-list">
-            <nuxt-link :to="link.to" v-for="link in links" :key="link.id" class="header__nav-blocks" active-class="active">
+            <nuxt-link :to="link.to" @click="exp(link)" v-for="link in links" :key="link.id" class="header__nav-blocks"
+                active-class="active" :class="{ 'flex-column align-items-start': link.submenu }">
                 <div class="header__nav-blocks-item">
                     <i :class=link.icons></i>
                     <p v-if="store.activeSidebar">{{ link.title }}</p>
@@ -40,7 +41,10 @@ import { useMainStore } from '~~/store';
 export default {
     setup() {
         const store = useMainStore()
-        return { store }
+        const exp = (el) => {
+            console.log(el.icons);
+        }
+        return { store, exp }
     },
 
     data() {
@@ -77,9 +81,15 @@ export default {
                     icons: 'bi bi-download'
                 },
                 {
+
                     title: 'Options',
                     to: '/service-fields',
-                    icons: 'bi bi-award'
+                    icons: 'bi bi-gear',
+                    submenu: {
+                        link: '/service-fields/params',
+                        text: 'Parametrs',
+                        parent: 'Options'
+                    },
                 },
                 {
                     title: 'Services',
