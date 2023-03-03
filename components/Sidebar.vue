@@ -7,8 +7,8 @@
 
         </div>
         <div class="header__nav-list">
-            <nuxt-link :to="link.to" @click="exp(link)" v-for="link in links" :key="link.id" class="header__nav-blocks"
-                active-class="active" :class="{ 'flex-column align-items-start': link.submenu }">
+            <nuxt-link :to="link.to" v-for="link in links" :key="link.id" class="header__nav-blocks" active-class="active"
+                :class="{ 'flex-column align-items-start': link.submenu }">
                 <div class="header__nav-blocks-item">
                     <i :class=link.icons></i>
                     <p v-if="store.activeSidebar">{{ link.title }}</p>
@@ -41,10 +41,7 @@ import { useMainStore } from '~~/store';
 export default {
     setup() {
         const store = useMainStore()
-        const exp = (el) => {
-            console.log(el.icons);
-        }
-        return { store, exp }
+        return { store }
     },
 
     data() {
@@ -120,6 +117,8 @@ export default {
             this.store.activeSidebar = !this.store.activeSidebar
         }
     }
+
+
 }
 
 </script>

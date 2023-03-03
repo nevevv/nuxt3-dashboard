@@ -5,12 +5,6 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: "page", mode: "out-in" },
     head: {
-      link: [
-        {
-          rel: "icon",
-          href: "~/static/images/favicon.png",
-        },
-      ],
       script: [
         {
           src: "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js",

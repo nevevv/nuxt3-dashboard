@@ -11,11 +11,14 @@
                     <option value="ru">ru</option>
                 </select>
                 <p>{{ user.userName || useCookie('personName').value }}</p>
-                <a href="#!">
-                    <img src="../static/images/main__head-avatar.png" alt="" />
-                </a>
+                <div class="dropdown">
+                    <img class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                        aria-expanded="false" src="~~/static/images/main__head-avatar.png">
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                        <li><a @click="logout" class="dropdown-item">Logout</a></li>
+                    </ul>
+                </div>
             </div>
-            <p @click="logout" class="btn btn-dark logout">Logout</p>
         </div>
 
         <div class="main__block-name">
@@ -47,7 +50,6 @@ export default {
             }
 
             postRequest.postRequest('logout', requestOptions, (response) => {
-                console.log(response);
                 navigateTo('/login')
             })
         }

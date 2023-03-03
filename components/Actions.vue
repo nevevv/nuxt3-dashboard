@@ -78,7 +78,6 @@ export default {
         const editUser = (fields) => {
             const arr = [];
             fields.forEach(field => {
-                console.log(editCurrentArray.value[field]);
                 arr[field] = editCurrentArray.value[field]
             })
 

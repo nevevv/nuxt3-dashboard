@@ -51,8 +51,12 @@
                             <td>{{ list.name }}</td>
                             <td>{{ list.description }}</td>
                             <td>{{ list.price }}</td>
-                            <td>{{ list.size1 }}</td>
-                            <td>{{ list.size }}</td>
+
+                            <td v-if="list.size1">{{ list.size1 }}</td>
+                            <td v-else>null</td>
+
+                            <td v-if="list.size">{{ list.size }}</td>
+                            <td v-else>null</td>
                             <td>{{ list.display_name }}</td>
 
                             <td style="width:16%">
@@ -63,22 +67,7 @@
                     </tbody>
                 </table>
                 <Loader v-else />
-                <div class="main__programs-sub">
-                    <div class="main__programs-sub-item">
-                        <p>{{ usersList.to }} of {{ usersList.total }} items</p>
-                    </div>
-                    <div class="main__programs-sub-item">
-                        <select name="" id="" @change="changePage($event)">
-                            <option :value="item" v-for="item in usersList.last_page" :key="item">{{ item }}</option>
-                        </select>
-                        <p>of {{ usersList.last_page }} pages</p>
-
-                        <div class="main__programs-sub-chevrons">
-                            <i class="fa-solid fa-chevron-left"></i>
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </div>
-                    </div>
-                </div>
+                <Pagination :arr="usersList" @pageChange="getUsersData" />
             </div>
 
 
@@ -111,7 +100,8 @@ export default {
         const currentPage = ref(1)
 
 
-        const getUsersData = async (pageId) => {
+        const getUsersData = (pageId) => {
+            loading.value = true
             const requestOptions = {
                 headers: {
                     'Content-type': 'application/json',
@@ -122,22 +112,15 @@ export default {
             getRequest.getRequest(`${api_url}?list_type=pagination&page=${pageId}`, requestOptions, (response) => {
                 usersList.value = response.data
                 loading.value = false
-                console.log(response.data);
+
             })
         }
-
-        const changePage = (e) => {
-            getUsersData(e.target.value)
-        }
-
         onMounted(() => {
-            loading.value = true
             getUsersData(currentPage.value)
-            loading.value = true
 
         })
 
-        return { getUsersData, usersList, loading, api_url, changePage }
+        return { getUsersData, usersList, loading, api_url }
 
     },
     components: {
@@ -249,23 +232,31 @@ table {
                 }
 
                 &:nth-child(1):before {
-                    content: "Course Title";
+                    content: "ID";
                 }
 
                 &:nth-child(2):before {
-                    content: "Program";
+                    content: "Name";
                 }
 
                 &:nth-child(3):before {
-                    content: "Degree";
+                    content: "Description";
                 }
 
                 &:nth-child(4):before {
-                    content: "Min Credits";
+                    content: "Price";
                 }
 
                 &:nth-child(5):before {
-                    content: "Action";
+                    content: "Size1";
+                }
+
+                &:nth-child(6):before {
+                    content: "Size";
+                }
+
+                &:nth-child(7):before {
+                    content: "Display Name";
                 }
             }
         }

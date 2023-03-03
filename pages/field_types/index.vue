@@ -138,27 +138,7 @@ $gl-xs : "screen and (max-width: 35.5em)"; // up to 568px
                 }
 
                 &:nth-child(2):before {
-                    content: "Mail";
-                }
-
-                &:nth-child(3):before {
                     content: "Name";
-                }
-
-                &:nth-child(4):before {
-                    content: "Surname";
-                }
-
-                &:nth-child(5):before {
-                    content: "Number";
-                }
-
-                &:nth-child(6):before {
-                    content: "Department";
-                }
-
-                &:nth-child(7):before {
-                    content: "Action";
                 }
             }
         }

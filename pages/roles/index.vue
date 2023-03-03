@@ -151,7 +151,7 @@ $gl-xs : "screen and (max-width: 35.5em)"; // up to 568px
                 }
 
                 &:nth-child(1):before {
-                    content: "Mail";
+                    content: "ID";
                 }
 
                 &:nth-child(2):before {
@@ -159,11 +159,11 @@ $gl-xs : "screen and (max-width: 35.5em)"; // up to 568px
                 }
 
                 &:nth-child(3):before {
-                    content: "Surname";
+                    content: "Display Name";
                 }
 
                 &:nth-child(4):before {
-                    content: "Action";
+                    content: "Desription";
                 }
             }
         }

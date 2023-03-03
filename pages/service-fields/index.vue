@@ -3,12 +3,12 @@
         <HeadVue text="Service Field" subtitle="/ Service" />
         <div class="main__programs-content">
             <div class="users-content-head">
-                <h3 class="users-content-title">All Service</h3>
+                <h3 class="users-content-title">All Services</h3>
                 <CreateNew :modalName="'service'" :fields="['name', 'field_type_id']" :url="api_url" />
             </div>
             <div class="main__programs-content-block">
                 <div class="main__content-block-head">
-                    <h3 class="main__block-head-title">All Roles</h3>
+                    <h3 class="main__block-head-title">All Services</h3>
                     <div class="main__block-head-item">
                         <div class="main__block-head-input">
                             <i class="bi bi-search"></i>
@@ -75,7 +75,7 @@ export default {
         const usersList = ref([])
         const loading = ref(true)
 
-        const getUsersData = async () => {
+        const getUsersData = () => {
             const requestOptions = {
                 headers: {
                     'Content-type': 'application/json',
@@ -84,6 +84,7 @@ export default {
                 }
             }
             getRequest.getRequest(api_url, requestOptions, (response) => {
+                console.log(response);
                 usersList.value = response.data
                 loading.value = false
             })
@@ -150,20 +151,20 @@ $gl-xs : "screen and (max-width: 35.5em)"; // up to 568px
                 }
 
                 &:nth-child(1):before {
-                    content: "Mail";
+                    content: "ID";
                 }
 
                 &:nth-child(2):before {
                     content: "Name";
                 }
-
                 &:nth-child(3):before {
-                    content: "Surname";
+                    content: "Field Type Id";
                 }
-
-                &:nth-child(4):before {
+                &:nth-child(5):before {
                     content: "Action";
                 }
+
+               
             }
         }
     }

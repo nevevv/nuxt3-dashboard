@@ -48,37 +48,14 @@
                             <td>{{ list.display_name }}</td>
                             <td>{{ list.description }}</td>
 
-                            <td style="width:16%">
+                            <td style="width:7%">
                                 <Actions :list="list" :fields="['name', 'display_name', 'description']" :url="api_url" />
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <Loader v-else />
-                <div class="main__programs-sub">
-                    <div class="main__programs-sub-item">
-                        <p>{{ usersList.to }} of {{ usersList.total }} items</p>
-                    </div>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination" total-items="1000" items-per-page="10">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only"></span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                <Pagination :arr="usersList" @pageChange="getUsersData" />
             </div>
         </div>
     </section>
@@ -91,6 +68,7 @@ import Loader from '~~/components/Loader.vue';
 import Actions from '~~/components/Actions.vue'
 import CreateNew from '~~/components/CreateNew.vue'
 import { useGetRequest } from '~~/helpers/GET_REQUESTS'
+import Pagination from '~~/components/Pagination.vue';
 
 definePageMeta({
     middleware: ['guest'],
@@ -107,7 +85,9 @@ export default {
         const loading = ref(true)
         const currentPage = ref(1)
 
-        const getUsersData = async (pageId) => {
+        const getUsersData = (pageId) => {
+            loading.value = true
+
             const requestOptions = {
                 headers: {
                     'Content-type': 'application/json',
@@ -119,17 +99,14 @@ export default {
                 usersList.value = response.data
                 loading.value = false
             })
-        }
 
-        const changePage = (e) => {
-            getUsersData(e.target.value)
         }
 
         onMounted(() => {
             getUsersData(currentPage.value)
         })
 
-        return { getUsersData, usersList, loading, api_url, changePage }
+        return { getUsersData, usersList, loading, api_url }
 
     },
     components: {
@@ -137,7 +114,8 @@ export default {
         Modal,
         Loader,
         Actions,
-        CreateNew
+        CreateNew,
+        Pagination
     },
 
 
