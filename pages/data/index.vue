@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="export__content-upl">
-                        <img src="@/static/images/Upload-white.png">
+                        <img src="@/assets/images/Upload-white.png">
                         <p class="export__content-sub">Export XLSX</p>
                     </div>
 
@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="export__content-upl">
-                        <img src="@/static/images/Upload-white.png">
+                        <img src="@/assets/images/Upload-white.png">
                         <p class="export__content-sub">Export XLSX</p>
                     </div>
 
@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="export__content-upl">
-                        <img src="@/static/images/Upload-white.png">
+                        <img src="@/assets/images/Upload-white.png">
                         <p class="export__content-sub">Export XLSX</p>
                     </div>
 
@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="export__content-upl">
-                        <img src="@/static/images/Upload-white.png">
+                        <img src="@/assets/images/Upload-white.png">
                         <p class="export__content-sub">Export XLSX</p>
                     </div>
 
@@ -66,7 +66,7 @@
                     </div>
 
                     <div class="export__content-upl">
-                        <img src="@/static/images/Upload-white.png">
+                        <img src="@/assets/images/Upload-white.png">
                         <p class="export__content-sub">Export XLSX</p>
                     </div>
 
@@ -78,18 +78,11 @@
                     </div>
 
                     <div class="export__content-upl">
-                        <img src="@/static/images/Upload-white.png">
+                        <img src="@/assets/images/Upload-white.png">
                         <p class="export__content-sub">Export XLSX</p>
                     </div>
-
-
                 </div>
-
-
             </div>
-            <!--            <img src="@/static/images/qr.jpg" style="margin-top: 20px" class="img" alt="">-->
-
-
         </div>
 
     </section>

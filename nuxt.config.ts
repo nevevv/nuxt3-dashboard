@@ -1,10 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 export default defineNuxtConfig({
-  css: ["~~/static/css/style.css"],
   app: {
     pageTransition: { name: "page", mode: "out-in" },
     head: {
+      link: [
+        {
+          rel: "icon",
+          type: "image/png",
+          href: "/favicon.png",
+        },
+      ],
       script: [
         {
           src: "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js",
@@ -12,6 +18,7 @@ export default defineNuxtConfig({
       ],
     },
   },
+  css: ["assets/css/style.css"],
   modules: ["@pinia/nuxt"],
   runtimeConfig: {
     public: {

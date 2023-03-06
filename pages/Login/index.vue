@@ -7,8 +7,8 @@
             <div class="login" v-if="!loading">
                 <div class="login__head">
                     <div class="login__head-img">
-                        <img src="@/static/images/logo-icon.png" alt="" />
-                        <img src="@/static/images/logo-text.png" alt="" />
+                        <img src="@/assets/images/logo-icon.png" alt="" />
+                        <img src="@/assets/images/logo-text.png" alt="" />
                     </div>
                 </div>
                 <p style="color: red;">{{ error }}</p>

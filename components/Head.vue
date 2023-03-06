@@ -13,7 +13,7 @@
                 <p>{{ user.userName || useCookie('personName').value }}</p>
                 <div class="dropdown">
                     <img class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                        aria-expanded="false" src="~~/static/images/main__head-avatar.png">
+                        aria-expanded="false" src="../assets/images/main__head-avatar.png">
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
                         <li><a @click="logout" class="dropdown-item">Logout</a></li>
                     </ul>

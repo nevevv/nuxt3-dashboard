@@ -5,7 +5,7 @@
             <div class="main__content-items">
                 <div class="main__content-head">
                     <div class="main__content-icon">
-                        <img src="~~/static/images/main__content-head-1.svg" alt="" />
+                        <img src="~~/assets/images/main__content-head-1.svg" alt="" />
                     </div>
                     <select>
                         <option value="">2022</option>
@@ -25,7 +25,7 @@
             <div class="main__content-items">
                 <div class="main__content-head">
                     <div class="main__content-icon">
-                        <img src="~~/static/images/main__content-head-2.svg" alt="" />
+                        <img src="~~/assets/images/main__content-head-2.svg" alt="" />
                     </div>
                     <select>
                         <option value="">2022</option>
@@ -45,7 +45,7 @@
             <div class="main__content-items">
                 <div class="main__content-head">
                     <div class="main__content-icon">
-                        <img src="~~/static/images/main__content-head-3.svg" alt="" />
+                        <img src="~~/assets/images/main__content-head-3.svg" alt="" />
                     </div>
                     <select>
                         <option value="">2022</option>
@@ -77,12 +77,12 @@
                     <p class="main__chart-gender"><span></span>{{ $t('males') }}</p>
                     <p class="main__chart-gender"><span></span>{{ $t('females') }}</p>
                 </div>
-                <img width="200" class="main__chart-img" height="200" src="~~/static/images/chart-gender.png" alt="" />
+                <img width="200" class="main__chart-img" height="200" src="~~/assets/images/chart-gender.png" alt="" />
             </div>
             <div class="main__content-items">
                 <div class="main__content-head">
                     <div class="main__content-icon">
-                        <img src="~~/static/images/main__content-head-4.svg" alt="" />
+                        <img src="~~/assets/images/main__content-head-4.svg" alt="" />
                     </div>
                 </div>
                 <div class="main__content-info other-block">
@@ -99,7 +99,7 @@
             <div class="main__content-items">
                 <div class="main__content-head">
                     <div class="main__content-icon">
-                        <img src="~~/static/images/main__content-head-5.svg" alt="" />
+                        <img src="~~/assets/images/main__content-head-5.svg" alt="" />
                     </div>
                     <select>
                         <option value="">2022</option>
@@ -121,7 +121,7 @@
             <div class="main__content-items">
                 <h3 class="main__content-title">{{ $t('noticeBoard') }}</h3>
                 <div class="main__content-notice">
-                    <img src="~~/static/images/iconContainer.png" alt="" />
+                    <img src="~~/assets/images/iconContainer.png" alt="" />
                     <h3>{{ $t('noNoti') }}</h3>
                     <p>{{ $t('addNewNotiAndInform') }}</p>
                     <button>

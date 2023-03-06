@@ -1,7 +1,7 @@
 <template>
     <div class="header" :class="{ hidden: !store.activeSidebar }">
         <Sidebar />
-        <slot />
+        <NuxtPage />
     </div>
 </template>
 
@@ -9,6 +9,7 @@
 
 
 <script>
+
 
 
 import SidebarVue from '@/components/Sidebar.vue';

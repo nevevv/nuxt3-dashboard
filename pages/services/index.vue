@@ -69,8 +69,6 @@
                 <Loader v-else />
                 <Pagination :arr="usersList" @pageChange="getUsersData" />
             </div>
-
-
         </div>
     </section>
 </template>
@@ -82,6 +80,7 @@ import Loader from '~~/components/Loader.vue';
 import Actions from '~~/components/Actions.vue'
 import CreateNew from '~~/components/CreateNew.vue'
 import { useGetRequest } from '~~/helpers/GET_REQUESTS'
+import { get } from 'http';
 
 definePageMeta({
     middleware: ['guest'],
@@ -92,13 +91,11 @@ definePageMeta({
 
 export default {
     setup() {
-
         const api_url = 'services'
         const getRequest = useGetRequest()
         const usersList = ref([])
         const loading = ref(true)
         const currentPage = ref(1)
-
 
         const getUsersData = (pageId) => {
             loading.value = true
@@ -113,6 +110,7 @@ export default {
                 usersList.value = response.data
                 loading.value = false
 
+                getUsersData(currentPage.value)
             })
         }
         onMounted(() => {

@@ -2,8 +2,8 @@
     <nav class="header__nav" :class="{ active: !store.activeSidebar }">
 
         <div class="header__nav-logo">
-            <img src="../static/images/logo-icon.png" alt="" />
-            <img v-if="store.activeSidebar" src="../static/images/logo-text.png" alt="" />
+            <img src="../assets/images/logo-icon.png" alt="" />
+            <img v-if="store.activeSidebar" src="../assets/images/logo-text.png" alt="" />
 
         </div>
         <div class="header__nav-list">
@@ -18,8 +18,8 @@
     </nav>
     <nav class="header__nav nav-mob" :class="{ active: !store.activeSidebar }">
         <div class="header__nav-logo">
-            <img src="../static/images/logo-icon.png" alt="" />
-            <img src="../static/images/logo-text.png" alt="" />
+            <img src="../assets/images/logo-icon.png" alt="" />
+            <img src="../assets/images/logo-text.png" alt="" />
 
         </div>
         <div class="header__nav-list">
