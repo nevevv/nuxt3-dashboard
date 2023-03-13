@@ -18,7 +18,6 @@
                 <button class="btn btn-primary" @click.prevent="createNewUser">Create</button>
             </div>
         </Modal>
-
     </div>
 </template>
 
@@ -36,6 +35,7 @@ export default {
         const fieldsObj = ref([])
         const link = ref('')
         const fields = ref([])
+        const loading = ref(true)
 
         const createData = (url) => {
             const requestOptions = {

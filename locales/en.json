@@ -1,4 +1,6 @@
 {
+    "memberLogin": "Member Login",
+    "forgot": "Forgot",
     "dashboard-sidebar": "Dashboard",
     "programs-sidebar": "Undergraduate Programs",
     "users-sidebar": "Users",
@@ -31,12 +33,10 @@
     "noNoti": "No Notification Yet?",
     "addNewNotiAndInform": "Add New Notice and inform your students",
     "newNotice": "New Notice",
-
     "login": "Login",
     "password": "Password",
     "full_name": "Full Name",
-    "role[]":"Role",
-
+    "role[]": "Role",
     "name": "Name",
     "display_name": "Display Name",
     "description": "Description"

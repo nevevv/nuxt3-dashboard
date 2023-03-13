@@ -2,7 +2,7 @@
     <div>
         <div>
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle bg-success border-0" type="button" id="dropdownMenuButton1"
+                <button class="btn btn-secondary dropdown-toggle bg-success border-0" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     Action
                 </button>
@@ -118,8 +118,6 @@ export default {
                 }
             })
         }
-
-
 
         return { edit, deleteUser, confirmDelete, editUser, confirmModal, showModal, activeMessage, notAccessMessage, editModal, editCurrentArray, editError }
     },

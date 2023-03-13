@@ -1,1 +1,0 @@
-import{k as e}from"./entry.3a9842fd.js";import{u as a}from"./cookie.16d7df36.js";const s=e("main",{state:()=>({activeSidebar:!0,usersName:a("personName").value}),actions:{sideToggle(){this.activeSidebar=!this.activeSidebar}}});export{s as u};

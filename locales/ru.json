@@ -1,4 +1,6 @@
 {
+    "memberLogin": "Логин Участника",
+    "forgot": "Забыли",
     "dashboard-sidebar": "Дашборд",
     "programs-sidebar": "Undergraduate Programs",
     "users-sidebar": "Users",
@@ -31,14 +33,11 @@
     "noNoti": "Еще нет напоминания?",
     "addNewNotiAndInform": "Добавить Новое Уведомление и сообщить своим ученикам",
     "newNotice": "Новое напоминание",
-
     "login": "Логин",
     "password": "Пароль",
     "full_name": "Полное имя",
-    "role[]":"Роль",
-
+    "role[]": "Роль",
     "name": "Название",
     "display_name": "Отображаемое Название",
     "description": "Описание"
-
 }

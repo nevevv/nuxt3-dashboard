@@ -655,16 +655,7 @@ section {
     gap: 20px;
   }
 
-  /* .header__nav {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 10;
-    height: 100vh !important;
-    width: 100vw !important;
-  } */
+ 
   .main__head-select select {
     width: 25px;
   }
@@ -761,7 +752,7 @@ hr {
 .login-page-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   position: relative;
   height: 100%;
   width: 95%;
