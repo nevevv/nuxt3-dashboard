@@ -5,7 +5,7 @@
 
             <div class="wrap-login100" v-else>
                 <div class="login100-pic js-tilt" data-tilt>
-                    <img src="~/assets/images/img-01.png" alt="IMG">
+                    <img src="~/assets/images/favicon.webp" alt="IMG">
                 </div>
 
                 <form class="login100-form validate-form">
@@ -16,11 +16,12 @@
                         </select>
                     </div>
                     <span class="login100-form-title">
-                        {{ $t('memberLogin') }}
+                        {{ $t('autorization') }}
                     </span>
 
                     <div class="wrap-input100 validate-input">
-                        <input class="input100" type="text" name="email" :placeholder="$t('login')" v-model="userSendData.login">
+                        <input class="input100" type="text" name="email" :placeholder="$t('login')"
+                            v-model="userSendData.login">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -224,7 +225,7 @@ export default {
 
     width: 100%;
     display: block;
-    padding-bottom: 54px;
+    padding-bottom: 20px;
 }
 
 
@@ -247,6 +248,7 @@ export default {
     height: 50px;
     border-radius: 25px;
     padding: 0 30px 0 25px;
+    border: none;
 }
 
 
@@ -293,7 +295,7 @@ export default {
     display: flex;
     align-items: center;
     position: absolute;
-    border-radius: 25px;
+    border: none;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -336,6 +338,7 @@ export default {
     width: 100%;
     height: 50px;
     border-radius: 25px;
+    border: none;
     background: #57b846;
     display: -webkit-box;
     display: -webkit-flex;
