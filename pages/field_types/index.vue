@@ -10,15 +10,7 @@
             <div class="main__programs-content-block">
                 <div class="main__content-block-head">
                     <h3 class="main__block-head-title">Fields Types List</h3>
-                    <div class="main__block-head-item">
-                        <div class="main__block-head-input">
-                            <i class="bi bi-search"></i>
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        </div>
-                        <button>
-                            <i class="bi bi-funnel"></i> Filter
-                        </button>
-                    </div>
+                    <Search/>
                 </div>
 
                 <table v-if="!loading">

@@ -70,7 +70,7 @@ export default {
     name: 'page',
 
     setup() {
-        const api_url = 'service-fields'
+        const api_url = 'options'
         const getRequest = useGetRequest()
         const usersList = ref([])
         const loading = ref(true)
@@ -83,8 +83,7 @@ export default {
                     "Authorization": "Bearer " + useCookie('token').value,
                 }
             }
-            getRequest.getRequest(api_url, requestOptions, (response) => {
-                console.log(response);
+            getRequest.getRequest('service-fields', requestOptions, (response) => {
                 usersList.value = response.data
                 loading.value = false
             })

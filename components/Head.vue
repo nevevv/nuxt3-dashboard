@@ -1,10 +1,9 @@
 <template>
     <div>
         <div class="main__head">
-            <i class="bi bi-list burger-menu" @click="store.sideToggle"></i>
+            <i class="bi bi-list burger-menu" @click.prevent="store.sideToggle"></i>
             <div class="main__head-title">{{ text }}</div>
             <div class="main__head-block">
-
                 <select id="form-select" class="form-control" v-model="$i18n.locale"
                     style="text-transform: uppercase;  color:#008838 ; max-width: 300px; outline: none; appearance: none;">
                     <option value="en">en</option>
@@ -41,8 +40,6 @@ export default {
         const config = useRuntimeConfig();
         const userName = ref('')
 
-
-
         const logout = async () => {
             const requestOptions = {
                 method: 'POST',
@@ -66,7 +63,6 @@ export default {
     right: 1%;
     bottom: 1%;
     z-index: 1000;
-
 }
 
 hr {
@@ -78,7 +74,6 @@ hr {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* max-width: 1540px; */
     padding: 14px 21px;
     background: white;
 }
@@ -148,17 +143,20 @@ hr {
 }
 
 .burger-menu {
-    font-size: 20px;
-    background: rgb(192, 192, 192);
-    border-radius: 3px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 0px;
-    padding-bottom: 0px;
     cursor: pointer;
+    text-align: center;
+    background: rgb(211, 209, 209);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
 }
+
 
 .form-control {
     width: max-content;
+    padding: 2px 4px;
 }
 </style>

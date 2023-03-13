@@ -9,7 +9,4 @@
     </div>
 </template>
 
-<style>
-
-
-</style>
+<style></style>

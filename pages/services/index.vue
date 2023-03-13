@@ -1,6 +1,6 @@
 <template>
     <section class="programs__page">
-        <HeadVue text="Permissions" subtitle="/ Services list" />
+        <HeadVue text="Services" subtitle="/ Services list" />
         <div class="main__programs-content">
             <div class="main__programs-content">
                 <div class="users-content-head">
@@ -15,22 +15,7 @@
                     <h3 class="main__block-head-title">
                         Services List
                     </h3>
-                    <div class="main__block-head-item">
-                        <div class="main__block-head-input">
-                            <i class="bi bi-search"></i>
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        </div>
-                        <div style="display: flex; gap: 12px">
-                            <button>
-                                <i class="bi bi-funnel"></i>
-                                Filter
-                            </button>
-                            <button>
-                                <i class="bi bi-calendar"></i>
-                                Filter
-                            </button>
-                        </div>
-                    </div>
+                    <Search/>
                 </div>
                 <table v-if="!loading">
                     <thead>
@@ -53,10 +38,10 @@
                             <td>{{ list.price }}</td>
 
                             <td v-if="list.size1">{{ list.size1 }}</td>
-                            <td v-else>null</td>
+                            <td v-else>-</td>
 
                             <td v-if="list.size">{{ list.size }}</td>
-                            <td v-else>null</td>
+                            <td v-else>-</td>
                             <td>{{ list.display_name }}</td>
 
                             <td style="width:16%">
@@ -80,7 +65,6 @@ import Loader from '~~/components/Loader.vue';
 import Actions from '~~/components/Actions.vue'
 import CreateNew from '~~/components/CreateNew.vue'
 import { useGetRequest } from '~~/helpers/GET_REQUESTS'
-import { get } from 'http';
 
 definePageMeta({
     middleware: ['guest'],
@@ -99,6 +83,7 @@ export default {
 
         const getUsersData = (pageId) => {
             loading.value = true
+
             const requestOptions = {
                 headers: {
                     'Content-type': 'application/json',
@@ -109,8 +94,6 @@ export default {
             getRequest.getRequest(`${api_url}?list_type=pagination&page=${pageId}`, requestOptions, (response) => {
                 usersList.value = response.data
                 loading.value = false
-
-                getUsersData(currentPage.value)
             })
         }
         onMounted(() => {

@@ -4,25 +4,12 @@
         <div class="main__programs-content">
             <div class="users-content-head">
                 <h3 class="users-content-title">All Roles</h3>
-                <CreateNew :modalName="'role'" :fields="['name', 'display_name', 'description']" :url="api_url" />
+                <CreateNew :modalName="'role'" :url="api_url" />
             </div>
             <div class="main__programs-content-block">
                 <div class="main__content-block-head">
                     <h3 class="main__block-head-title">All Roles</h3>
-                    <div class="main__block-head-item">
-                        <div class="main__block-head-input">
-                            <i class="bi bi-search"></i>
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        </div>
-                        <button>
-                            <i class="bi bi-funnel"></i>
-                            Filter
-                        </button>
-                        <button>
-                            <i class="bi bi-calendar"></i>
-                            Filter
-                        </button>
-                    </div>
+                    <Search />
                 </div>
                 <table v-if="!loading">
                     <thead>
