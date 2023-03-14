@@ -6,7 +6,7 @@
             <div class="main__head-block">
                 <select id="form-select" class="form-control" v-model="$i18n.locale"
                     style="text-transform: uppercase;  color:#008838 ; max-width: 300px; outline: none; appearance: none;">
-                    <option value="en">en</option>
+                    <option value="oz">oz</option>
                     <option value="ru">ru</option>
                 </select>
                 <p>{{ user.userName || useCookie('personName').value }}</p>

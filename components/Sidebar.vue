@@ -11,12 +11,10 @@
                         <p v-if="store.activeSidebar">{{ link.title }}</p>
                     </div>
                 </nuxt-link>
-                <div v-for="child in link.children" :key="child.title">
-                    <template v-if="child">
-                        <nuxt-link :to="`${link.to}${child.to}`" class="header__nav-child" exact-active-class="active">
-                            {{ child.title }}
-                        </nuxt-link>
-                    </template>
+                <div v-for="child in link.children" :key="child.title" v-if="child">
+                    <nuxt-link :to="`${link.to}${child.to}`" class="header__nav-child" exact-active-class="active">
+                        {{ child.title }}
+                    </nuxt-link>
 
                 </div>
             </template>

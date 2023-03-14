@@ -11,7 +11,7 @@
                 <form class="login100-form validate-form">
                     <div class="p-b-20 ">
                         <select id="form-select" class="form-select" v-model="$i18n.locale" style="padding-left: 10px;">
-                            <option value="en">English</option>
+                            <option value="oz">O'zbekcha</option>
                             <option value="ru">Русский</option>
                         </select>
                     </div>
