@@ -79,7 +79,6 @@ hr {
 }
 
 .main__head-title {
-    font-family: var(--pop500);
     font-size: 20px;
     font-weight: 500;
     line-height: 30px;

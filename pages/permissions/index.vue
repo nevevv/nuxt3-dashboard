@@ -1,29 +1,30 @@
 <template>
     <section class="programs__page">
-        <HeadVue text="Permissions" subtitle="/ Permissions list" />
+        <HeadVue :text="`${$t('permissions')}`" :subtitle="`/  ${$t('permissionList')} `" />
         <div class="main__programs-content">
             <div class="main__programs-content">
                 <div class="users-content-head">
-                    <h3 class="users-content-title">All Permissions</h3>
-                    <CreateNew :modalName="'permission'" :fields="['name', 'display_name', 'description']" :url="api_url" />
+                    <h3 class="users-content-title">{{ $t('all') }} {{ $t('permissions') }}</h3>
+                    <CreateNew :modalName="`${$t('createNewPermisson')}`" :fields="['name', 'display_name', 'description']"
+                        :url="api_url" />
                 </div>
 
             </div>
             <div class="main__programs-content-block mb-5">
                 <div class="main__content-block-head">
                     <h3 class="main__block-head-title">
-                        Permissions List
+                        {{ $t('permissionList') }}
                     </h3>
-                    <Search/>
+                    <Search />
                 </div>
                 <table v-if="!loading">
                     <thead>
                         <tr>
                             <th class="th">ID</th>
-                            <th class="th">Name</th>
-                            <th class="th">Display Name</th>
-                            <th class="th">Description</th>
-                            <th class="th">Action</th>
+                            <th class="th">{{ $t('name') }}</th>
+                            <th class="th">{{ $t('display_name') }}</th>
+                            <th class="th">{{ $t('description') }}</th>
+                            <th class="th">{{$t('action')}}</th>
                         </tr>
                     </thead>
                     <tbody>

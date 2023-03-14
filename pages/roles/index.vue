@@ -22,7 +22,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="list in usersList" :key="list.id">
+                        <tr v-for="(list, idx) in usersList" :key="idx">
                             <td>{{ list.id }}</td>
                             <td>{{ list.name }}</td>
                             <td>{{ list.display_name }}</td>
@@ -62,7 +62,7 @@ export default {
         const getRequest = useGetRequest()
         const usersList = ref([])
         const loading = ref(true)
-
+        const permissionsList = ref([])
         const getUsersData = async () => {
             const requestOptions = {
                 headers: {
@@ -72,6 +72,7 @@ export default {
                 }
             }
             getRequest.getRequest(api_url, requestOptions, (response) => {
+                permissionsList.value = response.data[0].permissions
                 usersList.value = response.data
                 loading.value = false
             })
@@ -81,7 +82,7 @@ export default {
             getUsersData()
         })
 
-        return { usersList, loading, api_url }
+        return { usersList, loading, api_url, permissionsList }
     },
 
     components: {

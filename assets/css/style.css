@@ -655,7 +655,7 @@ section {
     gap: 20px;
   }
 
- 
+
   .main__head-select select {
     width: 25px;
   }
@@ -680,7 +680,6 @@ hr {
 }
 
 .main__head-title {
-  font-family: var(--pop500);
   font-size: 20px;
   font-weight: 500;
   line-height: 30px;
@@ -896,8 +895,8 @@ hr {
   background: white;
   position: fixed;
   left: 50%;
-  top: 12vw;
-  transform: translate(-50%);
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
   width: 448px;
   z-index: 2000;
 }
@@ -928,8 +927,9 @@ hr {
   gap: 24px;
 }
 
-.modal-programs-form input {
-  width: 96%;
+.modal-programs-form input,
+.createModal-select {
+  width: 96% ;
   background: rgba(239, 241, 249, 0.6);
   border-radius: 8px;
   border: none;
@@ -962,7 +962,7 @@ hr {
 }
 
 .modal-programs-form div button {
-  padding: 7px 30px;
+  padding: 4px 8px;
   cursor: pointer;
 }
 
@@ -1675,7 +1675,7 @@ hr {
 
   .modal-programs {
     width: max-content;
-    top: 20%;
+    height: max-content;
   }
 
   .header__nav-list {

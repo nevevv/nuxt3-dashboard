@@ -3,8 +3,9 @@
         <div class="header__nav-logo">
             <img src="../assets/images/favicon.webp" alt="" />
         </div>
+
         <ul class="header__nav-list">
-            <template v-for="link in links" :key="link.id">
+            <template v-for="(link, i) in links" :key="i">
                 <nuxt-link :to="link.to" class="header__nav-blocks" exact-active-class="active" @click="showChild(link)">
                     <div class="header__nav-blocks-item" :class="{ active: !store.activeSidebar }">
                         <i :class=link.icons></i>
@@ -49,76 +50,79 @@ import { useMainStore } from '~~/store';
 export default {
     setup() {
         const store = useMainStore()
-        return { store, }
+        return { store }
     },
 
     data() {
         return {
             child: false,
-            links: [
+
+        }
+    },
+
+    computed: {
+        links() {
+            return [
                 {
-                    title: 'Dashboard',
+                    title: this.$t('dashboard'),
                     to: '/',
                     icons: 'bi bi-grid-fill'
                 },
                 {
-                    title: 'Permissions',
+                    title: this.$t('permissions'),
                     to: '/permissions',
                     icons: 'bi bi-grid'
                 },
                 {
-                    title: 'Users',
+                    title: this.$t('users'),
                     to: '/users',
                     icons: 'bi bi-people',
                 },
                 {
-                    title: 'Roles',
+                    title: this.$t('role'),
                     to: '/roles',
                     icons: 'bi bi-person-plus-fill',
                 },
                 {
-                    title: 'Fields Types List',
+                    title: this.$t('fields_list'),
                     to: '/field_types',
                     icons: 'bi bi-chat-dots',
                 },
                 {
-                    title: 'Data Export',
+                    title: this.$t('export'),
                     to: '/data',
                     icons: 'bi bi-download'
                 },
                 {
 
-                    title: 'Options',
+                    title: this.$t('options'),
                     to: '/options',
                     icons: 'bi bi-gear',
                     children: [
                         {
-                            title: 'Settings',
+                            title: this.$t('settings'),
                             to: '/settings'
                         }
                     ]
                 },
-
                 {
-                    title: 'Services',
+                    title: this.$t('services'),
                     to: '/services',
                     icons: 'bi bi-calendar',
 
                 },
-                {
-                    title: 'Course Managements',
-                    to: '/course',
-                    icons: 'bi bi-bookmark-fill',
-                },
-            ],
+            ]
         }
     },
+
+
 
     methods: {
         closeMenu() {
             this.store.activeSidebar = !this.store.activeSidebar;
         },
         showChild(el) {
+
             if (el.children) {
                 this.child = true
             } else {

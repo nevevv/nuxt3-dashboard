@@ -4,33 +4,32 @@
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle bg-success border-0" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                    Action
+                    {{ $t('action') }}
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li>
-                        <NuxtLink :to="url + '/' + list.id" class="dropdown-item">Show
+                        <NuxtLink :to="url + '/' + list.id" class="dropdown-item">{{ $t('show') }}
                         </NuxtLink>
                     </li>
                     <li>
-                        <a class="dropdown-item" @click="deleteUser(list.id, url)">Delete</a>
+                        <a class="dropdown-item" @click="deleteUser(list.id, url)">{{ $t('delete') }}</a>
                     </li>
-                    <li><a class="dropdown-item" @click="edit(list.id, list, url)"> Edit </a>
+                    <li><a class="dropdown-item" @click="edit(list.id, list, url)"> {{ $t('edit') }} </a>
                     </li>
                 </ul>
             </div>
         </div>
 
-
         <Modal v-if="confirmModal">
-            <p class="text-center fs-3">Do you really want to delete the user?</p>
+            <p class="text-center fs-3">{{ $t('confirmDelete') }}</p>
             <div>
-                <button class="btn btn-primary" @click.prevent="confirmModal = !confirmModal">Cancel</button>
-                <button class="btn btn-danger" @click.prevent="confirmDelete">Delete</button>
+                <button class="btn btn-primary" @click.prevent="confirmModal = !confirmModal">{{ $t('cancel') }}</button>
+                <button class="btn btn-danger" @click.prevent="confirmDelete">{{ $t('perform') }}</button>
             </div>
             <p class="text-danger text-center" :class="{ 'd-none': !activeMessage }">{{ notAccessMessage }}</p>
         </Modal>
         <Modal v-if="editModal">
-            <p class="fs-3 text-center">Edit User</p>
+            <p class="fs-3 text-center">{{ $t('confirmEdit') }}</p>
 
             <div class="d-flex flex-column align-items-start gap-2" v-for="field in fields" :key="field.id">
 
@@ -42,8 +41,8 @@
 
             <p style="color: red ;">{{ editError }}</p>
             <div>
-                <button class="btn btn-danger" @click="editModal = !editModal">Cancel</button>
-                <button class="btn btn-primary" @click.prevent="editUser(fields)">Edit</button>
+                <button class="btn btn-primary" @click="editModal = !editModal">{{ $t('cancel') }}</button>
+                <button class="btn btn-danger" @click.prevent="editUser(fields)">{{ $t('perform') }}</button>
             </div>
         </Modal>
     </div>

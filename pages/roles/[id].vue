@@ -5,6 +5,16 @@
             <h6>name: {{ userArr.name }}</h6>
             <h6>display name: {{ userArr.display_name }}</h6>
             <h6>description: {{ userArr.description }}</h6>
+            <h6>Permission list: </h6>
+
+            <ul v-if="userArr.permissions.length">
+                <li v-for="(el, idx) in userArr.permissions" :key="idx">
+                    {{ el.display_name }}
+                </li>
+            </ul>
+            <p v-else>
+                None
+            </p>
         </div>
         <Loader v-else />
     </div>
@@ -34,6 +44,7 @@ export default {
                 }
             }
             getRequest.getRequest(`roles/${useRoute().params.id}/show`, requestOptions, (response) => {
+                console.log(response.data.permissions);
                 userArr.value = response.data
                 loading.value = false
             })
