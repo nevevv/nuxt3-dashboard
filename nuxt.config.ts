@@ -10,6 +10,7 @@ export default defineNuxtConfig({
           type: "image/png",
           href: "/favicon.png",
         },
+       
       ],
       script: [
         {

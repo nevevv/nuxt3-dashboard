@@ -24,7 +24,7 @@
                             <th class="th">{{ $t('name') }}</th>
                             <th class="th">{{ $t('display_name') }}</th>
                             <th class="th">{{ $t('description') }}</th>
-                            <th class="th">{{$t('action')}}</th>
+                            <th class="th">{{ $t('action') }}</th>
                         </tr>
                     </thead>
                     <tbody>

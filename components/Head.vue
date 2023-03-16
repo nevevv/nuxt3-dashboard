@@ -21,7 +21,7 @@
         </div>
 
         <div class="main__block-name">
-            <i class="bi bi-house-fill" style="color:#008838"></i>
+            <i class="bi bi-house-fill" style="color:#008838;height: 28px;"></i>
             <p class="main__block-title">{{ subtitle }}</p>
         </div>
     </div>

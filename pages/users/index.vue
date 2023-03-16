@@ -4,17 +4,15 @@
         <div class="main__programs-content">
             <div class="users-content-head">
                 <h3 class="users-content-title">{{ `${$t('all') + ' ' + $t('users')}` }}</h3>
-                <!-- <CreateNew :modalName="'user'" :url="api_url" /> -->
                 <div>
                     <div>
-                        <button class="main__programs-content-btn modalBtn" @click="showCreateModal(url)">
-                            <!-- <i class="bi bi-plus plus-icon"></i> -->
-                            {{ $t('create') }}
-                        </button>
+                        <nuxt-link to="/users/createNew" class="main__programs-content-btn modalBtn">Create</nuxt-link>
                     </div>
                     <Modal v-if="showModal">
                         <p class="fs-3 text-center">{{ $t('create') }} </p>
-                        <div class="d-flex flex-column align-items-start gap-2" v-for="field in fields" :key="field.id">
+                        <Loader v-if="loadingModal" />
+                        <div class="d-flex flex-column align-items-start gap-2" v-for="field in fields" :key="field.id"
+                            v-else>
                             <template v-if="field != 'roles'">
                                 <label>{{ $t(field) }}</label>
                                 <input type="text" v-model="fieldsObj[field]" />
@@ -58,12 +56,43 @@
                             <td>{{ list.id }}</td>
                             <td>{{ list.full_name }}</td>
                             <td>{{ list.login }}</td>
-                            <td v-if="list.roles.length" v-for="el in list.roles" :key="el">{{ el.display_name }}</td>
+                            <td v-if="list.roles.length">
+                                <span class="bg-primary text-white p-1 m-1" style="border-radius:4px; font-size: small"
+                                    v-for="el in list.roles" :key="el">{{ el.display_name + ' ' }}</span>
+                            </td>
                             <td v-else> </td>
                             <td style="width:16%">
-                                <Actions :list="list" :fields="['login', 'password', 'full_name', 'role[]']"
-                                    :url="api_url" />
-
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle bg-success border-0"
+                                        id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{ $t('action') }}
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li>
+                                            <NuxtLink :to="'roles' + '/' + list.id" class="dropdown-item">{{ $t('show') }}
+                                            </NuxtLink>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" @click="deleteUser(list.id, 'users')">{{ $t('delete')
+                                            }}</a>
+                                        </li>
+                                        <li>
+                                            <nuxt-link class="dropdown-item" :to="`users/edit/${list.id}/`">{{ $t('edit')
+                                            }}</nuxt-link>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <Modal v-if="confirmModal">
+                                    <p class="text-center fs-3">{{ $t('confirmDelete') }}</p>
+                                    <div>
+                                        <button class="btn btn-primary" @click.prevent="confirmModal = !confirmModal">{{
+                                            $t('cancel') }}</button>
+                                        <button class="btn btn-danger" @click.prevent="confirmDelete">{{ $t('perform')
+                                        }}</button>
+                                    </div>
+                                    <p class="text-danger text-center" :class="{ 'd-none': !activeMessage }">{{
+                                        notAccessMessage }}</p>
+                                </Modal>
                             </td>
                         </tr>
                     </tbody>
@@ -81,6 +110,7 @@ import { usePostRequest } from '~~/helpers/POST_REQUESTS';
 import Loader from '~~/components/Loader.vue';
 import Actions from '~~/components/Actions.vue'
 import CreateNew from '~~/components/CreateNew.vue'
+import Pagination from '~~/components/Pagination.vue';
 
 definePageMeta({
     middleware: ['guest'],
@@ -92,11 +122,13 @@ definePageMeta({
 export default {
     name: 'page',
     setup() {
+
         const api_url = 'users'
         const getRequest = useGetRequest()
         const postRequest = usePostRequest()
         const usersList = ref([])
         const loading = ref(true)
+        const loadingModal = ref(true)
         const showModal = ref(false)
         const requestError = ref('')
         const fieldsObj = ref([])
@@ -105,8 +137,12 @@ export default {
         const arr = ref([])
         const select = ref('')
         const selectId = ref('')
+        const confirmModal = ref(false)
+        const deletedUserId = ref('');
+        const notAccessMessage = ref('')
+        const activeMessage = ref(false)
 
-        const createData = (url) => {
+        const createData = () => {
             const requestOptions = {
                 headers: {
                     'Content-type': 'application/json',
@@ -115,7 +151,7 @@ export default {
                 }
             }
             getRequest.getRequest(`${api_url}/create`, requestOptions, (response) => {
-                loading.value = false
+                loadingModal.value = false
                 fields.value = response.data
                 const arr = [];
                 response.data.forEach((field) => {
@@ -144,9 +180,10 @@ export default {
             link.value = api_url
         }
         const createNewUser = async () => {
-            fieldsObj.value.roles = []
-            fieldsObj.value.roles.push(selectId.value)
-
+            if (selectId.value) {
+                fieldsObj.value.roles = []
+                fieldsObj.value.roles.push(selectId.value)
+            }
             const requestOptions = {
                 method: 'POST',
                 body: fieldsObj.value,
@@ -159,7 +196,6 @@ export default {
                     requestError.value = response.message
                 }
             })
-            console.log(fieldsObj.value);
         }
         const changeSelect = (list) => {
             selectId.value = list.id
@@ -174,8 +210,28 @@ export default {
                 }
             }
             getRequest.getRequest(api_url, requestOptions, (response) => {
-                usersList.value = response.data
+                usersList.value = response.data.data
                 loading.value = false
+            })
+        }
+
+        const deleteUser = (id) => {
+            confirmModal.value = !confirmModal.value
+            deletedUserId.value = id
+        }
+
+        const confirmDelete = () => {
+            const requestOptions = {
+                method: 'POST',
+                headers: { "Authorization": "Bearer " + useCookie('token').value }
+            }
+            postRequest.postRequest(`users/${deletedUserId.value}/delete`, requestOptions, (response) => {
+                if (response.code === 403) {
+                    notAccessMessage.value = response.message
+                    activeMessage.value = true
+                } else {
+                    location.reload()
+                }
             })
         }
 
@@ -183,11 +239,11 @@ export default {
             getUsersData()
         })
 
-        return { usersList, loading, api_url, showModal, createNewUser, requestError, showCreateModal, fieldsObj, fields, arr, select, changeSelect }
+        return { getUsersData, usersList, loading, api_url, showModal, createNewUser, requestError, showCreateModal, fieldsObj, fields, arr, select, changeSelect, Loader, loadingModal, confirmModal, deleteUser, notAccessMessage, activeMessage, confirmDelete }
     },
 
     components: {
-        HeadVue, Loader, Actions, CreateNew
+        HeadVue, Loader, Actions, CreateNew, Pagination
     },
 }
 

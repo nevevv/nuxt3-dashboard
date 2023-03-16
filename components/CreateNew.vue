@@ -2,12 +2,12 @@
     <div>
         <div>
             <button class="main__programs-content-btn modalBtn" @click="showCreateModal(url)">
-                <!-- <i class="bi bi-plus plus-icon"></i> -->
                 {{ $t('create') }}
             </button>
         </div>
         <Modal v-if="showModal">
             <p class="fs-3 text-center">{{ $t('create') }} </p>
+            <Loader v-if="loading" />
             <div class="d-flex flex-column align-items-start gap-2" v-for="field in fields" :key="field.id">
                 <template v-if="field != 'permissions'">
                     <label>{{ $t(field) }}</label>
@@ -35,6 +35,7 @@
 <script>
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import { usePostRequest } from '~~/helpers/POST_REQUESTS';
+import Loader from './Loader.vue';
 
 
 export default {
@@ -61,7 +62,6 @@ export default {
                 }
             }
             getRequest.getRequest(`${url}/create`, requestOptions, (response) => {
-                console.log(response);
                 loading.value = false
                 fields.value = response.data
                 const arr = [];
@@ -91,8 +91,10 @@ export default {
             link.value = url
         }
         const createNewUser = async () => {
-            fieldsObj.value.permissions = []
-            fieldsObj.value.permissions.push(selectId.value)
+            if (selectId.value) {
+                fieldsObj.value.permissions = []
+                fieldsObj.value.permissions.push(selectId.value)
+            }
 
             const requestOptions = {
                 method: 'POST',
@@ -112,7 +114,7 @@ export default {
             selectId.value = list.id
         }
 
-        return { showModal, createNewUser, requestError, showCreateModal, fieldsObj, fields, arr, getPermissions, select, changeSelect }
+        return { showModal, createNewUser, requestError, showCreateModal, fieldsObj, fields, arr, getPermissions, select, changeSelect, Loader, loading }
     }
 
 }

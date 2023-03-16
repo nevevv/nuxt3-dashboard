@@ -4,7 +4,7 @@
         <div class="main__programs-content">
             <div class="users-content-head">
                 <h3 class="users-content-title">All Roles</h3>
-                <CreateNew :modalName="'role'" :url="api_url" />
+                <nuxt-link to="/roles/createNew" class="main__programs-content-btn modalBtn">Create</nuxt-link>
             </div>
             <div class="main__programs-content-block">
                 <div class="main__content-block-head">
@@ -22,13 +22,43 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(list, idx) in usersList" :key="idx">
+                        <tr v-for="(list, idx) in usersList.data" :key="idx">
                             <td>{{ list.id }}</td>
                             <td>{{ list.name }}</td>
                             <td>{{ list.display_name }}</td>
                             <td>{{ list.description }}</td>
                             <td style="width:16%">
-                                <Actions :list="list" :fields="['name', 'display_name', 'description']" :url="api_url" />
+                                <!-- <Actions :list="list" :fields="['name', 'display_name', 'description']" :url="api_url" /> -->
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle bg-success border-0"
+                                        id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{ $t('action') }}
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li>
+                                            <NuxtLink :to="'roles' + '/' + list.id" class="dropdown-item">{{ $t('show') }}
+                                            </NuxtLink>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" @click="deleteUser(list.id, 'roles')">{{ $t('delete')
+                                            }}</a>
+                                        </li>
+                                        <li>
+                                            <nuxt-link class="dropdown-item" :to="`roles/edit/${list.id}/`">{{ $t('edit') }}</nuxt-link>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <Modal v-if="confirmModal">
+                                    <p class="text-center fs-3">{{ $t('confirmDelete') }}</p>
+                                    <div>
+                                        <button class="btn btn-primary" @click.prevent="confirmModal = !confirmModal">{{
+                                            $t('cancel') }}</button>
+                                        <button class="btn btn-danger" @click.prevent="confirmDelete">{{ $t('perform')
+                                        }}</button>
+                                    </div>
+                                    <p class="text-danger text-center" :class="{ 'd-none': !activeMessage }">{{
+                                        notAccessMessage }}</p>
+                                </Modal>
                             </td>
                         </tr>
                     </tbody>
@@ -41,13 +71,15 @@
 
 <script>
 import HeadVue from '~~/components/Head.vue';
+
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
+import { usePostRequest } from '~~/helpers/POST_REQUESTS';
+
 import Loader from '~~/components/Loader.vue';
 import Actions from '~~/components/Actions.vue'
 import CreateNew from '~~/components/CreateNew.vue'
 
 definePageMeta({
-    middleware: ['guest'],
     pageTransition: {
         name: 'page'
     }
@@ -58,11 +90,16 @@ export default {
 
     setup() {
         const api_url = 'roles'
-
+        const postRequest = usePostRequest()
         const getRequest = useGetRequest()
         const usersList = ref([])
         const loading = ref(true)
         const permissionsList = ref([])
+        const deletedUserId = ref('');
+        const confirmModal = ref(false);
+        const notAccessMessage = ref('')
+        const activeMessage = ref(false)
+
         const getUsersData = async () => {
             const requestOptions = {
                 headers: {
@@ -72,9 +109,27 @@ export default {
                 }
             }
             getRequest.getRequest(api_url, requestOptions, (response) => {
-                permissionsList.value = response.data[0].permissions
+                permissionsList.value = response.data[0]
                 usersList.value = response.data
                 loading.value = false
+            })
+        }
+        const deleteUser = (id) => {
+            confirmModal.value = !confirmModal.value
+            deletedUserId.value = id
+        }
+        const confirmDelete = () => {
+            const requestOptions = {
+                method: 'POST',
+                headers: { "Authorization": "Bearer " + useCookie('token').value }
+            }
+            postRequest.postRequest(`roles/${deletedUserId.value}/delete`, requestOptions, (response) => {
+                if (response.code === 403) {
+                    notAccessMessage.value = response.message
+                    activeMessage.value = true
+                } else {
+                    location.reload()
+                }
             })
         }
 
@@ -82,7 +137,7 @@ export default {
             getUsersData()
         })
 
-        return { usersList, loading, api_url, permissionsList }
+        return { usersList, loading, api_url, permissionsList, deleteUser, confirmDelete, confirmModal, notAccessMessage, activeMessage }
     },
 
     components: {

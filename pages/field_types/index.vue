@@ -67,7 +67,7 @@ export default {
                 }
             }
             getRequest.getRequest('field-types',requestOptions, (response) => {
-                dataList.value = response.data
+                dataList.value = response.data.data
                 loading.value = false
             })
         }

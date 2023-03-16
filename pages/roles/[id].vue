@@ -1,22 +1,27 @@
 <template>
-    <div>
-        <div v-if="!loading" class="singleUsersPage">
+    <div class="d-flex flex-column w-100">
+
+        <HeadVue :subtitle="`/Role/${userArr.name || ''}`" />
+        <div v-if="!loading" class="singleUsersPage d-flex gap-5 ">
             <h5>ID: {{ userArr.id }}</h5>
-            <h6>name: {{ userArr.name }}</h6>
+            <h6> name: {{ userArr.name }}</h6>
             <h6>display name: {{ userArr.display_name }}</h6>
             <h6>description: {{ userArr.description }}</h6>
-            <h6>Permission list: </h6>
-
-            <ul v-if="userArr.permissions.length">
-                <li v-for="(el, idx) in userArr.permissions" :key="idx">
-                    {{ el.display_name }}
-                </li>
-            </ul>
-            <p v-else>
-                None
-            </p>
+            <div>
+                <h6>Permission list: </h6>
+                <ul v-if="userArr.permissions">
+                    <li v-for="(el, idx) in userArr.permissions" :key="idx">
+                        {{ el.display_name }}
+                    </li>
+                </ul>
+                <p v-else>
+                    None
+                </p>
+            </div>
         </div>
+
         <Loader v-else />
+
     </div>
 </template>
 
@@ -24,6 +29,7 @@
 <script>
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import Loader from '~~/components/Loader.vue';
+import HeadVue from '~~/components/Head.vue';
 
 
 definePageMeta({
@@ -32,6 +38,7 @@ definePageMeta({
 
 export default {
     setup() {
+        const route = useRoute().params.id
         const getRequest = useGetRequest();
         const loading = ref(true)
         const userArr = ref([])
@@ -43,7 +50,7 @@ export default {
                     "Authorization": "Bearer " + useCookie('token').value,
                 }
             }
-            getRequest.getRequest(`roles/${useRoute().params.id}/show`, requestOptions, (response) => {
+            getRequest.getRequest(`roles/${route}/show`, requestOptions, (response) => {
                 console.log(response.data.permissions);
                 userArr.value = response.data
                 loading.value = false
@@ -53,10 +60,10 @@ export default {
             showPerson();
         })
 
-        return { userArr, loading }
+        return { userArr, loading, route }
     },
     components: {
-        Loader
+        Loader, HeadVue,
     }
 
 }
