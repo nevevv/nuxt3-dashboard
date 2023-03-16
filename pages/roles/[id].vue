@@ -1,48 +1,55 @@
 <template>
-    <div class="d-flex flex-column w-100">
+    <div class="d-flex flex-column w-100 ">
+        <HeadVue :text="$t('role')" />
+        <form class="createNew-form" :class="{ 'h-75':  value.length > 5 }">
+            <Loader v-if="loading" />
+            <div class="d-flex flex-column align-items-start gap-2 mb-3 createNew-form-item" v-for="field in fields"
+                :key="field.id">
+                <template v-if="field != 'permissions'">
+                    <label>{{ $t(field) }}</label>
+                    <input disabled class="w-100 h-100 createNew-form-input" type="text" v-model="fieldsObj[field]"
+                        v-if="field != 'password' && field != 'password_confirmation'" />
+                    <input v-else class="w-100 h-100 createNew-form-input" type="password" v-model="fieldsObj[field]" />
+                </template>
 
-        <HeadVue :subtitle="`/Role/${userArr.name || ''}`" />
-        <div v-if="!loading" class="singleUsersPage d-flex gap-5 ">
-            <h5>ID: {{ userArr.id }}</h5>
-            <h6> name: {{ userArr.name }}</h6>
-            <h6>display name: {{ userArr.display_name }}</h6>
-            <h6>description: {{ userArr.description }}</h6>
-            <div>
-                <h6>Permission list: </h6>
-                <ul v-if="userArr.permissions">
-                    <li v-for="(el, idx) in userArr.permissions" :key="idx">
-                        {{ el.display_name }}
-                    </li>
-                </ul>
-                <p v-else>
-                    None
-                </p>
+                <template v-else>
+                    <label> {{ $t(field) }}</label>
+                    <MultiSelect v-model="value" :options="options" :multiple="true" :hide-selected="true" track-by="id"
+                        label="title" />
+                </template>
             </div>
-        </div>
-
-        <Loader v-else />
+        </form>
 
     </div>
 </template>
 
-
 <script>
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
-import Loader from '~~/components/Loader.vue';
-import HeadVue from '~~/components/Head.vue';
-
-
-definePageMeta({
-    layout: 'default'
-})
+import { usePostRequest } from '~~/helpers/POST_REQUESTS';
+import HeadVue from '~/components/Head.vue';
+import MultiSelect from 'vue-multiselect';
 
 export default {
     setup() {
-        const route = useRoute().params.id
-        const getRequest = useGetRequest();
+        const postRequest = usePostRequest()
+        const getRequest = useGetRequest()
+        const requestError = ref('')
+        const fieldsObj = ref([])
+        const fields = ref([])
         const loading = ref(true)
-        const userArr = ref([])
-        const showPerson = async () => {
+        const arr = ref([])
+        const select = ref('')
+        const selectId = ref('')
+        const permissionsArr = ref([])
+        const editError = ref('')
+        const editCurrentArray = ref()
+        const usersPermisionArr = ref([])
+
+        const value = ref([])
+        const options = ref([])
+
+        const createData = () => {
+
             const requestOptions = {
                 headers: {
                     'Content-type': 'application/json',
@@ -50,32 +57,116 @@ export default {
                     "Authorization": "Bearer " + useCookie('token').value,
                 }
             }
-            getRequest.getRequest(`roles/${route}/show`, requestOptions, (response) => {
-                console.log(response.data.permissions);
-                userArr.value = response.data
+            getRequest.getRequest(`roles/${useRoute().params.id}/edit`, requestOptions, (response) => {
+                fields.value = Object.keys(response.data)
                 loading.value = false
+                arr.value = response.data
+
+                response.data.permissions.forEach((el) => {
+                    value.value.push({ title: el.display_name, id: el.id })
+                })
+
+                fieldsObj.value.name = response.data.name
+                fieldsObj.value.description = response.data.description
+                fieldsObj.value.display_name = response.data.display_name
+            })
+
+        }
+
+        const permissionsData = () => {
+            const requestOptions = {
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json',
+                    "Authorization": "Bearer " + useCookie('token').value,
+                }
+            }
+            getRequest.getRequest(`permissions`, requestOptions, (response) => {
+                permissionsArr.value = response.data
+                response.data.data.forEach((el) => {
+                    options.value.push({ title: el.display_name, id: el.id })
+                })
             })
         }
+
+        const changeSelect = (el) => {
+            selectId.value = el.id
+        }
+
+        const editUser = () => {
+            const arr = [];
+            const permissionsArr = value.value.map(el => el.id)
+
+            fields.value.forEach(field => {
+                arr[field] = fieldsObj.value[field]
+            })
+
+            let { ...obj } = arr;
+
+            obj["permissions"] = permissionsArr
+
+
+            const requestOptions = {
+                method: 'POST',
+                body: obj,
+                headers: { "Authorization": "Bearer " + useCookie('token').value }
+            }
+            postRequest.postRequest(`roles/${useRoute().params.id}/update`, requestOptions, (response) => {
+                if (response.success) {
+                    navigateTo('/roles')
+                } else {
+                    editError.value = response.message
+                }
+            })
+        }
+
         onMounted(() => {
-            showPerson();
+            createData()
+            permissionsData()
+
         })
 
-        return { userArr, loading, route }
+        return { requestError, fieldsObj, fields, loading, arr, select, selectId, permissionsArr, changeSelect, editUser, editError, editCurrentArray, usersPermisionArr, value, options }
+
     },
     components: {
-        Loader, HeadVue,
+        HeadVue, MultiSelect
     }
+
 
 }
 
 </script>
 
+<style scoped>
+.createNew-title {
+    padding-left: 20px;
+}
 
-
-<style>
-.singleUsersPage {
-    padding: 15px;
+.createNew-form {
+    padding-left: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
     background: white;
-    margin: 15px;
+    padding: 20px;
+    margin: 20px;
+    height: 58%;
+}
+
+.createNew-form-item {
+    width: 47%;
+    height: 70px;
+}
+
+.createNew-form-input {
+    padding-left: 10px;
+    outline: none;
+    border-radius: 10px;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+}
+
+.createNew-btn {
+    background: #008838 !important;
 }
 </style>

@@ -1,32 +1,53 @@
 <template>
-    <div>
-        <div v-if="!loading" class="singleUsersPage">
-            <h5>ID: {{ userArr.id }}</h5>
-            <h6>Name: {{ userArr.full_name }}</h6>
-            <h6>Username: {{ userArr.login }}</h6>
-            <h6>Role: {{ userArr.roles[0].display_name }}</h6>
+    <div class="d-flex flex-column w-100">
+        <HeadVue :text="$t('user')" />
+        <form class="createNew-form">
+            <Loader v-if="loading" />
+            <div class="d-flex flex-column align-items-start gap-2 mb-3 createNew-form-item" v-for="field in fields"
+                :key="field.id">
+                <template v-if="field != 'roles'">
+                    <label v-if="field != 'password' && field != 'password_confirmation'">{{ $t(field) }}</label>
+                    <input disabled class="w-100 h-100 createNew-form-input" type="text" v-model="fieldsObj[field]"
+                        v-if="field != 'password' && field != 'password_confirmation'" />
+                </template>
 
-        </div>
-        <Loader v-else />
+                <template v-else>
+                    <label>{{ $t(field) }}</label>
+                    <Multiselect class="multiselect" v-model="value" :options="options" :multiple="true"
+                        :hide-selected="true" track-by="id" label="title" />
+                </template>
+            </div>
+        </form>
+
     </div>
 </template>
 
-
 <script>
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
-import Loader from '~~/components/Loader.vue';
-
-
-definePageMeta({
-    layout: 'default'
-})
+import { usePostRequest } from '~~/helpers/POST_REQUESTS';
+import HeadVue from '~/components/Head.vue';
+import Multiselect from 'vue-multiselect';
 
 export default {
     setup() {
-        const getRequest = useGetRequest();
+        const postRequest = usePostRequest()
+        const getRequest = useGetRequest()
+        const requestError = ref('')
+        const fieldsObj = ref([])
+        const fields = ref([])
         const loading = ref(true)
-        const userArr = ref([])
-        const showPerson = async () => {
+        const arr = ref([])
+        const select = ref('')
+        const selectId = ref('')
+        const permissionsArr = ref([])
+        const editError = ref('')
+        const editCurrentArray = ref()
+
+        const value = ref([])
+        const options = ref([])
+
+        const createData = () => {
+
             const requestOptions = {
                 headers: {
                     'Content-type': 'application/json',
@@ -34,31 +55,88 @@ export default {
                     "Authorization": "Bearer " + useCookie('token').value,
                 }
             }
-            getRequest.getRequest(`users/${useRoute().params.id}/show`, requestOptions, (response) => {
-                userArr.value = response.data
+            getRequest.getRequest(`users/${useRoute().params.id}/edit`, requestOptions, (response) => {
+                response.data.roles.forEach((el) => {
+                    value.value.push({ title: el.display_name, id: el.id })
+                })
+                fields.value = Object.keys(response.data)
                 loading.value = false
+                arr.value = response.data
+                fieldsObj.value.full_name = response.data.full_name
+                fieldsObj.value.login = response.data.login
+            })
+
+        }
+
+        const permissionsData = () => {
+            const requestOptions = {
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json',
+                    "Authorization": "Bearer " + useCookie('token').value,
+                }
+            }
+            getRequest.getRequest(`roles`, requestOptions, (response) => {
+                permissionsArr.value = response.data
+                response.data.data.forEach((el) => {
+                    options.value.push({ title: el.display_name, id: el.id })
+                })
             })
         }
+
+        const changeSelect = (el) => {
+            selectId.value = el.id
+        }
+
+        const editUser = () => {
+            const arr = [];
+            fields.value.forEach(field => {
+                arr[field] = fieldsObj.value[field]
+            })
+
+            let { ...obj } = arr;
+
+            const rolesArr = value.value.map(el => el.id)
+            obj["roles"] = rolesArr
+
+            const requestOptions = {
+                method: 'POST',
+                body: obj,
+                headers: { "Authorization": "Bearer " + useCookie('token').value }
+            }
+            postRequest.postRequest(`users/${useRoute().params.id}/update`, requestOptions, (response) => {
+                if (response.success) {
+                    navigateTo('/users')
+                } else {
+                    editError.value = response.message
+                }
+            })
+        }
+
+
+
+
         onMounted(() => {
-            showPerson();
+            createData()
+            permissionsData()
+
         })
 
-        return { userArr, loading }
+        return { requestError, fieldsObj, fields, loading, arr, select, selectId, permissionsArr, changeSelect, editUser, editError, editCurrentArray, options, value }
+
     },
     components: {
-        Loader
+        HeadVue, Multiselect
     }
+
 
 }
 
 </script>
 
-
-
 <style>
-.singleUsersPage {
-    padding: 15px;
-    background: white;
-    margin: 15px;
+.multiselect {
+    pointer-events: none;
 }
 </style>
+

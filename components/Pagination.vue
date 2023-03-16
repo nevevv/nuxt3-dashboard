@@ -6,16 +6,16 @@
         <nav aria-label="Page navigation example" class="d-flex gap-1">
             <ul class="pagination d-flex d-sm-none">
                 <li class="page-item" v-for="link in arr.links" :key="link.id">
-                    <a class="page-link" :class="{ 'green disabled': link.active }" v-if="!Number((link.label))"
-                        style="cursor:pointer ;" @click="changePage(link)" v-html="link.label">
+                    <a class="page-link cursor-pointer" :class="{ 'green disabled': link.active }"
+                        v-if="!Number((link.label))" @click="changePage(link)" v-html="link.label">
                     </a>
                 </li>
 
             </ul>
             <ul class="pagination mob-pagination">
                 <li class="page-item" v-for="link in arr.links" :key="link.id">
-                    <a class="page-link" :class="{ 'green disabled': link.active }" style="cursor:pointer ;"
-                        @click="changePage(link)" v-html="link.label">
+                    <a class="page-link cursor-pointer" :class="{ 'green disabled': link.active }" @click="changePage(link)"
+                        v-html="link.label">
                     </a>
                 </li>
             </ul>

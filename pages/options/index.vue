@@ -84,7 +84,7 @@ export default {
                 }
             }
             getRequest.getRequest('service-fields', requestOptions, (response) => {
-                usersList.value = response.data
+                usersList.value = response.data.data
                 loading.value = false
             })
         }

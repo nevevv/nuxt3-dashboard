@@ -107,7 +107,7 @@
                 </div>
                 <div class="main__content-info">
                     <div>
-                        <h3 style="color: #cc5f5f" class="main__content-item">
+                        <h3 class="main__content-item text-danger">
                             {{ $t('debtors') }}
                         </h3>
                         <p class="main__content-value">12% <span>+0.00%</span></p>
@@ -138,7 +138,7 @@
                             <option>{{ $t('paidContracts') }}</option>
                         </select>
                     </div>
-                    <select style="color: #1c1d22 !important">
+                    <select>
                         <option>2022</option>
                     </select>
                 </div>

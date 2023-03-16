@@ -27,7 +27,7 @@
                                 </select>
                             </template>
                         </div>
-                        <p style="color: red ;">{{ requestError }}</p>
+                        <p class="text-danger">{{ requestError }}</p>
                         <div>
                             <button class="btn btn-danger" @click="showModal = !showModal">{{ $t('cancel') }}</button>
                             <button class="btn btn-primary" @click.prevent="createNewUser">{{ $t('create') }}</button>
@@ -57,8 +57,8 @@
                             <td>{{ list.full_name }}</td>
                             <td>{{ list.login }}</td>
                             <td v-if="list.roles.length">
-                                <span class="bg-primary text-white p-1 m-1" style="border-radius:4px; font-size: small"
-                                    v-for="el in list.roles" :key="el">{{ el.display_name + ' ' }}</span>
+                                <span class="bg-primary text-white p-1 m-1 td-span" v-for="el in list.roles" :key="el">{{
+                                    el.display_name + ' ' }}</span>
                             </td>
                             <td v-else> </td>
                             <td style="width:16%">
@@ -69,7 +69,7 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                         <li>
-                                            <NuxtLink :to="'roles' + '/' + list.id" class="dropdown-item">{{ $t('show') }}
+                                            <NuxtLink :to="'users' + '/' + list.id" class="dropdown-item">{{ $t('show') }}
                                             </NuxtLink>
                                         </li>
                                         <li>

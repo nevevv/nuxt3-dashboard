@@ -19,7 +19,7 @@
                         label="title" placeholder="Ruxsatlarni tanlang" />
                 </template>
             </div>
-            <p style="color: red ;">{{ requestError }}</p>
+            <p class="text-danger">{{ requestError }}</p>
 
             <div class="d-flex justify-content-start w-100">
                 <button type="submit" class=" btn btn-primary createNew-btn" @click.prevent="createNewUser()">{{

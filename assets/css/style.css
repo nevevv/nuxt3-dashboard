@@ -67,6 +67,11 @@ section {
   width: 100px;
 }
 
+.td-span {
+  border-radius: 4px;
+  font-size: small
+}
+
 .nav-mob {
   display: none;
 }
@@ -74,6 +79,7 @@ section {
 .header__nav-logo {
   width: 80px;
   height: 80px;
+  margin-left: 20px;
 }
 
 .header__nav-logo img {
@@ -489,6 +495,18 @@ section {
   padding-left: 0;
 }
 
+.home-icon {
+  color: #008838;
+  height: 28px;
+}
+
+.form-head {
+  text-transform: uppercase !important;
+  color: #008838 !important;
+  max-width: 300px !important;
+  outline: none !important;
+  appearance: none !important;
+}
 
 @media (max-width: 1400px) {
   .main__content {
@@ -1133,6 +1151,37 @@ hr {
   padding-bottom: 14px !important;
   padding-left: 17px !important;
 }
+
+.createNew-title {
+  padding-left: 20px;
+}
+
+.createNew-form {
+  padding-left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  background: white;
+  padding: 20px;
+  margin: 20px;
+}
+
+.createNew-form-item {
+  width: 47%;
+  height: 70px;
+}
+
+.createNew-form-input {
+  padding-left: 10px;
+  outline: none;
+  border-radius: 10px;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+}
+
+.createNew-btn {
+  background: #008838 !important;
+}
+
 
 @media (max-width: 900px) {
   .finances__block-table {

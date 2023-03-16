@@ -6,17 +6,16 @@
 
         <ul class="header__nav-list">
             <template v-for="(link, i) in links" :key="i">
-                <nuxt-link :to="link.to" class="header__nav-blocks" exact-active-class="active" @click="showChild(link)">
+                <nuxt-link :to="link.to" class="header__nav-blocks" active-class="active" @click="showChild(link)">
                     <div class="header__nav-blocks-item" :class="{ active: !store.activeSidebar }">
                         <i :class=link.icons></i>
                         <p v-if="store.activeSidebar">{{ link.title }}</p>
                     </div>
                 </nuxt-link>
                 <div v-for="child in link.children" :key="child.title" v-if="child">
-                    <nuxt-link :to="`${link.to}${child.to}`" class="header__nav-child" exact-active-class="active">
+                    <nuxt-link :to="`${link.to}${child.to}`" class="header__nav-child">
                         {{ child.title }}
                     </nuxt-link>
-
                 </div>
             </template>
 
@@ -24,7 +23,7 @@
     </nav>
     <nav class="header__nav nav-mob" :class="{ active: !store.activeSidebar }">
         <div class="header__nav-logo">
-            <img src="../assets/images/favicon.webp" alt="" class="header__nav-logo" style="margin-left: 20px;" />
+            <img src="../assets/images/favicon.webp" alt="" class="header__nav-logo" />
         </div>
         <div class="header__nav-list">
             <nuxt-link :to="link.to" v-for="link in links" :key="link.id" class="header__nav-blocks" active-class="active"

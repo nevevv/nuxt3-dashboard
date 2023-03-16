@@ -22,7 +22,7 @@
                     </select>
                 </template>
             </div>
-            <p style="color: red ;">{{ requestError }}</p>
+            <p class="text-danger">{{ requestError }}</p>
             <div>
                 <button class="btn btn-danger" @click="showModal = !showModal">{{ $t('cancel') }}</button>
                 <button class="btn btn-primary" @click.prevent="createNewUser">{{ $t('create') }}</button>

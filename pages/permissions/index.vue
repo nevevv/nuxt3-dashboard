@@ -115,7 +115,6 @@ $gl-sm : "screen and (max-width: 48em)"; // max 768px
 $gl-md : "screen and (max-width: 64em)"; // max 1024px
 $gl-lg : "screen and (max-width: 80em)"; // max 1280px
 
-// table style
 
 table {
     border-spacing: 1;

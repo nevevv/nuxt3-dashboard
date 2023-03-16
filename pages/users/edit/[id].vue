@@ -20,7 +20,7 @@
                 </template>
             </div>
             <div class="w-100">
-                <p style="color: red ;">{{ editError }}</p>
+                <p class="text-danger">{{ editError }}</p>
             </div>
 
             <div class="d-flex justify-content-start w-100">
@@ -144,35 +144,3 @@ export default {
 
 </script>
 
-
-<style scoped>
-.createNew-title {
-    padding-left: 20px;
-}
-
-.createNew-form {
-    padding-left: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    background: white;
-    padding: 20px;
-    margin: 20px;
-}
-
-.createNew-form-item {
-    width: 47%;
-    height: 70px;
-}
-
-.createNew-form-input {
-    padding-left: 10px;
-    outline: none;
-    border-radius: 10px;
-    border: var(--bs-border-width) solid var(--bs-border-color);
-}
-
-.createNew-btn {
-    background: #008838 !important;
-}
-</style>

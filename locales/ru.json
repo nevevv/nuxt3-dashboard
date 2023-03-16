@@ -3,6 +3,7 @@
     "dashboard": "Дашборд",
     "permissions": "Разрешения",
     "users": "Пользователи",
+    "user": "Пользователь",
     "role": "Роли",
     "fields_list": "Cписок полей",
     "export": "Экспорт данных",
@@ -51,5 +52,6 @@
     "permissionList": "Список разрешений",
     "create": "Создать",
     "password_confirmation": "Подтвердите пароль",
-    "roles": "Выберите роль"
+    "roles": "Выберите роль",
+    "id": "ID"
 }

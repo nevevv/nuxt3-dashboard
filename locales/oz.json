@@ -3,6 +3,7 @@
     "dashboard": "Dashbord",
     "permissions": "Ruxsatlar",
     "users": "Foydalanuvchilar",
+    "user": "Foydalanuvchi",
     "role": "Rollar",
     "fields_list": "Maydonlar ro'yxati",
     "export": "Ma'lumotlar eksporti",
@@ -52,5 +53,6 @@
     "createNewPermisson": "Yangi ruhsat yaratish",
     "create": "Yaratish",
     "password_confirmation": "Parolni tasdiqlang",
-    "roles": "Rolni tanlang"
+    "roles": "Rolni tanlang",
+    "id":"ID"
 }

@@ -48,7 +48,7 @@
 
             </template>
 
-            <p style="color: red ;">{{ editError }}</p>
+            <p class="text-danger">{{ editError }}</p>
             <div>
                 <button class="btn btn-primary" @click="editModal = !editModal">{{ $t('cancel') }}</button>
                 <button class="btn btn-danger" @click.prevent="editUser(fields)">{{ $t('perform') }}</button>

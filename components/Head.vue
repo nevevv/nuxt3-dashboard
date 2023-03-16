@@ -4,8 +4,7 @@
             <i class="bi bi-list burger-menu" @click.prevent="store.sideToggle"></i>
             <div class="main__head-title">{{ text }}</div>
             <div class="main__head-block">
-                <select id="form-select" class="form-control" v-model="$i18n.locale"
-                    style="text-transform: uppercase;  color:#008838 ; max-width: 300px; outline: none; appearance: none;">
+                <select id="form-select" class="form-control  form-head" v-model="$i18n.locale">
                     <option value="oz">oz</option>
                     <option value="ru">ru</option>
                 </select>
@@ -21,7 +20,7 @@
         </div>
 
         <div class="main__block-name">
-            <i class="bi bi-house-fill" style="color:#008838;height: 28px;"></i>
+            <i class="bi bi-house-fill home-icon"></i>
             <p class="main__block-title">{{ subtitle }}</p>
         </div>
     </div>
