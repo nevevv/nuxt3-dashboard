@@ -3,11 +3,11 @@
         <div v-if="!loading" class="singleUsersPage">
             <h5>ID: {{ userArr.id }}</h5>
             <h6>name: {{ userArr.name }}</h6>
-            <h6>description: {{ userArr.description  }}</h6>
-            <h6>price: {{ userArr.price  }}</h6>
-            <h6>size1: {{ userArr.size1  }}</h6>
-            <h6>size: {{ userArr.size  }}</h6>
-            <h6>display_name: {{ userArr.display_name  }}</h6>
+            <h6>description: {{ userArr.description }}</h6>
+            <h6>price: {{ userArr.price }}</h6>
+            <h6>size1: {{ userArr.size1 }}</h6>
+            <h6>size: {{ userArr.size }}</h6>
+            <h6>display_name: {{ userArr.display_name }}</h6>
         </div>
         <Loader v-else />
     </div>
@@ -19,9 +19,16 @@ import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import Loader from '~~/components/Loader.vue';
 
 
+
 definePageMeta({
-    layout: 'default'
+    middleware: 'guest',
+    layout: 'default',
+
+    pageTransition: {
+        name: 'page'
+    }
 })
+
 
 export default {
     setup() {

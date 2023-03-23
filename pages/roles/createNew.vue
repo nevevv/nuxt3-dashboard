@@ -39,6 +39,13 @@ import MultiSelect from 'vue-multiselect';
 
 export default {
     setup() {
+        definePageMeta({
+            middleware: 'guest',
+
+            pageTransition: {
+                name: 'page'
+            }
+        })
         const postRequest = usePostRequest()
         const getRequest = useGetRequest()
         const requestError = ref('')

@@ -8,7 +8,6 @@
                     <CreateNew :modalName="`${$t('createNewPermisson')}`" :fields="['name', 'display_name', 'description']"
                         :url="api_url" />
                 </div>
-
             </div>
             <div class="main__programs-content-block mb-5">
                 <div class="main__content-block-head">

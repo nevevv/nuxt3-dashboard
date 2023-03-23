@@ -10,7 +10,6 @@
     </div>
 </template>
 
-
 <script>
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import Loader from '~~/components/Loader.vue';

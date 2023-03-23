@@ -6,7 +6,8 @@
                 <h3 class="users-content-title">{{ `${$t('all') + ' ' + $t('users')}` }}</h3>
                 <div>
                     <div>
-                        <nuxt-link to="/users/createNew" class="main__programs-content-btn modalBtn">Create</nuxt-link>
+                        <nuxt-link to="/users/createNew" 
+                    class="main__programs-content-btn modalBtn">{{ $t('create') }}</nuxt-link>
                     </div>
                     <Modal v-if="showModal">
                         <p class="fs-3 text-center">{{ $t('create') }} </p>
@@ -113,7 +114,7 @@ import CreateNew from '~~/components/CreateNew.vue'
 import Pagination from '~~/components/Pagination.vue';
 
 definePageMeta({
-    middleware: ['guest'],
+    middleware: 'guest',
     pageTransition: {
         name: 'page'
     }

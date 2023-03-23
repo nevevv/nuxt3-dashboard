@@ -4,7 +4,7 @@
         <div class="main__programs-content">
             <div class="users-content-head">
                 <h3 class="users-content-title">All Roles</h3>
-                <nuxt-link to="/roles/createNew" class="main__programs-content-btn modalBtn">Create</nuxt-link>
+                <nuxt-link to="/roles/createNew" class="main__programs-content-btn modalBtn">{{ $t('create') }}</nuxt-link>
             </div>
             <div class="main__programs-content-block">
                 <div class="main__content-block-head">
@@ -36,7 +36,7 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                         <li>
-                                            <NuxtLink :to="'roles' + '/' + list.id" class="dropdown-item">{{ $t('show') }}
+                                            <NuxtLink :to="'roles/' + list.id" exact class="dropdown-item">{{ $t('show') }}
                                             </NuxtLink>
                                         </li>
                                         <li>
@@ -44,7 +44,9 @@
                                             }}</a>
                                         </li>
                                         <li>
-                                            <nuxt-link class="dropdown-item" :to="`roles/edit/${list.id}/`">{{ $t('edit') }}</nuxt-link>
+                                            <nuxt-link class="dropdown-item" exact :to="`roles/edit/${list.id}/`">{{
+                                                $t('edit')
+                                            }}</nuxt-link>
                                         </li>
                                     </ul>
                                 </div>
@@ -80,6 +82,8 @@ import Actions from '~~/components/Actions.vue'
 import CreateNew from '~~/components/CreateNew.vue'
 
 definePageMeta({
+    middleware: 'guest',
+
     pageTransition: {
         name: 'page'
     }

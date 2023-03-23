@@ -16,7 +16,7 @@
                 <template v-else>
                     <label>{{ $t(field) }}</label>
                     <Multiselect v-model="value" :options="options" :multiple="true" :hide-selected="true" track-by="id"
-                        label="title" />
+                        label="title" class="pointer-event" />
                 </template>
             </div>
             <div class="w-100">

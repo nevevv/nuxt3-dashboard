@@ -76,6 +76,10 @@ section {
   display: none;
 }
 
+.nuxt-link-active {
+  display: none;
+}
+
 .header__nav-logo {
   width: 80px;
   height: 80px;
@@ -141,7 +145,6 @@ section {
 .header__nav-blocks.active {
   background: #008838;
   color: white;
-
 }
 
 .header__nav-blocks.active p {
@@ -1784,9 +1787,6 @@ td {
   position: relative;
 }
 
-fieldset[disabled] .multiselect {
-  pointer-events: none
-}
 
 .multiselect__spinner {
   position: absolute;

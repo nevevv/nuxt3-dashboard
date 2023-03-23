@@ -15,8 +15,7 @@
 
                 <template v-else>
                     <label> {{ $t(field) }}</label>
-                    <MultiSelect v-model="value" :options="options" :multiple="true" :hide-selected="true" track-by="id"
-                        label="title" />
+                    <MultiSelect v-model="value" :options="options" :multiple="true" :hide-selected="true" track-by="id" label="title" />
                 </template>
             </div>
             <p class="text-danger">{{ requestError }}</p>
@@ -38,6 +37,13 @@ import MultiSelect from 'vue-multiselect';
 
 export default {
     setup() {
+        definePageMeta({
+            middleware: 'guest',
+
+            pageTransition: {
+                name: 'page'
+            }
+        })
         const postRequest = usePostRequest()
         const getRequest = useGetRequest()
         const requestError = ref('')

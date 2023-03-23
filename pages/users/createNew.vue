@@ -49,6 +49,15 @@ export default {
         const value = ref([])
         const options = ref([])
 
+        definePageMeta({
+            middleware: 'guest',
+
+            pageTransition: {
+                name: 'page'
+            }
+        })
+
+
         const createData = () => {
             const requestOptions = {
                 headers: {
@@ -80,8 +89,6 @@ export default {
             getRequest.getRequest('roles', requestOptions, (response) => {
                 arr.value = response.data.data
                 response.data.data.forEach((el) => {
-                    console.log(el.display_name);
-                    console.log(el.id);
                     options.value.push({ title: el.display_name, id: el.id })
                 })
             })

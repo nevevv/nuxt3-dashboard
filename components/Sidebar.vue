@@ -3,22 +3,21 @@
         <div class="header__nav-logo">
             <img src="../assets/images/favicon.webp" alt="" />
         </div>
-
         <ul class="header__nav-list">
             <template v-for="(link, i) in links" :key="i">
-                <nuxt-link :to="link.to" class="header__nav-blocks" active-class="active" @click="showChild(link)">
+                <Nuxt-link :to="link.to" class="header__nav-blocks" active-class="active" @click="showChild(link)">
                     <div class="header__nav-blocks-item" :class="{ active: !store.activeSidebar }">
                         <i :class=link.icons></i>
                         <p v-if="store.activeSidebar">{{ link.title }}</p>
                     </div>
-                </nuxt-link>
-                <div v-for="child in link.children" :key="child.title" v-if="child">
+
+                </Nuxt-link>
+                <template v-for="child in link.children" :key="child.title">
                     <nuxt-link :to="`${link.to}${child.to}`" class="header__nav-child">
                         {{ child.title }}
                     </nuxt-link>
-                </div>
+                </template>
             </template>
-
         </ul>
     </nav>
     <nav class="header__nav nav-mob" :class="{ active: !store.activeSidebar }">

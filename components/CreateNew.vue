@@ -108,7 +108,6 @@ export default {
                     requestError.value = response.message
                 }
             })
-            console.log(fieldsObj.value);
         }
         const changeSelect = (list) => {
             selectId.value = list.id

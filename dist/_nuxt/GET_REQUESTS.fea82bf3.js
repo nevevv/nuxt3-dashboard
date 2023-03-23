@@ -1,0 +1,1 @@
+import{a as _,o as r,f as a,m as u,b as i}from"./entry.e169430c.js";const f={},p={class:"spinner"};function l(e,t){return r(),a("div",p)}const m=_(f,[["render",l]]),g=u("getRequest",()=>{const e=i();return{getRequest:async(s,n,o)=>{const c=await $fetch(`${e.public.api_url}/${s}`,n);return o(c)}}});export{m as _,g as u};

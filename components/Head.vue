@@ -20,7 +20,9 @@
         </div>
 
         <div class="main__block-name">
-            <i class="bi bi-house-fill home-icon"></i>
+            <nuxt-link to="/">
+                <i class="bi bi-house-fill home-icon"></i>
+            </nuxt-link>
             <p class="main__block-title">{{ subtitle }}</p>
         </div>
     </div>
