@@ -188,7 +188,7 @@
     </section>
 </template>
 
-<script>
+<script setup>
 import HeadVue from '~~/components/Head.vue';
 
 definePageMeta({
@@ -197,13 +197,5 @@ definePageMeta({
         name: 'page'
     }
 })
-export default {
-    name:'page',
-    components: {
-        HeadVue,
-    },
-    
-    
-}
 
 </script>

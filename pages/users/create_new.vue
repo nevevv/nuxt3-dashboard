@@ -1,11 +1,11 @@
 <template>
     <div class="d-flex flex-column w-100">
         <HeadVue />
-        <p class="fs-3 createNew-title pt-3">{{ $t('edit') }} </p>
+        <p class="fs-3 createNew-title pt-3">{{ $t('create') }} </p>
         <form class="createNew-form" v-if="!loading">
             <div class="d-flex flex-column align-items-start gap-2 mb-3 createNew-form-item">
                 <label>{{ $t('fullName') }}</label>
-                <input class="w-100 h-100 createNew-form-input" type="text" v-model="fieldsObj.fullName">
+                <input class="w-100 h-100 createNew-form-input" type="text" v-model="fieldsObj.full_name">
             </div>
             <div class="d-flex flex-column align-items-start gap-2 mb-3 createNew-form-item">
                 <label>{{ $t('login') }}</label>
@@ -30,7 +30,6 @@
             </div>
 
             <p style="color: red ;" class="d-flex w-100 text-danger">{{ requestError }}</p>
-
             <div class="d-flex justify-content-start w-100">
                 <button type="submit" class=" btn btn-primary createNew-btn" @click.prevent="createNewUser()">{{
                     $t('create') }}</button>
@@ -46,7 +45,6 @@ import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import { usePostRequest } from '~~/helpers/POST_REQUESTS';
 import HeadVue from '~/components/Head.vue';
 
-
 definePageMeta({
     middleware: 'guest',
     pageTransition: {
@@ -61,20 +59,8 @@ const fieldsObj = reactive({})
 const loading = ref(true)
 const rolesArr = ref([])
 
-const getUsersDataForEdit = () => {
-    const requestOptions = {
-        headers: {
-            'Content-type': 'application/json',
-            'Accept': 'application/json',
-            "Authorization": "Bearer " + useCookie('token').value,
-        }
-    }
-    getRequest.getRequest(`users/${useRoute().params.id}/show`, requestOptions, (response) => {
-        Object.assign(fieldsObj, response.data)
-    })
-}
-
 const getRoles = () => {
+
     const requestOptions = {
         headers: {
             'Content-type': 'application/json',
@@ -91,16 +77,19 @@ const getRoles = () => {
 }
 
 const createNewUser = async () => {
+    if (!fieldsObj.role) {
+        fieldsObj.role = rolesArr.value[0].name
+    }
     const requestOptions = {
         method: 'POST',
         body: fieldsObj,
         headers: { "Authorization": "Bearer " + useCookie('token').value }
     }
-    postRequest.postRequest(`users/${useRoute().params.id}/update`, requestOptions, (response) => {
+    postRequest.postRequest(`users/create`, requestOptions, (response) => {
         if (response.success) {
             navigateTo('/users')
         } else {
-            requestError.value = response.error.message
+            requestError.value = response.error.message;
         }
     })
 }
@@ -109,12 +98,9 @@ const changeSelectValue = (el) => {
     fieldsObj.role = el
 }
 
-
 onMounted(() => {
-    getUsersDataForEdit()
     getRoles()
 })
-
 
 </script>
 

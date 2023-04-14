@@ -62,89 +62,68 @@
     </div>
 </template>
 
-<script>
+<script setup>
 
 import Loader from '~~/components/Loader.vue';
-import { useMainStore } from '~~/store';
 import { useUser } from '~~/helpers/userName'
 import { usePostRequest } from '~~/helpers/POST_REQUESTS';
 import { useGetRequest } from '~~/helpers/GET_REQUESTS'
 
-
-
-export default {
-    setup() {
-        definePageMeta({
-            layout: "log",
-            middleware: ['login'],
-            pageTransition: {
-                name: 'page'
-            },
-        });
-
-        const postRequest = usePostRequest()
-        const getRequest = useGetRequest()
-
-        const user = useUser()
-
-        const store = useMainStore();
-        const config = useRuntimeConfig();
-
-        const loading = ref(false);
-        const error = ref('')
-        const userSendData = reactive({
-            login: '',
-            password: '',
-        })
-
-        const submit = async () => {
-            const requestOptions = {
-                method: 'POST',
-                body: { "login": userSendData.login, "password": userSendData.password }
-            }
-
-            loading.value = true
-
-            postRequest.postRequest('login', requestOptions, (response) => {
-                if (response.success) {
-                    error.value = '';
-                    document.cookie = `token=${response.data.token}; max-age=3600`;
-                    getUsersData(response.data.token);
-                    navigateTo('/')
-                } else {
-                    error.value = response.message
-                }
-                loading.value = false
-
-            })
-        }
-        const getUsersData = async (token) => {
-            const requestOptions = {
-                method: 'GET',
-                headers: {
-                    'Content-type': 'application/json',
-                    'Accept': 'application/json',
-                    "Authorization": "Bearer " + token,
-                }
-            }
-
-            getRequest.getRequest('users/me', requestOptions, (response) => {
-                document.cookie = `personName=${response.data.full_name}`
-                user.userName = response.data.full_name
-            })
-
-        }
-
-
-        return { store, config, user, postRequest, error, userSendData, loading, submit }
+definePageMeta({
+    layout: "log",
+    middleware: ['login'],
+    pageTransition: {
+        name: 'page'
     },
+});
 
-    components: {
-        Loader
-    },
+const postRequest = usePostRequest()
+const getRequest = useGetRequest()
+const user = useUser()
+const loading = ref(false);
+const error = ref('')
+const userSendData = reactive({
+    login: '',
+    password: '',
+})
+
+const submit = async () => {
+    const requestOptions = {
+        method: 'POST',
+        body: { "login": userSendData.login, "password": userSendData.password }
+    }
+
+    loading.value = true
+
+    postRequest.postRequest('login', requestOptions, (response) => {
+        if (response.success) {
+            error.value = '';
+            document.cookie = `token=${response.data.token}; max-age=3600`;
+            getUsersData(response.data.token);
+            navigateTo('/')
+        } else {
+            error.value = response.message
+        }
+        loading.value = false
+
+    })
 }
+const getUsersData = async (token) => {
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + token,
+        }
+    }
 
+    getRequest.getRequest('users/me', requestOptions, (response) => {
+        document.cookie = `personName=${response.data.fullName}`
+        user.userName = response.data.full_name
+    })
 
+}
 </script>
 
 <style scoped>

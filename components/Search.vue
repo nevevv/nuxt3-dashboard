@@ -1,10 +1,15 @@
 <template>
     <div class="main__block-head-item">
         <div class="main__block-head-input">
-            <i class="bi bi-search"></i>
-            <input class="form-control mr-sm-2" type="search" :placeholder="`${$t('search')}`" aria-label="Search">
+            <div class="input-group">
+                <input type="search" class="form-control rounded form-search" :placeholder="$t('search')"
+                    aria-label="Search" aria-describedby="search-addon" />
+                <button type="button" class="btn btn-outline-primary">
+                    <i class="bi bi-search search-icon"></i>
+                </button>
+            </div>
         </div>
-        <div  class="d-flex gap-1">
+        <div class="d-flex gap-1">
             <button>
                 <i class="bi bi-funnel fs-6"></i>
                 Filter
@@ -16,3 +21,10 @@
         </div>
     </div>
 </template>
+
+<style>
+.form-search {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+</style>

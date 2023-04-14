@@ -2,14 +2,7 @@
     <Login />
 </template>
 
-<script>
+<script setup>
 import Login from '../pages/Login';
-
-export default {
-    components: {
-        Login
-    }
-}
-
 </script>
 

@@ -1,10 +1,11 @@
 <template>
     <section class="programs__page">
-        <HeadVue text="Roles" subtitle="/ Roles" />
+        <HeadVue text="Service Field" subtitle="/ Service" />
         <div class="main__programs-content">
             <div class="users-content-head">
-                <h3 class="users-content-title">All Roles</h3>
-                <nuxt-link to="/roles/create_new" class="main__programs-content-btn modalBtn">{{ $t('create') }}</nuxt-link>
+                <h3 class="users-content-title">All Services</h3>
+                <nuxt-link to="/options/settings/create_new" class="main__programs-content-btn modalBtn">{{ $t('create')
+                }}</nuxt-link>
             </div>
             <div class="main__programs-content-block">
                 <Loader v-if="loading" />
@@ -21,16 +22,24 @@ import HeadVue from '~~/components/Head.vue';
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import { useI18n } from 'vue-i18n';
 
-const getRequest = useGetRequest();
+definePageMeta({
+    middleware: ['guest'],
+    pageTransition: {
+        name: 'page'
+    }
+})
+
+const getRequest = useGetRequest()
 const tableData = ref()
 const loading = ref(true)
 
 const labels = computed(() => [
     { title: useI18n().t('id'), prop: 'id' },
-    { title: useI18n().t('name'), prop: 'name' }
+    { title: useI18n().t('name'), prop: 'name' },
+    { title: useI18n().t('type'), prop: 'type' }
 ])
 
-const getUsersData = async () => {
+const getUsersData = () => {
     const requestOptions = {
         headers: {
             'Content-type': 'application/json',
@@ -38,16 +47,15 @@ const getUsersData = async () => {
             "Authorization": "Bearer " + useCookie('token').value,
         }
     }
-    getRequest.getRequest('roles', requestOptions, (response) => {
-        tableData.value = response.data
+    getRequest.getRequest('service-fields', requestOptions, (response) => {
+        tableData.value = response.data.items
         loading.value = false
     })
 }
 
+
 getUsersData()
-
 </script>
-
 
 
 <style lang="scss" scoped>
@@ -104,12 +112,14 @@ $gl-xs : "screen and (max-width: 35.5em)"; // up to 568px
                 }
 
                 &:nth-child(3):before {
-                    content: "Display Name";
+                    content: "Field Type Id";
                 }
 
-                &:nth-child(4):before {
-                    content: "Desription";
+                &:nth-child(5):before {
+                    content: "Action";
                 }
+
+
             }
         }
     }

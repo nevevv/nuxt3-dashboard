@@ -5,10 +5,14 @@
         <Loader v-if="loading" />
 
         <form class="createNew-form" v-else>
-            <div class="d-flex flex-column align-items-start gap-2 mb-3 createNew-form-item" v-for="(input, idx) in inputs"
-                :key="input">
-                {{ $t(idx) }}
-                <input disabled type="text" class="w-100 h-100 createNew-form-input" :placeholder="input || '-'">
+            <div class="d-flex flex-column align-items-start gap-2 mb-3 createNew-form-item">
+                {{ $t('name') }}
+                <input disabled type="text" class="w-100 h-100 createNew-form-input" :placeholder="obj.name">
+            </div>
+            <div class="d-flex flex-column align-items-start gap-2 mb-3 createNew-form-item">
+                {{ $t('type') }}
+                <input disabled type="text" class="w-100 h-100 createNew-form-input" :placeholder="obj.type">
+
             </div>
         </form>
 
@@ -16,7 +20,9 @@
 </template>
 
 <script setup>
-import { useGetRequest } from '~~/helpers/GET_REQUESTS';
+import HeadVue from '~/components/Head.vue';
+import Loader from '~~/components/Loader.vue';
+
 
 definePageMeta({
     middleware: ['guest'],
@@ -27,8 +33,7 @@ definePageMeta({
 })
 const getRequest = useGetRequest()
 const loading = ref(true)
-const fields = ref([])
-const inputs = ref([])
+const obj = reactive({})
 
 
 const getData = () => {
@@ -37,32 +42,17 @@ const getData = () => {
             "Authorization": "Bearer " + useCookie('token').value,
         }
     }
-    getRequest.getRequest(`services/${useRoute().params.id}/show`, requestOptions, (response) => {
-        inputs.value = response.data
+    getRequest.getRequest(`service-fields/${useRoute().params.id}/show`, requestOptions, (response) => {
+        obj.name = response.data.name;
+        obj.type = response.data.type
         loading.value = false
     })
 }
 
-const getFields = () => {
-    const requestOptions = {
-        headers: {
-            'Content-type': 'application/json',
-            'Accept': 'application/json',
-            "Authorization": "Bearer " + useCookie('token').value,
-        }
-    }
-    getRequest.getRequest('services/create', requestOptions, (response) => {
-        fields.value = response.data
-    })
-}
-
-
 
 onMounted(() => {
     getData()
-    getFields()
 })
-
 
 </script>
 

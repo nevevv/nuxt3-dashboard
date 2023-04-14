@@ -110,7 +110,7 @@ section {
   padding: 5px;
   align-items: center;
   cursor: pointer;
-  border-radius: 12px;
+  border-radius: 12px !important;
 }
 
 .header__nav-blocks:nth-of-type(3) {
@@ -153,6 +153,19 @@ section {
 
 .header__nav-blocks.active .header__nav-blocks-item i {
   color: white !important;
+}
+
+.header__nav-blocks.active i {
+  color: white;
+}
+
+.accordion-body .exact-active {
+  color: #008838 !important;
+}
+
+
+.bi-chevron-down {
+  transition: .3s ease;
 }
 
 .table> :not(caption)>*>* {
@@ -486,17 +499,10 @@ section {
   top: 3%;
 }
 
-.header__nav-blocks-item.active {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-}
 
-.header__nav-blocks-item.active>i {
+/* .header__nav-blocks-item.active>i {
   padding-left: 0;
-}
+} */
 
 .home-icon {
   color: #008838;
@@ -1277,11 +1283,10 @@ hr {
 
 .main__programs-content-block {
   background: #ffffff;
-  border-radius: 12px;
   margin-left: 21px;
   margin-right: 20px;
   margin-top: 20px;
-  padding: 27px 21px 17px 21px;
+  padding: 25px 5px 25px 10px;
 }
 
 .main__content-block-head {
@@ -1307,31 +1312,22 @@ hr {
   margin-bottom: 0;
 }
 
-.main__block-head-input {
+
+.search-icon {
+  font-size: 14px;
+  height: 14px;
+  width: 14px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  border: 1px solid var(--black);
-  padding: 4px;
-  border-radius: 8px;
+  justify-content: center;
 }
-
-.main__block-head-input input {
-  border: none;
-  height: 23px;
-}
-
-
-
-
 
 .main__block-head-item button {
   display: flex;
   align-items: center;
   gap: 9px;
-  background: none;
   border: 1px solid var(--black);
-  padding: 8px 8px 8px 9px;
+  padding: 6px 8px 6px 9px;
   border-radius: 8px;
   font-family: var(--int400);
   font-size: 11px;
@@ -1772,7 +1768,6 @@ hr {
 
 .header__nav-blocks:hover {
   background: #008838;
-  border-radius: 12px;
 }
 
 .header__nav-blocks:hover .header__nav-blocks-item i {
@@ -1782,6 +1777,19 @@ hr {
 .header__nav-blocks:hover .header__nav-blocks-item p {
   color: white;
 }
+
+.accordion-button:not(.collapsed) {
+  background: #00973f;
+}
+
+.accordion-button:not(.collapsed) i {
+  color: white;
+}
+
+.accordion-button:not(.collapsed) p {
+  color: white;
+}
+
 
 td {
   position: relative;
@@ -2248,4 +2256,29 @@ td {
   to {
     transform: rotate(2turn)
   }
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0;
+}
+
+.el-pagination.is-background .btn-next.is-active,
+.el-pagination.is-background .btn-prev.is-active,
+.el-pagination.is-background .el-pager li.is-active {
+  background-color: #008838 !important;
+}
+
+.el-radio-group {
+  display: none !important;
 }

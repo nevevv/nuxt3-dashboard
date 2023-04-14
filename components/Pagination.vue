@@ -1,46 +1,23 @@
 <template>
-    <div class="main__programs-sub">
-        <div class="main__programs-sub-item">
-            <p>{{ arr.to }} of {{ arr.total }} items</p>
-        </div>
-        <nav aria-label="Page navigation example" class="d-flex gap-1">
-            <ul class="pagination d-flex d-sm-none">
-                <li class="page-item" v-for="link in arr.links" :key="link.id">
-                    <a class="page-link cursor-pointer" :class="{ 'green disabled': link.active }"
-                        v-if="!Number((link.label))" @click="changePage(link)" v-html="link.label">
-                    </a>
-                </li>
-
-            </ul>
-            <ul class="pagination mob-pagination">
-                <li class="page-item" v-for="link in arr.links" :key="link.id">
-                    <a class="page-link cursor-pointer" :class="{ 'green disabled': link.active }" @click="changePage(link)"
-                        v-html="link.label">
-                    </a>
-                </li>
-            </ul>
-        </nav>
+    <div class="d-flex mt-3">
+        <el-pagination background layout="prev, pager, next" :total="Number(`${pages}0`)" @current-change="setPage"
+            :pagerCount="5" hide-on-single-page />
     </div>
 </template>
 
 <script>
 export default {
+    props: ['pages'],
     emits: ['pageChange'],
-    props: ['arr'],
     setup(props, ctx) {
-        const changePage = (e) => {
-            if (e.url) {
-                const params = new URL(e.url).searchParams;
-                ctx.emit('pageChange', params.get('page'))
-            }
+        const setPage = (val) => {
+            ctx.emit('pageChange', val)
         }
-        return { changePage }
+        return { setPage }
     }
-
 }
 
 </script>
-
 
 <style>
 .green {
@@ -51,6 +28,12 @@ export default {
 .page-link {
     color: #008838;
 }
+
+.page-item {
+    cursor: pointer;
+}
+
+
 
 @media(max-width:575px) {
     .mob-pagination {

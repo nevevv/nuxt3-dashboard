@@ -5,7 +5,7 @@ export const useMainStore = defineStore("main", {
     activeSidebar: true,
     usersName: useCookie("personName").value,
   }),
-  actions: {
+  actions: { 
     sideToggle() {
       this.activeSidebar = !this.activeSidebar;
     },

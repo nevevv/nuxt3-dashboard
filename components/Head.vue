@@ -28,34 +28,37 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { useMainStore } from '~~/store';
 import { useUser } from '../helpers/userName'
 import { usePostRequest } from '~~/helpers/POST_REQUESTS';
-export default {
-    props: ['text', 'subtitle'],
-    setup() {
-        const postRequest = usePostRequest();
-        const user = useUser()
-        const store = useMainStore();
-        const config = useRuntimeConfig();
-        const userName = ref('')
 
-        const logout = async () => {
-            const requestOptions = {
-                method: 'POST',
-                headers: { "Authorization": "Bearer " + useCookie('token').value }
-            }
-
-            postRequest.postRequest('logout', requestOptions, (response) => {
-                navigateTo('/login')
-            })
-        }
-
-        return { store, config, userName, user, logout }
+defineProps({
+    text: {
+        type: String,
+        required: false
     },
+    subtitle: {
+        type: String,
+        required: false
+    }
+})
 
+const postRequest = usePostRequest();
+const user = useUser()
+const store = useMainStore();
+
+const logout = async () => {
+    const requestOptions = {
+        method: 'POST',
+        headers: { "Authorization": "Bearer " + useCookie('token').value }
+    }
+
+    postRequest.postRequest('logout', requestOptions, (response) => {
+        navigateTo('/login')
+    })
 }
+
 </script>
 
 <style>

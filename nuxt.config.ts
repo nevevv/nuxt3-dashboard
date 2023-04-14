@@ -26,7 +26,7 @@ export default defineNuxtConfig({
   },
   extends: ["nuxt-seo-kit"],
   css: ["assets/css/style.css"],
-  modules: ["@pinia/nuxt"],
+  modules: ["@pinia/nuxt", "@element-plus/nuxt"],
   runtimeConfig: {
     public: {
       api_url: process.env.API_URL,

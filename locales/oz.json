@@ -42,9 +42,9 @@
     "newNotice": "Yangi eslatma",
     "login": "Login",
     "password": "Parol",
-    "full_name": "To'liq ism",
+    "fullName": "To'liq ism",
     "role[]": "Rol",
-    "name": "Ism",
+    "name": "Nomi",
     "display_name": "Ko'rsatiladigan ism",
     "description": "Tavsif",
     "action": "Xarakat",
@@ -54,5 +54,7 @@
     "create": "Yaratish",
     "password_confirmation": "Parolni tasdiqlang",
     "roles": "Rolni tanlang",
-    "id":"ID"
+    "id": "ID",
+    "price": "Narx",
+    "size": "Razmer"
 }

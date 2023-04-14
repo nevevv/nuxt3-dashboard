@@ -9,14 +9,13 @@
     </div>
 </template>
 
-<script>
-export default {
-    props: ['modalTitle'],
-
-}
-
-
-
+<script setup>
+defineProps({
+    modalTitle: {
+        type: String,
+        required: false
+    }
+})
 
 </script>
 

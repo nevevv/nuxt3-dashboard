@@ -8,22 +8,10 @@
 
 
 
-<script>
-
-
-
-import SidebarVue from '@/components/Sidebar.vue';
+<script setup>
 import { useMainStore } from '~~/store';
-export default {
-    setup() {
-        const store = useMainStore();
-        return { store }
-    },
-    components: {
-        SidebarVue,
-    },
 
-}
+const store = useMainStore();
 
 </script>
 

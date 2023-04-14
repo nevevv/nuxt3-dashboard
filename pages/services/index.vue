@@ -5,66 +5,26 @@
             <div class="main__programs-content">
                 <div class="users-content-head">
                     <h3 class="users-content-title">All Services</h3>
-                    <CreateNew :modalName="'service'" :fields="['name', 'description', 'price', 'size', 'display_name']"
-                        :url="api_url" />
+                    <nuxt-link to="/services/create_new" class="main__programs-content-btn modalBtn">{{ $t('create')
+                    }}</nuxt-link>
+
                 </div>
 
             </div>
             <div class="main__programs-content-block mb-5">
-                <div class="main__content-block-head">
-                    <h3 class="main__block-head-title">
-                        Services List
-                    </h3>
-                    <Search/>
-                </div>
-                <table v-if="!loading">
-                    <thead>
-                        <tr>
-                            <th class="th">ID</th>
-                            <th class="th">Name</th>
-                            <th class="th">Description</th>
-                            <th class="th">Price</th>
-                            <th class="th">Size1</th>
-                            <th class="th">Size</th>
-                            <th class="th">Display Name</th>
-                            <th class="th">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="list in usersList.data" :key="list.id">
-                            <td>{{ list.id }}</td>
-                            <td>{{ list.name }}</td>
-                            <td>{{ list.description }}</td>
-                            <td>{{ list.price }}</td>
-
-                            <td v-if="list.size1">{{ list.size1 }}</td>
-                            <td v-else>-</td>
-
-                            <td v-if="list.size">{{ list.size }}</td>
-                            <td v-else>-</td>
-                            <td>{{ list.display_name }}</td>
-
-                            <td style="width:16%">
-                                <Actions :list="list" :fields="['name', 'description', 'price', 'display_name', 'size']"
-                                    :url="api_url" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <Loader v-else />
-                <Pagination :arr="usersList" @pageChange="getUsersData" />
+                <Loader v-if="loading" />
+                <tableVue style="margin-right: 15px; margin-left: 15px; width:97%;" :lables="labels" :tableData="tableData"
+                    v-else />
+                <Pagination :pages="pagesCount" @pageChange="getUsersData" style="margin-left: 15px;" />
             </div>
         </div>
     </section>
 </template>
 
-<script>
-import HeadVue from '~~/components/Head.vue'
-import Modal from '~~/components/Modal.vue'
-import Loader from '~~/components/Loader.vue';
-import Actions from '~~/components/Actions.vue'
-import CreateNew from '~~/components/CreateNew.vue'
-import { useGetRequest } from '~~/helpers/GET_REQUESTS'
+<script setup>
+import HeadVue from '~~/components/Head.vue';
+import { useGetRequest } from '~~/helpers/GET_REQUESTS';
+import { useI18n } from 'vue-i18n';
 
 definePageMeta({
     middleware: ['guest'],
@@ -73,47 +33,38 @@ definePageMeta({
     }
 })
 
-export default {
-    setup() {
-        const api_url = 'services'
-        const getRequest = useGetRequest()
-        const usersList = ref([])
-        const loading = ref(true)
-        const currentPage = ref(1)
+const getRequest = useGetRequest()
+const loading = ref(true)
+const currentPage = ref(1)
+const pagesCount = ref()
+const tableData = ref([])
 
-        const getUsersData = (pageId) => {
-            loading.value = true
+const labels = computed(() => [
+    { title: useI18n().t('id'), prop: 'id' },
+    { title: useI18n().t('name'), prop: 'name' },
+    { title: useI18n().t('description'), prop: 'description' },
+    { title: useI18n().t('display_name'), prop: 'display_name' }
+])
 
-            const requestOptions = {
-                headers: {
-                    'Content-type': 'application/json',
-                    'Accept': 'application/json',
-                    "Authorization": "Bearer " + useCookie('token').value,
-                }
-            }
-            getRequest.getRequest(`${api_url}?list_type=pagination&page=${pageId}`, requestOptions, (response) => {
-                usersList.value = response.data
-                loading.value = false
-            })
+const getUsersData = (pageId) => {
+    loading.value = true
+    const requestOptions = {
+        headers: {
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + useCookie('token').value,
         }
-        onMounted(() => {
-            getUsersData(currentPage.value)
+    }
+    getRequest.getRequest(`services?list_type=pagination&page=${pageId}`, requestOptions, (response) => {
+        tableData.value = response.data.items
+        pagesCount.value = Math.ceil(response.data.total_count / response.data.limit)
+        loading.value = false
 
-        })
-
-        return { getUsersData, usersList, loading, api_url }
-
-    },
-    components: {
-        HeadVue,
-        Modal,
-        Loader,
-        Actions,
-        CreateNew
-    },
-
-
+    })
 }
+getUsersData(currentPage.value)
+
+
 
 </script>
 <style  lang="scss">
@@ -129,7 +80,6 @@ table {
     border-collapse: collapse;
     background: white;
     border-radius: 6px;
-    overflow: hidden;
     width: 100%;
     position: relative;
     // margin-left: 27px;
