@@ -43,7 +43,6 @@
 <script setup>
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import { usePostRequest } from '~~/helpers/POST_REQUESTS';
-import HeadVue from '~/components/Head.vue';
 
 definePageMeta({
     middleware: 'guest',
@@ -98,41 +97,7 @@ const changeSelectValue = (el) => {
     fieldsObj.role = el
 }
 
-onMounted(() => {
-    getRoles()
-})
+getRoles()
 
 </script>
 
-
-<style scoped>
-.createNew-title {
-    padding-left: 20px;
-}
-
-.createNew-form {
-    padding-left: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    background: white;
-    padding: 20px;
-    margin: 20px;
-}
-
-.createNew-form-item {
-    width: 47%;
-    height: 70px;
-}
-
-.createNew-form-input {
-    padding-left: 10px;
-    outline: none;
-    border-radius: 10px;
-    border: var(--bs-border-width) solid var(--bs-border-color);
-}
-
-.createNew-btn {
-    background: #008838 !important;
-}
-</style>

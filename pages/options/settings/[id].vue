@@ -20,9 +20,8 @@
 </template>
 
 <script setup>
-import HeadVue from '~/components/Head.vue';
 import Loader from '~~/components/Loader.vue';
-
+import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 
 definePageMeta({
     middleware: ['guest'],
@@ -34,7 +33,6 @@ definePageMeta({
 const getRequest = useGetRequest()
 const loading = ref(true)
 const obj = reactive({})
-
 
 const getData = () => {
     const requestOptions = {
@@ -50,9 +48,7 @@ const getData = () => {
 }
 
 
-onMounted(() => {
-    getData()
-})
+getData()
 
 </script>
 

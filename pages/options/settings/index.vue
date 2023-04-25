@@ -9,7 +9,7 @@
             </div>
             <div class="main__programs-content-block">
                 <Loader v-if="loading" />
-                <tableVue style="margin-right: 15px; margin-left: 15px; width:97%;" :lables="labels" :tableData="tableData"
+                <tableVue class="tableVue" style="margin-right: 15px; margin-left: 15px; width:97%;" :lables="labels" :tableData="tableData"
                     v-else />
             </div>
         </div>
@@ -18,7 +18,6 @@
 
 <script setup>
 
-import HeadVue from '~~/components/Head.vue';
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import { useI18n } from 'vue-i18n';
 

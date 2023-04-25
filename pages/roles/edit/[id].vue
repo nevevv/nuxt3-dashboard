@@ -2,15 +2,15 @@
     <div class="d-flex flex-column w-100">
         <HeadVue />
         <p class="fs-3 createNew-title pt-3">{{ $t('edit') }} </p>
-        <form class="createNew-form" v-if="!loading">
+        <form class="createNew-form" v-if="!loading" :class="{ 'h-50': value.length > 5 }">
             <div class="d-flex flex-column align-items-start gap-2 mb-3 createNew-form-item">
                 <label>{{ $t('name') }}</label>
                 <input class="w-100 h-100 createNew-form-input" type="text" v-model="fieldsObj.name">
             </div>
-            <div class="d-flex flex-column align-items-start gap-2 mb-3 createNew-form-item">
+            <div class="d-flex flex-column align-items-start gap-2 mb-3 createNew-form-item h-auto">
                 <label>{{ $t('role') }}</label>
-                <MultiSelect :options="options" v-model="value" :multiple="true" :hide-selected="true" track-by="id"
-                    label="name" placeholder="Ruxsatlarni tanlang" />
+                <MultiSelect :options="options" v-model="value" :value="value" :multiple="true" :hide-selected="true"
+                    track-by="id" label="name" placeholder="Ruxsatlarni tanlang" />
             </div>
 
             <p style="color: red ;" class="d-flex w-100 text-danger">{{ requestError }}</p>
@@ -27,7 +27,6 @@
 <script setup>
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import { usePostRequest } from '~~/helpers/POST_REQUESTS';
-import HeadVue from '~/components/Head.vue';
 import MultiSelect from 'vue-multiselect';
 
 definePageMeta({
@@ -74,6 +73,19 @@ const getPermissions = () => {
     })
 }
 
+const getRoles = () => {
+    const requestOptions = {
+        headers: {
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+            "Authorization": "Bearer " + useCookie('token').value,
+        }
+    }
+    getRequest.getRequest(`roles/${useRoute().params.id}/show`, requestOptions, (response) => {
+        value.value = response.data.permissions
+    })
+}
+
 const createNewUser = async () => {
     fieldsObj.permissions = value.value.map(el => permissionsArr.value.push(el.id))
 
@@ -91,11 +103,9 @@ const createNewUser = async () => {
     })
 }
 
-onMounted(() => {
-    getUsersDataForEdit()
-    getPermissions()
-})
-
+getUsersDataForEdit()
+getPermissions()
+getRoles()
 
 </script>
 

@@ -44,8 +44,6 @@
 <script setup>
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import { usePostRequest } from '~~/helpers/POST_REQUESTS';
-import HeadVue from '~/components/Head.vue';
-
 
 definePageMeta({
     middleware: 'guest',
@@ -104,16 +102,13 @@ const createNewUser = async () => {
         }
     })
 }
-
+    
 const changeSelectValue = (el) => {
     fieldsObj.role = el
 }
 
-
-onMounted(() => {
-    getUsersDataForEdit()
-    getRoles()
-})
+getUsersDataForEdit()
+getRoles()
 
 
 </script>

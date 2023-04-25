@@ -1,0 +1,1 @@
+import{h as e,r as t,i,j as p}from"./entry.c60b3006.js";const R=e("user",()=>({userName:t("")})),q=e("postRequest",()=>{const s=t(""),r=i();return{postRequest:async(o,u,a)=>{const n=await p(`${r.public.api_url}/${o}`,u).catch(c=>c.data);return a(n)},error:s}});export{R as a,q as u};

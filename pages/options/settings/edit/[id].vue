@@ -31,7 +31,6 @@
 <script setup>
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import { usePostRequest } from '~~/helpers/POST_REQUESTS';
-import HeadVue from '~/components/Head.vue';
 import Loader from '~~/components/Loader.vue';
 
 
@@ -101,10 +100,8 @@ const changeType = (el) => {
 }
 
 
-onMounted(() => {
-    getData()
-    getTypes()
-})
+getData()
+getTypes()
 
 </script>
 

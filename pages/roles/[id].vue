@@ -1,10 +1,10 @@
 <template>
-    <div class="d-flex flex-column w-100">
+    <div class="d-flex flex-column w-100 ">
         <HeadVue :text="$t('user')" />
-        <form class="createNew-form">
+        <form class="createNew-form" :class="{ 'h-50': value.length > 5 }">
             <Loader v-if="loading" />
             <div class="d-flex flex-column align-items-start gap-2 mb-3 createNew-form-item" v-for="(el, idx) in data"
-                :key="idx">
+                :key="idx" :class="{ 'h-auto': value.length > 5 && idx === 'permissions' }">
                 <template v-if="idx !== 'permissions'">
                     <label>{{ $t(idx) }}</label>
                     <input disabled class="w-100 h-100 createNew-form-input" type="text" :placeholder="el" />
@@ -23,12 +23,10 @@
 
 <script setup>
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
-import HeadVue from '~/components/Head.vue';
 import MultiSelect from 'vue-multiselect';
 
 definePageMeta({
     middleware: 'guest',
-
     pageTransition: {
         name: 'page'
     }
@@ -43,7 +41,6 @@ const value = ref([])
 const options = ref([])
 
 const createData = () => {
-
     const requestOptions = {
         headers: {
             'Content-type': 'application/json',
@@ -58,13 +55,7 @@ const createData = () => {
         options.value = response.data.permissions
         loading.value = false
     })
-
 }
-
-onMounted(() => {
-    createData()
-
-})
-
+createData()
 </script>
 

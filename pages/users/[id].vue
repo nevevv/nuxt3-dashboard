@@ -15,7 +15,6 @@
 
 <script setup>
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
-import HeadVue from '~/components/Head.vue';
 
 
 definePageMeta({
@@ -46,9 +45,7 @@ const createData = () => {
     })
 }
 
-onMounted(() => {
     createData()
-})
 
 </script>
 

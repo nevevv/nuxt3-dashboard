@@ -1,4 +1,4 @@
-https://www.youtube.com/watch?v=zPBIH6ayHZQ<template>
+    <template>
     <div>
         <el-table :data="tableData" style="width: 100%" :border="true">
             <el-table-column :prop="label.prop" :label="label.title" v-for="(label, i) of lables" :key="i" />

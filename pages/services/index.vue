@@ -22,7 +22,6 @@
 </template>
 
 <script setup>
-import HeadVue from '~~/components/Head.vue';
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import { useI18n } from 'vue-i18n';
 
@@ -161,33 +160,33 @@ table {
                     top: 0
                 }
 
-                &:nth-child(1):before {
-                    content: "ID";
-                }
+                // &:nth-child(1):before {
+                //     content: "ID";
+                // }
 
-                &:nth-child(2):before {
-                    content: "Name";
-                }
+                // &:nth-child(2):before {
+                //     content: "Name";
+                // }
 
-                &:nth-child(3):before {
-                    content: "Description";
-                }
+                // &:nth-child(3):before {
+                //     content: "Description";
+                // }
 
-                &:nth-child(4):before {
-                    content: "Price";
-                }
+                // &:nth-child(4):before {
+                //     content: "Price";
+                // }
 
-                &:nth-child(5):before {
-                    content: "Size1";
-                }
+                // &:nth-child(5):before {
+                //     content: "Size1";
+                // }
 
-                &:nth-child(6):before {
-                    content: "Size";
-                }
+                // &:nth-child(6):before {
+                //     content: "Size";
+                // }
 
-                &:nth-child(7):before {
-                    content: "Display Name";
-                }
+                // &:nth-child(7):before {
+                //     content: "Display Name";
+                // }
             }
         }
     }

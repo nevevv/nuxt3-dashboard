@@ -27,7 +27,6 @@
 <script setup>
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import { usePostRequest } from '~~/helpers/POST_REQUESTS';
-import HeadVue from '~/components/Head.vue';
 import MultiSelect from 'vue-multiselect';
 
 
@@ -77,9 +76,7 @@ const createNewUser = async () => {
         }
     })
 }
-onMounted(() => {
     getPermissions()
-})
 </script>
 
 

@@ -30,7 +30,6 @@ const loading = ref(true)
 const fields = ref([])
 const inputs = ref([])
 
-
 const getData = () => {
     const requestOptions = {
         headers: {
@@ -58,10 +57,8 @@ const getFields = () => {
 
 
 
-onMounted(() => {
     getData()
     getFields()
-})
 
 
 </script>

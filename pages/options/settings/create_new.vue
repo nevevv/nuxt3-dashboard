@@ -32,7 +32,6 @@
 <script setup>
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import { usePostRequest } from '~~/helpers/POST_REQUESTS';
-import HeadVue from '~/components/Head.vue';
 
 definePageMeta({
     middleware: 'guest',
@@ -86,9 +85,7 @@ const changeType = (el) => {
     selectValue.value = el
 }
 
-onMounted(() => {
-    getTypes()
-})
+getTypes()
 
 </script>
 

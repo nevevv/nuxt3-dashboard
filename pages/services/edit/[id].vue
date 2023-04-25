@@ -23,7 +23,6 @@
 <script setup>
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import { usePostRequest } from '~~/helpers/POST_REQUESTS';
-import HeadVue from '~/components/Head.vue';
 
 
 definePageMeta({
@@ -82,10 +81,8 @@ const getData = () => {
     })
 }
 
-onMounted(() => {
     getFields()
     getData()
-})
 
 </script>
 

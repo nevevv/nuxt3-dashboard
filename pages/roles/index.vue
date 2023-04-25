@@ -17,7 +17,6 @@
 
 <script setup>
 
-import HeadVue from '~~/components/Head.vue';
 import { useGetRequest } from '~~/helpers/GET_REQUESTS';
 import { useI18n } from 'vue-i18n';
 
