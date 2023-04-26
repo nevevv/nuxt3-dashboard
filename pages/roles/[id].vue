@@ -14,10 +14,8 @@
                     <MultiSelect :options="options" v-model="value" :multiple="true" :hide-selected="true" track-by="id"
                         label="name" placeholder="Ruxsatlarni tanlang" style="pointer-events: none" />
                 </template>
-
             </div>
         </form>
-
     </div>
 </template>
 
@@ -34,7 +32,6 @@ definePageMeta({
 
 const getRequest = useGetRequest()
 const loading = ref(true)
-
 const keysArr = ref([])
 const data = ref([])
 const value = ref([])

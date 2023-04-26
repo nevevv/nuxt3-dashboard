@@ -72,7 +72,7 @@ $gl-xs : "screen and (max-width: 35.5em)"; // up to 568px
         margin-top: 20px;
 
         >*,
-        tr,
+        tr,     
         td,
         th {
             display: block

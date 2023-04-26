@@ -1,0 +1,1 @@
+import o from"./index.5d3f324f.js";import{d as r,u as t,o as e}from"./entry.8642afe9.js";import"./favicon.4ba50764.js";import"./Loader.1991c8cb.js";import"./POST_REQUESTS.7d6feb0d.js";import"./GET_REQUESTS.057ee1cc.js";const f={__name:"log",setup(p){return(m,a)=>(e(),r(t(o)))}};export{f as default};

@@ -120,7 +120,7 @@ section {
 .header__nav-blocks p {
   font-family: var(--int400);
   font-size: 14px;
-  line-height: 17px;
+  line-height: 20px;
   text-align: center;
   color: var(--black);
   transition: all .3s ease;
@@ -2276,6 +2276,7 @@ h6 {
   .main__content-sub {
     gap: 12px;
   }
+
   .main__content-items {
     gap: 10px;
   }
