@@ -1,0 +1,1 @@
+import{o as t,c as o,a as r,t as s}from"./entry.e8eb3b7f.js";const a={class:"card"},c={class:"card_title"},_={__name:"error",props:["error"],setup(e){return(n,l)=>(t(),o("div",a,[r("h1",c,s(e.error.statusCode)+" Error",1),r("strong",null,s(e.error.message),1)]))}},d=_;export{d as default};
