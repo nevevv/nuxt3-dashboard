@@ -50,7 +50,7 @@
                         <span class="txt1">
                             {{ $t('forgot') }}
                         </span>
-                        <a class="txt2" href="#" style="padding-left: 10px;">
+                        <a class="txt2" style="padding-left: 10px;">
                             {{ $t('login') }} / {{ $t('password') }}?
                         </a>
                     </div>

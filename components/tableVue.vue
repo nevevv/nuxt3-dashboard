@@ -12,7 +12,6 @@
                     <el-button size="small" type="danger" @click="showModal(scope.row.id)">Delete</el-button>
                 </template>
             </el-table-column>
-
         </el-table>
         <Modal v-if="confirmModal">
             <p class="text-center fs-3">{{ $t('confirmDelete') }}</p>

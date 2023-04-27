@@ -18,6 +18,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "@pinia/nuxt": "^0.4.6",
+    "@popperjs/core": "npm:@sxzz/popperjs-es@^2.11.6",
     "@vueform/multiselect": "^2.6.1",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
@@ -26,7 +27,7 @@
     "ofetch": "^1.0.0",
     "ordered-uuid-v4": "^0.2.1",
     "pinia": "^2.0.29",
-    "quagga": "^0.12.1",
+    "quagga": "^0.6.16",
     "sass": "^1.57.1",
     "vue": "^3.2.26",
     "vue-loading-overlay": "4.0",
